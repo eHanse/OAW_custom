@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_invoice_document_z6" inherit_id="account.report_invoice_document">
+    
+    <!-- correct the bug of crm_refcode, so to show Address lines again -->
+    <xpath expr="//*/div[@class='col-xs-5 col-xs-offset-7']" position="replace">
+		<div class="col-xs-5">
+			<br />
+			<br />
+			<span t-field="o.partner_id.name"/>
+			<p t-field="o.partner_id.street"/>
+			<p t-field="o.partner_id.street2"/>
+			<span t-field="o.partner_id.city"/> <span t-field="o.partner_id.state_id.name"/> <span t-field="o.partner_id.zip"/>
+			<p t-field="o.partner_id.country_id.name"/>
+		</div>
+	</xpath>
+	
+	
+	
+	<!--Remove Tax in header and td-->
+	<xpath expr="//table[@class='table table-condensed']//thead//tr" position="replace">
+	   <tr>
+	        <th>Description</th>
+    	    <th>Quantity</th>
+            <th class="text-right">Unit Price</th>
+            <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
+            
+            <th class="text-right">Price</th>
+        </tr>
+    </xpath>    
+   
+    <xpath expr="//tbody[@class='invoice_tbody']//tr//td[4]" position="replace">
+    
+    </xpath>
+     
+	
+     <!--Replaces all the class=col-sx-4 that contains the Summary Box -->
+    <xpath expr="//div[@class='col-xs-4 pull-right']" position="replace">
+         <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+    </xpath>
+	
+	   <!--Hides Source and Reference -->
+    <xpath expr="//*/div[@t-if='o.origin']" position="replace">
+       
+    </xpath>
+    
+    <xpath expr="//*/div[@t-if='o.reference']" position="replace">
+    
+    </xpath>
+
+	
+	 <!-- Hide Invoice Numbers-->
+    <xpath expr="//*/span[@t-field='o.number']" position="replace">
+    </xpath>
+
+	<!-- Implement HK$ instead of unit price-->
+	<xpath expr="//*/th[text()='Unit Price']" position="replace">
+        <th class="text-right">HK$ retail</th>
+    </xpath>
+
+
+	<!-- Implement Case No. description and field -->
+    <xpath expr="//*/th[text()='Description']" position="after">
+        <th>Case No.</th>
+    </xpath>
+
+    <xpath expr="//*/span[@t-field='l.name']" position="after">
+        <td><span t-field="l.lot_id" /></td>
+    </xpath>
+
+   <!--Remove Payment Term and Comment from Invoice -->
+    <xpath expr="//*/p[@t-if='o.comment']" position="replace">
+        
+    </xpath>
+    
+    <xpath expr="//*/p[@t-if='o.payment_term.note']" position="replace">
+        
+    </xpath>
+    
+    <xpath expr="//*/p[@t-if='o.fiscal_position.note']" position="replace">
+        
+    </xpath>
+
+
+
+</template>
+</data>
+</openerp>

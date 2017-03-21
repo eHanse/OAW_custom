@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+         <!-- This following  record removes field order_policy from "Other Information" -->
+        <record id="view_sales_order_form_stock_z1" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock.z1</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="order_policy" position="replace">
+                </field>
+                
+            </field>
+        </record>
+        
+    
+
+
+    </data>
+</openerp>

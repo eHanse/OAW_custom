@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--Load CSS to backend-->
+        <template id="assets_backend" name="web_kanban assets custom" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/change_image_resolution/static/src/css/kanban.css"/>
+            </xpath>
+        </template>
+        
+    	<record id="product_template_kanban_view_z1" model="ir.ui.view">
+            <field name="name">Product.template.product.kanban.z1</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='image_small']" position="replace">
+                    <field name="image_medium"/>
+                </xpath>
+				<xpath expr="//img[@class='oe_kanban_image']" position="replace">
+					<img t-att-src="kanban_image('product.template', 'image_medium', record.id.value)" class="oe_kanban_image"/>
+				</xpath>
+            </field>
+        </record>
+        
+        <!--For Products:Internal-->        
+        <record id="product_template_kanban_view_z2" model="ir.ui.view">
+            <field name="name">Product.template.product.kanban.z2</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product_offer.product_template_internal_kanban_view"/>
+            <field name="arch" type="xml"> 
+                 <!--For Prsoducts:Internal-->       
+                <xpath expr="//img[@class='oe_kanban_image']" position="replace">
+                    <img t-att-src="kanban_image('product.template', 'image_medium', record.id.value)" class="oe_kanban_image"/>
+                </xpath>
+            </field>
+        </record>
+        
+         <!--For Product Offer EN: Available-->        
+        <record id="product_template_kanban_view_z3" model="ir.ui.view">
+            <field name="name">Product.template.product.kanban.z3</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product_offer.product_template_en_availability_kanban_view"/>
+            <field name="arch" type="xml">              
+                 <!--For Product Offer EN: Available-->  
+                <xpath expr="//img[@class='oe_kanban_image']" position="replace">
+                    <img t-att-src="kanban_image('product.template', 'image_medium', record.id.value)" class="oe_kanban_image"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!--For Product Offer EN: Sale-->        
+        <record id="product_template_kanban_view_z4" model="ir.ui.view">
+            <field name="name">Product.template.product.kanban.z4</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product_offer.product_template_en_sales_price_kanban_view"/>
+            <field name="arch" type="xml">
+                
+                 <!--For Product Offer EN: Sale-->  
+                <xpath expr="//img[@class='oe_kanban_image']" position="replace">
+                    <img t-att-src="kanban_image('product.template', 'image_medium', record.id.value)" class="oe_kanban_image"/>
+                </xpath>
+            </field>
+        </record>
+        
+         <!--For Product Offer ZH: Available-->        
+        <record id="product_template_kanban_view_z5" model="ir.ui.view">
+            <field name="name">Product.template.product.kanban.z5</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product_offer.product_template_zh_availability_kanban_view"/>
+            <field name="arch" type="xml">
+                
+                <!--For Product Offer ZH: Available-->  
+                <xpath expr="//img[@class='oe_kanban_image']" position="replace">
+                    <img t-att-src="kanban_image('product.template', 'image_medium', record.id.value)" class="oe_kanban_image"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!--For Product Offer ZH: Sale-->        
+        <record id="product_template_kanban_view_z6" model="ir.ui.view">
+            <field name="name">Product.template.product.kanban.z6</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product_offer.product_template_zh_sales_price_kanban_view"/>
+            <field name="arch" type="xml">
+              
+                <!--For Product Offer ZH: Sale-->
+                <xpath expr="//img[@class='oe_kanban_image']" position="replace">
+                    <img t-att-src="kanban_image('product.template', 'image_medium', record.id.value)" class="oe_kanban_image"/>
+                </xpath>
+            </field>
+        </record>
+       
+       
+        
+        
+      
+    </data>
+</openerp>

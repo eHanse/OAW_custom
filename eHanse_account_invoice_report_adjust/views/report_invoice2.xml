@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_invoice_document_z6" inherit_id="account.report_invoice_document">
+    
+    <!-- correct the bug of crm_refcode, so to show Address lines again -->
+    <xpath expr="//*/div[@class='col-xs-5 col-xs-offset-7']" position="replace">
+		<div class="col-xs-5">
+			<span t-field="o.partner_id.name"/>
+			<p t-field="o.partner_id.street"/>
+			<p t-field="o.partner_id.street2"/>
+			<span t-field="o.partner_id.city"/> <span t-field="o.partner_id.state_id.name"/> <span t-field="o.partner_id.zip"/>
+			<p t-field="o.partner_id.country_id.name"/>
+		</div>
+	</xpath>
+
+
+
+	<!-- Implement HK$ instead of unit price-->
+	<xpath expr="//*/th[text()='Unit Price']" position="replace">
+        <th class="text-right">HK$ retail</th>
+    </xpath>
+
+	<!-- Implement Case No. description and field -->
+    <xpath expr="//*/th[text()='Description']" position="after">
+        <th>Case No.</th>
+    </xpath>
+
+    <xpath expr="//*/span[@t-field='l.name']" position="after">
+        <td><span t-field="l.lot_id" /></td>
+    </xpath>
+    
+    <!--Remove Payment Term and Comment from Invoice -->
+    <xpath expr="//*/p[@t-if='o.comment']" position="replace">
+        <br />
+    </xpath>
+    
+     <xpath expr="//*/p[@t-if='o.payment_term.note']" position="replace">
+        <br />
+    </xpath>
+    
+     <xpath expr="//*/p[@t-if='o.fiscal_position.note']" position="replace">
+        <br />
+    </xpath>   
+    
+
+
+
+</template>
+</data>
+</openerp>

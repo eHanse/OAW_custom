@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="report_external_layout_footer_z1" inherit_id="report.external_layout_footer">
+        
+        <!-- replaces the complete footer code with customized code -->
+        <xpath expr="//*/div[@class='footer']" position="replace">
+             <div class="footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul  class="list-inline">
+                        <li t-if="company.phone">Phone: <span t-field="company.phone"/></li>                        
+                        <li t-if="company.email">Email: <span t-field="company.email"/></li>
+                        <li><p>all our products are exclusively sold in the Hong Kong S.A.R. only</p></li>
+                    </ul>
+                    <ul class="list-inline">
+                        <li>Page:</li>
+                        <li><span class="page"/></li>
+                        <li>/</li>
+                        <li><span class="topage"/></li>
+                    </ul>
+                </div>
+            </div> 
+    	</xpath>
+    
+    
+    </template>
+
+
+
+
+</data>
+</openerp>
