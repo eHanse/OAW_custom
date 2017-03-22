@@ -18,9 +18,16 @@ class OnDraftInvoices(models.Model):
     )
 
     @api.multi
+    @api.depends('origin')
     def _get_partner_ref(self):
+        purchase_obj = self.env['purchase.order']
         for ai in self:
-            ai.partner_ref = self.env['purchase.order'].search([('origin', '=', 'ai.origin')])
+            purchase_recs = purchase_obj.search([('origin', '=', ai.origin)])
+            if purchase_recs:
+                ai.partner_ref = purchase_recs[0].partner_ref
+
+
+
 
 
 
