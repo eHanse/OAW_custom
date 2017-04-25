@@ -15,11 +15,4 @@ class PurchaseOrderLine(models.Model):
         store=True
     )
 
-    image_small = fields.Binary(
-        'Image',
-        related='product_id.image_small',
-        readonly=True
-    )
-  
-
     

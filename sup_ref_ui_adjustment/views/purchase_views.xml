@@ -1,6 +1,6 @@
 <openerp>
     <data>
-    <!--Makes existing field visible in Purchase Order Tree-->
+    <!-- adds partner_ref in purchase.order tree view-->
         <record id="supplier_reference_in_po_tree" model="ir.ui.view">      
             <field name="name">supplier.referece.in.po.tree</field>
             <field name="model">purchase.order</field>
@@ -13,7 +13,7 @@
             </field>
         </record> 
         
-    <!--Makes existing field searchable-->    
+    <!--adds partner_ref in purchase.order search view-->
         <record id="po_search_sup_ref" model="ir.ui.view">
             <field name="name">po.search.sup.ref</field>
             <field name="model">purchase.order</field>
@@ -25,7 +25,7 @@
             </field>
         </record>   
         
-        <!--Makes existing in other model visible-->    
+        <!--adds partner_ref in purchase.order.line tree  view-->
         <record id="opol_tree_sup_ref" model="ir.ui.view">
             <field name="name">opol.tree.sup.ref</field>
             <field name="model">purchase.order.line</field>
@@ -37,7 +37,7 @@
             </field>
         </record> 
         
-        <!--Makes sup_ref searchable in other model-->
+        <!--adds partner_ref in purchase.order.line search view-->
         <record id="opel_tree_search_sup_ref" model="ir.ui.view">
             <field name="name">opol.tree.search.sup.ref</field>
             <field name="model">purchase.order.line</field>
@@ -48,32 +48,6 @@
                 </xpath>
             </field>
         </record>
-
-         <!--Makes image of product.product visible in purchase.order.line -->
-        <record id="opol_tree_image" model="ir.ui.view">
-            <field name="name">opol.tree.image</field>
-            <field name="model">purchase.order.line</field>
-            <field name="inherit_id" ref="purchase_view_adjust_oaw.purchase_order_line_tree_z160422"/>
-            <field name="arch" type="xml">
-                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="image_small" string="Image" widget="image" height="64px"/>
-                 </xpath>
-            </field>
-        </record>
-
-        <!--Sup ref of purchase.order visible in account.invoice.tree -->
-        <record id="account_invoice_tree_partner_ref" model="ir.ui.view">
-            <field name="name">account.invoice.tree.partner.ref</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_tree"/>
-            <field name="arch" type="xml">
-                 <xpath expr="//field[@name='date_invoice']" position="after">
-                    <field name='partner_ref' string='Supplier Reference'/>
-                 </xpath>
-            </field>
-        </record>
-       
-    
         
     </data>
 </openerp>

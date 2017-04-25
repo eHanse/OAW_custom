@@ -22,9 +22,12 @@ class OnDraftInvoices(models.Model):
     def _get_partner_ref(self):
         purchase_obj = self.env['purchase.order']
         for ai in self:
-            purchase_recs = purchase_obj.search([('origin', '=', ai.origin)])
-            if purchase_recs:
-                ai.partner_ref = purchase_recs[0].partner_ref
+            if ai.type == 'in_invoice':
+                purchase_recs = purchase_obj.search(
+                    [('name', '=', ai.origin)],
+                )
+                if purchase_recs:
+                    ai.partner_ref = purchase_recs[0].partner_ref
 
 
 

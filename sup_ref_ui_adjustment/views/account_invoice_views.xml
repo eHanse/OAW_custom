@@ -1,0 +1,40 @@
+<openerp>
+    <data>
+
+        <!--Sup ref of purchase.order visible in account.invoice.tree -->
+        <record id="invoice_tree_incoming" model="ir.ui.view">
+            <field name="name">invoice.tree.incoming</field>
+            <field name="model">account.invoice</field>
+            <!--Makes sure that only the views "On Draft" and "OPOL" called upon by the menu items -->
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name='partner_ref' string='Supplier Reference'/>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="purchase.action_invoice_pending" model="ir.actions.act_window">
+            <field name="view_id" ref="invoice_tree_incoming"/>
+        </record>
+
+        <record id="account.action_invoice_tree2" model="ir.actions.act_window">
+            <field name="view_id" ref="invoice_tree_incoming"/>
+        </record>
+
+    </data>
+</openerp>
+
+
+
+
+
+
+
+
+
+
+
+
+

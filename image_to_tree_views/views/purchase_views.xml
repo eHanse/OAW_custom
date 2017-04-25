@@ -1,0 +1,35 @@
+<openerp>
+    <data>
+
+         <!--Makes image of product.template visible in  "On Purchase Order Line"-->
+        <record id="opol_tree_image" model="ir.ui.view">
+            <field name="name">opol.tree.image</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase_view_adjust_oaw.purchase_order_line_tree_z160422"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='name']" position="after">
+                    <field name="image_small" string="Image" widget="image" height="64px"/>
+                 </xpath>
+            </field>
+        </record>
+
+
+
+       
+    
+        
+    </data>
+</openerp>
+
+
+
+
+
+
+
+
+
+
+
+
+

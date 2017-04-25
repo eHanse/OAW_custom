@@ -8,7 +8,7 @@
     'description': """
         Changes the order of fields shown in List Price Update;
         Adds seller_delay to List Price Update;
-        Adds 2 new fields to model product.template;
+        Adds 2 new fields to models product.template;
         1.) boolean that shows which products can be advertised for;
         2.) Computed field that calculates the discount from List Price to HK Net price
     """,
