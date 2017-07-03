@@ -6,17 +6,26 @@
     <!-- correct the bug of crm_refcode, so to show Address lines again -->
     <xpath expr="//*/div[@class='col-xs-5 col-xs-offset-7']" position="replace">
 		<div class="col-xs-5">
-			<br />
-			<br />
 			<span t-field="o.partner_id.name"/>
 			<p t-field="o.partner_id.street"/>
 			<p t-field="o.partner_id.street2"/>
 			<span t-field="o.partner_id.city"/> <span t-field="o.partner_id.state_id.name"/> <span t-field="o.partner_id.zip"/>
 			<p t-field="o.partner_id.country_id.name"/>
 		</div>
+         <div class="col-xs-4" style="text-align:right">
+                   <!-- <strong>Your Reference:</strong> <span t-field="o.client_order_ref"/> <br /> -->
+                   <strong t-if="o.date_invoice">Date:</strong> <span t-field="o.date_invoice" t-field-options='{"format": "dd.MMM.yyyy"}'/><br />
+                   <strong t-if="o.partner_id.ref"> Code:</strong> <span t-field="o.partner_id.ref"/>
+        </div>
+
 	</xpath>
 	
-	
+	<xpath expr="//*/div[@t-if='o.date_invoice']" position="replace">
+    </xpath>
+    <xpath expr="//*/div[@t-if='o.partner_id.ref']" position="replace">
+    </xpath>
+
+
 	
 	<!--Remove Tax in header and td-->
 	<xpath expr="//table[@class='table table-condensed']//thead//tr" position="replace">
