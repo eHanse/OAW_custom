@@ -7,8 +7,7 @@
                <br />
                <br />
                 <div class ="col-xs-4">
-                        <strong t-if="o.partner_shipping_id == o.partner_invoice_id">Invoice and shipping:</strong>
-                        <strong t-if="o.partner_shipping_id != o.partner_invoice_id">Invoice address:</strong>
+                        <strong t-if="o.partner_shipping_id == o.partner_invoice_id">Invoice:</strong>
                         <p t-field="o.partner_invoice_id.name"/>
                         <p t-field="o.partner_invoice_id.street"/>
                         <p t-field="o.partner_invoice_id.street2"/>
@@ -30,9 +29,8 @@
 
                 <div class="col-xs-4" style="text-align:right">
                    <!-- <strong>Your Reference:</strong> <span t-field="o.client_order_ref"/> <br /> -->
-                   <strong t-if="o.state not in ['draft','sent']">Date Ordered:</strong> <strong t-if="o.state in ['draft','sent']">Quotation Date:</strong> <span t-field="o.date_order" t-field-options='{"format": "dd.MMM.yyyy"}'/><br />                   
-                   <strong>Payment Term:</strong>  <span t-field="o.payment_term"/> <br />
-                   <strong>Customer Code:</strong> <span t-field="o.partner_invoice_id.ref"/>
+                   <strong t-if="o.state not in ['draft','sent']">Date Ordered:</strong> <strong t-if="o.state in ['draft','sent']">Date:</strong> <span t-field="o.date_order" t-field-options='{"format": "dd.MMM.yyyy"}'/><br />
+                   <strong>Code:</strong> <span t-field="o.partner_invoice_id.ref"/>
                 </div>
 
     </xpath>
@@ -46,7 +44,7 @@
     <xpath expr="//*/h2" position="replace">
          <h2>
              <span t-if="o.state not in ['draft','sent']">Order N° </span>
-            
+             <span t-if="o.state in ['draft']">INVOICE° </span>
              <span t-field="o.name"/>
          </h2>
          <br />
@@ -71,7 +69,7 @@
              <th class="text-right">Quantity</th>
              <th class="text-right">Unit Price</th>
              <th groups="sale.group_discount_per_so_line">Disc.(%)</th>
-             <th class="text-right">Price</th>
+             <th class="text-right">Subtotal</th>
         </tr>
     </xpath>    
    
