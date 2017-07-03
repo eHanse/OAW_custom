@@ -35,7 +35,7 @@
             <th class="text-right">Unit Price</th>
             <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
             
-            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
         </tr>
     </xpath>    
    
@@ -74,7 +74,7 @@
 
 	<!-- Implement HK$ instead of unit price-->
 	<xpath expr="//*/th[text()='Unit Price']" position="replace">
-        <th class="text-right">HK$ retail</th>
+        <th class="text-right">HK Retail</th>
     </xpath>
 
 
@@ -86,6 +86,8 @@
     <xpath expr="//*/span[@t-field='l.name']" position="after">
         <td><span t-field="l.lot_id" /></td>
     </xpath>
+
+
 
    <!--Remove Payment Term and Comment from Invoice -->
     <xpath expr="//*/p[@t-if='o.comment']" position="replace">
