@@ -130,7 +130,7 @@
 		</div >
 		<table class="table-bordered" style="width:100%">
 		  <tr style="font-size:10px">
-		    <th colspan='2' style="text-align:center">Nr.</th>
+		    <th colspan='2' style="text-align:center">No.</th>
 		    <th colspan='2' style="text-align:center">Payment</th>
 		    <th colspan='2' style="text-align:center">Main Item</th>
 		    <th colspan='2' style="text-align:center">Warranty</th>
