@@ -1,0 +1,10 @@
+ <record id="products_sales_tree_view_z1" model="ir.ui.view">
+            <field name="name">products.sales.tree.view.z1</field>
+            <field name="model">products.sale</field>
+            <field name="inherit_id" ref="list_view_products_sales.products_sales_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="field[@name='name']" position="after">
+                    <field name="total" string="Total"/>
+                </xpath>
+            </field>
+        </record>
