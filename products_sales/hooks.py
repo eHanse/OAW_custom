@@ -9,16 +9,15 @@ def _update_prod_tmpl_fields(cr, registry):
         product_template pt
     SET
         total = subquery.amount
-    FROM (
-        SELECT
+        FROM (
+          SELECT
             pt.id AS pt_id,
             SUM(pt.total) AS amount
-        FROM
-            sale.order.line sol
-            JOIN product_template  pt ON sol.product_tmpl_id = pt_id
-        WHERE
+          FROM
+            sale_order_line sol JOIN product_template pt ON sol.product_tmpl_id = pt.id
+          WHERE
             sol.state = 'sent'
-        ) AS subquery
+          ) AS subquery
     WHERE pt.id = subquery.pt_id
     '''
 
