@@ -6,19 +6,29 @@ import openerp.addons.decimal_precision as dp
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    def _get_qty(self, prod_tmpl_id):
-        res = 0.0
-        domain = (['product_tmp_id', '=', prod_tmpl_id])
+    @api.multi
+    def _get_amount(self, prod_tmpl_id):
+        amount = 0.0
+        domain = [
+            ('product_tmpl_id', '=', prod_tmpl_id),
+            ('state','=', 'sent'),
+        ]
         sols = self.search(domain)
-        total = 0
         for sol in sols:
-            sum = sum + sol.price_subtotal
-        return sum
-    #api.depends
+            amount = amount + sol.price_subtotal
+        return amount
+
+    @api.multi
     def _update_prod_tmpl_amount_sold(self):
         for sol in self:
-            #Relational field
+            # Relational field
             prod_tmpl = sol.product_tmpl_id
-            amount = self._get_qty(prod_tmpl.id)
+            amount = self._get_amount(prod_tmpl.id)
             prod_tmpl.total = amount
         return
+
+    @api.multi
+    def write(self, vals):
+        res = super(SaleOrderLine, self).write(vals)
+        self._update_prod_tmpl_amount_sold()
+        return res

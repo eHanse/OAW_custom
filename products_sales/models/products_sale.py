@@ -11,9 +11,8 @@ class ProductsSale (models.Model):
 
     total = fields.Float(
         string="Total",
-        compute='_get_total',
         digits=dp.get_precision('Product Price'),
-        store=True
+        readonly=True
     )
 
     #Computes the total sale for each product.
@@ -22,16 +21,16 @@ class ProductsSale (models.Model):
     #api.depends might be the solution, first of all that it looks for changes even in other models then self.
     #@api.depends('')
 
-    def _get_total(self):
-        sols = self.env['sale.order.line']
-        for pt in self:
-            domain = [('product_tmpl_id', '=', pt.id)]
-            rel_sols = sols.search(domain)
-            if rel_sols:
-                sum = 0
-                for sol in rel_sols:
-                    sum = sum + sol.price_subtotal
-                pt.total = sum
+   # def _get_total(self):
+     #   sols = self.env['sale.order.line']
+     #   for pt in self:
+     #       domain = [('product_tmpl_id', '=', pt.id)]
+    #        rel_sols = sols.search(domain)
+     #       if rel_sols:
+     #           sum = 0
+      #          for sol in rel_sols:
+        #            sum = sum + sol.price_subtotal
+        #        pt.total = sum
 
 
 

@@ -27,7 +27,8 @@
     'data': [
         'views/products_sales_view.xml'
     ],
-    'installable': True,    
     # only loaded in demonstration mode
+    'post_init_hook': '_update_prod_tmpl_fields',
+    'installable': True,
     'demo': [],
 }
