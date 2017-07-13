@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 Rooms For (Hong Kong) Limted T/A OSCG
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
 def _update_prod_tmpl_fields(cr, registry):
 
-    # updates total field, that keeps total sale amount for each product.
+    # updates the new field "total" in product_template. It keeps the total sale amount for each product.
     sql = '''
     UPDATE
         product_template pt
