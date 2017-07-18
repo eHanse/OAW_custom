@@ -12,16 +12,16 @@ def _update_prod_tmpl_fields(cr, registry):
         FROM (
           SELECT
             pt.id AS pt_id,
-            SUM(sol.price_subtotal) AS amount
+            SUM(sol.price_unit *sol.product_uos_qty *sol.discount) AS amount
           FROM
             sale_order_line sol
             JOIN product_product pp ON sol.product_id = pp.id
             JOIN product_template pt ON pp.product_tmpl_id = pt.id
 
           WHERE
-            sol.state = 'sent'
+            sol.state = 'done'
           GROUP BY
-            pt_id
+            pt.id
           ) AS subquery
     WHERE pt.id = subquery.pt_id
     '''
