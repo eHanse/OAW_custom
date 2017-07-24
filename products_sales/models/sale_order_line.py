@@ -32,3 +32,11 @@ class SaleOrderLine(models.Model):
         res = super(SaleOrderLine, self).write(vals)
         self._update_prod_tmpl_amount_sold()
         return res
+
+    def name_get(self):
+        result = []
+        for record in self:
+            result.append(
+                (record.id, u"%s %s" % (record.product_tmpl_id.name, record.product_tmpl_id.default_code))
+            )
+        return result

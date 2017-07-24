@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "products_sales_view II",
+    'name': "products_sales_view",
 
     'summary': """
       Shows sales for each product. """,
@@ -25,7 +25,8 @@
 
     # always loaded
     'data': [
-        'views/products_sales_view.xml'
+        'views/products_sales_view.xml',
+        'views/sale_view.xml'
     ],
     # only loaded in demonstration mode
     'post_init_hook': '_update_prod_tmpl_fields',
