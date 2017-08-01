@@ -21,12 +21,17 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ["base","product","decimal_precision","sale"],
+    'depends': ["base",
+                "product",
+                "decimal_precision",
+                "sale",
+                "sale_stock",
+    ],
 
     # always loaded
     'data': [
         'views/products_sales_view.xml',
-        'views/sale_view.xml'
+        'views/sale_view.xml',
     ],
     # only loaded in demonstration mode
     'post_init_hook': '_update_prod_tmpl_fields',

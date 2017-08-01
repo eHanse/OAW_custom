@@ -12,7 +12,7 @@ def _update_prod_tmpl_fields(cr, registry):
         FROM (
           SELECT
             pt.id AS pt_id,
-            SUM(sol.price_unit *sol.product_uos_qty *sol.discount) AS amount
+            SUM(sol.price_unit *sol.product_uos_qty *(1-(sol.discount/100))) AS amount
           FROM
             sale_order_line sol
             JOIN product_product pp ON sol.product_id = pp.id

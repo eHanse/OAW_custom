@@ -11,7 +11,7 @@ class SaleOrderLine(models.Model):
         amount = 0.0
         domain = [
             ('product_tmpl_id', '=', prod_tmpl_id),
-            ('state','=', 'sent'),
+            ('state','=', 'done'),
         ]
         sols = self.search(domain)
         for sol in sols:
@@ -33,10 +33,3 @@ class SaleOrderLine(models.Model):
         self._update_prod_tmpl_amount_sold()
         return res
 
-    def name_get(self):
-        result = []
-        for record in self:
-            result.append(
-                (record.id, u"%s %s" % (record.product_tmpl_id.name, record.product_tmpl_id.default_code))
-            )
-        return result
