@@ -41,3 +41,13 @@
                      res_model="product.template"
                      view_mode="tree"
                      limit="80" />
+
+
+
+                     <record id="sale.action_order_line_product_tree" model="ir.actions.act_window">
+            <field name="name">Sales Order Lines Sold</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', '=', 'done')]</field>
+            <field name="limit">80</field>
+        </record>
