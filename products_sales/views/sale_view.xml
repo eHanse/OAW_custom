@@ -45,15 +45,7 @@
             </field>
          </record>
 
-         <!--Overwriting existing action that opens order line tree view-->
-        <record id="sale.action_order_line_product_tree" model="ir.actions.act_window">
-            <field name="name">Sold Sales Order Lines</field>
-            <field name="res_model">sale.order.line</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="sale.view_order_line_tree"/>
-            <field name="domain">[('state', '=', 'done')]</field>
-            <field name="limit">80</field>
-        </record>
+       
 
     </data>
 </openerp>
