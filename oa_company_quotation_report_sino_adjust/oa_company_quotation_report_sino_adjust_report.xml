@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+        id="custom_report_quotation_sinotrading"
+        model="sale.order"
+        string="Sinoeast Quotation"
+        report_type="qweb-pdf"
+        name="oa_company_quotation_report_sino_adjust.report_saleorder_document_z3"
+        atachement_use="False"
+        file="oa_company_quotation_report_sino_adjust.report_saleorder_document_z3"
+        />
+    </data>
+</openerp>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_saleorder_document_z3" inherit_id="sale.report_saleorder_document">
+    
+    <xpath expr="//*/div[@class='col-xs-6']" position="replace">
+       <br />
+       <br />
+        <div class ="col-xs-4">
+                <strong t-if="o.partner_shipping_id == o.partner_invoice_id">Invoice:</strong>
+                <p t-field="o.partner_invoice_id.name"/>
+                <p t-field="o.partner_invoice_id.street"/>
+                <p t-field="o.partner_invoice_id.street2"/>
+                <p t-field="o.partner_invoice_id.city"/> <span t-field="o.partner_invoice_id.state_id.name"/> <span t-field="o.partner_invoice_id.zip"/>
+                <p t-field="o.partner_invoice_id.country_id.name"/>
+        </div>
+        <div t-if="o.partner_shipping_id != o.partner_invoice_id" class="col-xs-4">
+          <strong>Shipping Address:</strong>
+           <p t-field="o.partner_shipping_id.name"/>
+           <p t-field="o.partner_shipping_id.street"/>
+           <p t-field="o.partner_shipping_id.street2"/>
+           <p t-field="o.partner_shipping_id.city"/> <span t-field="o.partner_shipping_id.state_id.name"/> <span t-field="o.partner_shipping_id.zip"/>
+           <p t-field="o.partner_shipping_id.country_id.name"/>
+        </div>
+
+        <div t-if="o.partner_shipping_id == o.partner_invoice_id" class="col-xs-4">
+                       <!--leerspalten einfügen 4 stück-->
+        </div>
+
+        <div class="col-xs-4" style="text-align:right">
+           <!-- <strong>Your Reference:</strong> <span t-field="o.client_order_ref"/> <br /> -->
+           <strong t-if="o.state not in ['draft','sent']">Date Ordered:</strong> <strong t-if="o.state in ['draft','sent']">Date:</strong> <span t-field="o.date_order" t-field-options='{"format": "dd.MMM.yyyy"}'/><br />
+           <strong>Code:</strong> <span t-field="o.partner_invoice_id.ref"/>
+        </div>
+
+    </xpath>
+
+    <!--blöde customer ID loswerden -->
+    <xpath expr="//*/div[@t-field='o.partner_id']" position ="replace">
+                      <br />
+    </xpath>
+
+
+    <xpath expr="//*/h2" position="replace">
+         <h2>
+             <span t-if="o.state not in ['draft','sent']">Order N° </span>
+             <span t-if="o.state in ['draft','sent']">INVOICE </span>
+             <span t-field="o.name"/>
+         </h2>
+         <br />
+     </xpath>
+
+
+
+    <!--Insert Customer Reference Code as with Invoice -->
+    <xpath expr="//*/div[@id='informations']" position="replace">
+<!-- 		<div class="row mt32 mb32" id="informations">
+            <div t-if="o.client_order_ref" class="col-xs-2">
+                <strong>Your Reference:</strong>
+                <p t-field="o.client_order_ref"/>
+            </div> -->
+    </xpath>
+
+    <!--Remove Tax in header and td-->
+    <xpath expr="//table[@class='table table-condensed']//thead//tr" position="replace">
+       <tr>
+             <th>Description</th>
+
+             <th class="text-right">Quantity</th>
+             <th class="text-right">Unit Price</th>
+             <th groups="sale.group_discount_per_so_line">Disc.(%)</th>
+             <th class="text-right">Subtotal</th>
+        </tr>
+    </xpath>
+
+    <xpath expr="//tbody[@class='sale_tbody']//tr//td[2]" position="replace">
+
+    </xpath>
+
+     <!--Replaces all the class=col-sx-4 that contains the Summary Box -->
+    <xpath expr="//div[@class='col-xs-4 pull-right']" position="replace">
+         <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+    </xpath>
+
+
+
+    <!--Implement Case No. and field for case number (lot_id)-->
+    <xpath expr="//*/th[text()='Description']" position="after">
+        <th>Case No.</th>
+    </xpath>
+
+    <xpath expr="//*/span[@t-field='l.name']" position="after">
+        <td><span t-field="l.lot_id" /></td>
+    </xpath>
+
+    <!-- Display "HK retail price" instead of "Unit price"-->
+    <xpath expr="//*/th[text()='Unit Price']" position="replace">
+        <th class="text-right">HK Retail</th>
+    </xpath>
+
+    <!-- Display "Discount(%)" instead of Disc(%) -->
+    <xpath expr="//*/th[text()='Disc.(%)']" position="replace">
+        <th groups="sale.group_discount_per_so_line">Discount (%)</th>
+    </xpath>
+
+
+    <!-- Display "THANK YOU FOR YOUR BUSINESS" in case of SALE ORDER (not in quotation stage)-->
+    <xpath expr="//*/p[@t-field='o.note']" position="replace">
+        <br />
+   <!-- <p t-if="o.state not in ['draft','sent']" >THANK YOU FOR YOUR BUSINESS.</p> -->
+   <!-- <p t-field="o.user_id.name">,</p>  -->
+    </xpath>
+
+
+   <!-- remove payment term and insert table-->
+   <xpath expr="//p[@t-if='o.payment_term.note']" position="replace">
+
+    <div style="page-break-inside: avoid">
+        <div>
+        <br /> <br />
+        </div >
+        <table class="table-bordered" style="width:100%">
+          <tr style="font-size:10px">
+            <th colspan='2' style="text-align:center">No.</th>
+            <th colspan='2' style="text-align:center">Payment</th>
+            <th colspan='2' style="text-align:center">Main Item</th>
+            <th colspan='2' style="text-align:center">Warranty</th>
+            <th colspan='2' style="text-align:center">Manual</th>
+            <th colspan="2" style="text-align:center">Box</th>
+          </tr>
+
+          <tr t-foreach="o.order_line" t-as="l" style="height:32px">
+            <td colspan='2' style="width:5%"></td>
+            <td style="width:11%"></td>
+            <td style="width:8%"></td>
+            <td style="width:11%"></td>
+            <td style="width:8%"></td>
+            <td style="width:11%"></td>
+            <td style="width:8%"></td>
+            <td style="width:11%"></td>
+            <td style="width:8%"></td>
+            <td style="width:11%"></td>
+            <td style="width:8%"></td>
+          </tr>
+           <!-- <tr t-foreach="o.order_line" t-as="l" style="height:32px">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr> -->
+        </table>
+
+
+    </div>
+
+   </xpath>
+
+    <!-- TEST des Displays von Payment Term Notes woanders-->
+    <xpath expr="//*/div[@class='col-xs-4 pull-right']" position="before">
+        <div t-if="o.state in ['draft', 'sent']" class="col-xs-4">
+          <p t-field="o.note"/>
+        </div>
+    </xpath>
+
+
+    <!-- Exchanging t-raw etc-->
+    <xpath expr="template[@id='report_saleorder']" position="replace">
+         <template id="report_quotation_sinotrading">
+                <t t-call="report.html_container">
+                    <t t-foreach="doc_ids" t-as="doc_id">
+                        <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'oa_company_quotation_report_sino_adjust.report_saleorder_document_z3')"/>
+                    </t>
+                </t>
+        </template>
+    </xpath>
+
+
+
+</template>
+</data>
+</openerp>
