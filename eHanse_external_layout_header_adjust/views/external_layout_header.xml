@@ -8,50 +8,20 @@
     <xpath expr="//*/div[@class='header']" position="replace">
         <div class="header">
 
-
-            <t t-if="docs.state">
-                <t t-if="docs.state == 'sent' and 'cancel'">
-
-                </t>
-
-                <t t-if="docs.state != 'sent'">
                     <div class="row">
                         <div class="col-xs-3">
                             <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
                         </div>
                         <div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>
                     </div>
-                </t>
-            </t>
 
-
-            <div class="row zero_min_height">
-                <div class="col-xs-12">
-                    <div style="border-bottom: 1px solid black;"></div>
-            <br />
-                </div>
-            </div>
-
-            <t t-if="docs.state">
-                <t t-if="docs.state == 'sent' and 'cancel'">
-
-                     <div class="row">
-                        <div>
-                        <div class="col-xs-4">
-                           <p>Sino Trading Ltd.</p>
-                           <p t-field="company.street" />
-                           <p t-field="company.street2" />
-                           <p t-field="company.city" /><p t-field="company.state_id.name" /><p t-field="company.zip" />
-                           <p t-field="company.country_id.name" style="border-bottom: 1px solid black;" />
-                           <br />
+                    <div class="row zero_min_height">
+                        <div class="col-xs-12">
+                            <div style="border-bottom: 1px solid black;"></div>
+                        <br />
                         </div>
-                        </div>
-                    </div>
-                </t>
-
-                <t t-if="docs.state != 'sent'">
+                     </div>
                      <div class="row">
-                        <div>
                         <div class="col-xs-4">
                            <p t-field="company.name" />
                            <p t-field="company.street" />
@@ -60,19 +30,9 @@
                            <p t-field="company.country_id.name" style="border-bottom: 1px solid black;" />
                            <br />
                         </div>
-                        </div>
                     </div>
-                </t>
-            </t>
-
         </div>
-
 	</xpath>
-
 </template>
-
-
-
-
 </data>
 </openerp>

@@ -22,15 +22,19 @@
 {
     'name': 'Adjustments on Quotation Report',
     'version': '0.7',
-    'author': 'eHanse IT and Consulting UG',
-    'website': 'https://ehanse.de',
-    'category': 'Accounting',
-    'depends': ["account",],
+    'author': 'OA Trading',
+    'website': 'oa-trade.com',
+    'category': 'Report',
+    'depends': ["sale","account","report"],
     'description': """
-* Makes adjustments on quotation print output to show 1.case number 2.table 3.replace comments
+        * Adds sales order / quotation report type
     """,
     'data': [
-        'views/report_saleorder.xml',
+        'report/report_sale_order_sino.xml',
+        'views/sale_view.xml',
+    ],
+    "qweb":[
+
     ],
     'installable': True,
 }
