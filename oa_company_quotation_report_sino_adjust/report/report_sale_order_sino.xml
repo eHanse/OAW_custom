@@ -175,11 +175,10 @@
                     <div class="row">
                         <div>
                             <div class="col-xs-4">
-                                   <p>Sino Trading Ltd.</p>
-                                   <p t-field="res_company.partner_id.street" />
-                                   <p t-field="res_company.partner_id.street2" />
-                                   <p t-field="res_company.partner_id.city" /><p t-field="res_company.partner_id.state_id.name" /><p t-field="res_company.partner_id.zip" />
-                                   <p t-field="res_company.partner_id.country_id.name" style="border-bottom: 1px solid black;" />
+                                   <p>Sino Trading Ltd</p>
+                                   <p>1022 Unit, Harbour City</p>
+                                   <p>5 Canton Road</p>
+                                   <p>T.S.T., Hong Kong SAR</p>
                                    <br />
                             </div>
                         </div>
@@ -193,8 +192,8 @@
             <div class="footer">
                 <div class="text-center" style="border-top: 1px solid black;">
                     <ul  class="list-inline">
-                        <li t-if="res_company.partner_id.phone">Phone: <span t-field="res_company.partner_id.phone"/></li>
-                        <li t-if="res_company.partner_id.email">Email: <span t-field="res_company.partner_id.email"/></li>
+                        <li>Email: <span>+852 6848 4386</span></li>
+                        <li>Email: <span>sinotradingltd@gmail.com</span></li>
                         <li><p>All our products are exclusively sold in the Hong Kong S.A.R. only</p></li>
                     </ul>
                     <ul class="list-inline">
