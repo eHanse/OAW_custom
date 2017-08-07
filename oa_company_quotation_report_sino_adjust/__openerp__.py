@@ -20,14 +20,17 @@
 ##############################################################################
 
 {
-    'name': 'Adjustments on Quotation Report',
-    'version': '0.7',
+    'name': 'Adds new report and print option to status bar',
+    'version': '0.8',
     'author': 'OA Trading',
     'website': 'oa-trade.com',
     'category': 'Report',
-    'depends': ["sale","account","report"],
+    'depends': ["sale",
+                "account",
+                "report",
+    ],
     'description': """
-        * Adds sales order / quotation report type
+        * New report type for quotation. New print button in quotation/sales order workflow
     """,
     'data': [
         'report/report_sale_order_sino.xml',
