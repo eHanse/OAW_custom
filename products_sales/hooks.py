@@ -8,11 +8,13 @@ def _update_prod_tmpl_fields(cr, registry):
     UPDATE
         product_template pt
     SET
-        total = subquery.amount
+        total = subquery.amount,
+        average = subquery.average
         FROM (
           SELECT
             pt.id AS pt_id,
-            SUM(sol.price_unit *sol.product_uos_qty *(1-(sol.discount/100))) AS amount
+            SUM(sol.price_unit *sol.product_uos_qty *(1-(sol.discount/100))) AS amount,
+            AVG(sol.price_unit *sol.product_uos_qty *(1-(sol.discount/100))) AS average
           FROM
             sale_order_line sol
             JOIN product_product pp ON sol.product_id = pp.id
