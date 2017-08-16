@@ -14,9 +14,13 @@ class ProductsSale (models.Model):
         readonly=True
     )
 
-    subtotal_sold = fields.Float(
-        string="Total"
+    average = fields.Float(
+        string="Average Price",
+        digits=dp.get_precision('Product Price'),
+        readonly=True
     )
+
+
 
 
 

@@ -48,6 +48,17 @@
             </field>
          </record>
 
+         <record id="products_sales_tree_view_search" model="ir.ui.view">
+            <field name="name">products.sales.tree.view</field>
+            <field name="model">product.template</field>
+            <field name="priority" eval="30"/>
+            <field name="arch" type="xml">
+                <search string="Products Sales"  default_order="id desc">
+                    <field name="id" readonly="1" invisible="1"/>
+                </search>
+            </field>
+         </record>
+
        
 
     </data>
