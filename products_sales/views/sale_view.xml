@@ -66,7 +66,7 @@
             <field name="priority" eval="30"/>
              <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@string='Status']" position="after">
+                <xpath expr="//filter[@string='Status']" position="after">
                     <filter string="Customer" ion="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'order_partner_id'}"/>
                 </xpath>
             </field>
