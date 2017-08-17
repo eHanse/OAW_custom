@@ -7,7 +7,7 @@
             <field name="model">stock.move</field>
             <field name="inherit_id" ref="stock.view_move_picking_tree"/>
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='327']" position="attributes">
+                 <xpath expr="//button[@name='327']" position="attributes">
                     <attribute name="invisible">1</attribute>
                  </xpath>
             </field>
@@ -19,7 +19,7 @@
             <field name="model">stock.move</field>
             <field name="inherit_id" ref="stock.view_move_tree"/>
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='327']" position="attributes">
+                 <xpath expr="//button[@name='327']" position="attributes">
                     <attribute name="invisible">1</attribute>
                  </xpath>
             </field>
@@ -31,7 +31,7 @@
             <field name="model">stock.move</field>
             <field name="inherit_id" ref="stock.view_move_form"/>
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='327']" position="attributes">
+                 <xpath expr="//button[@name='327']" position="attributes">
                     <attribute name="invisible">1</attribute>
                  </xpath>
             </field>
@@ -43,7 +43,7 @@
             <field name="model">stock.move</field>
             <field name="inherit_id" ref="stock.view_move_picking_form"/>
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='327']" position="attributes">
+                 <xpath expr="//button[@name='327']" position="attributes">
                     <attribute name="invisible">1</attribute>
                  </xpath>
             </field>
@@ -55,7 +55,7 @@
             <field name="model">stock.move</field>
             <field name="inherit_id" ref="stock.view_move_tree_receipt_picking"/>
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='327']" position="attributes">
+                 <xpath expr="//button[@name='327']" position="attributes">
                     <attribute name="invisible">1</attribute>
                  </xpath>
             </field>
@@ -67,12 +67,11 @@
             <field name="model">stock.inventory</field>
             <field name="inherit_id" ref="stock.view_inventory_form"/>
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='327']" position="attributes">
+                 <xpath expr="//button[@name='327']" position="attributes">
                     <attribute name="invisible">1</attribute>
                  </xpath>
             </field>
          </record>
-
        
 
     </data>
