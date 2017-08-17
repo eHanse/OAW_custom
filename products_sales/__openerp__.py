@@ -26,6 +26,7 @@
                 "decimal_precision",
                 "sale",
                 "sale_stock",
+                "product_offer",
     ],
 
     # always loaded
