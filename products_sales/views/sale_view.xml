@@ -48,6 +48,7 @@
             </field>
          </record>
 
+            <!--Whats that for -->
          <record id="products_sales_tree_view_search" model="ir.ui.view">
             <field name="name">products.sales.tree.view</field>
             <field name="model">product.template</field>
@@ -56,6 +57,18 @@
                 <search string="Products Sales"  default_order="id desc">
                     <field name="id" readonly="1" invisible="1"/>
                 </search>
+            </field>
+         </record>
+
+        <record id="view_sales_order_line_filter_z2" model="ir.ui.view">
+            <field name="name">Adds Group By customer</field>
+            <field name="model">sale.order.line</field>
+            <field name="priority" eval="30"/>
+             <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@string='Status']" position="after">
+                    <filter string="Customer" ion="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'order_partner_id'}"/>
+                </xpath>
             </field>
          </record>
 
