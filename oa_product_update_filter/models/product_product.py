@@ -14,3 +14,4 @@ class ProductProduct(models.Model):
     def update_c24_date(self):
         for p in self:
             p.product_tmpl_id.updated_c24_date = fields.Datetime.now()
+

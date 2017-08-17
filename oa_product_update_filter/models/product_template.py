@@ -13,4 +13,16 @@ class ProductTemplate(models.Model):
         store=True,
     )
 
+    product_id = fields.Integer(
+        string='product_id',
+        compute='_get_product',
+    )
+
+
+    @api.multi
+    def _get_product(self):
+        rec = self.env['product.product'].search([('id', '=', 'product_tmpl_id')])[0]
+        if rec:
+            for pt in self:
+                pt.product_id = rec.id
 
