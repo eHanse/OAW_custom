@@ -11,18 +11,21 @@ class ProductTemplate(models.Model):
     updated_c24_date = fields.Datetime(
         string="Updated C24 Date",
         store=True,
+        compute="_update_c24_date"
     )
 
-    product_id = fields.Integer(
-        string='product_id',
-        compute='_get_product',
-    )
 
 
     @api.multi
-    def _get_product(self):
-        rec = self.env['product.product'].search([('id', '=', 'product_tmpl_id')])[0]
-        if rec:
-            for pt in self:
-                pt.product_id = rec.id
+    @api.depends('chrono')
+    def _update_c24_date(self):
+        for p in self:
+            self.updated_c24_date = fields.Datetime.now()
+
+   # @api.multi
+   # def _get_product(self):
+    #    rec = self.env['product.product'].search([('id', '=', 'product_tmpl_id')])[0]
+     #   if rec:
+      #      for pt in self:
+       #         pt.product_id = rec.id
 

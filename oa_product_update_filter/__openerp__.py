@@ -11,6 +11,7 @@
         "product_listprice_list_view",
     ],
     'description': """
+        1. Adds c24-Filters;
     """,
     'data': [
             'views/product_template_views.xml',
