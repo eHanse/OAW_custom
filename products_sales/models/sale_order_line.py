@@ -30,7 +30,7 @@ class SaleOrderLine(models.Model):
             prod_tmpl = sol.product_tmpl_id
             res = self._get_amount(prod_tmpl.id)
             prod_tmpl.total = res[1]
-            prod_tmpl.average = res[0]/res[1]
+            prod_tmpl.average = res[1]/res[0]
         return
 
 
