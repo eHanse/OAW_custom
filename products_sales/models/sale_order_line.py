@@ -18,8 +18,12 @@ class SaleOrderLine(models.Model):
         ]
         sols = self.search(domain)
         sols_len = len(sols)
-        for sol in sols:
-            amount = amount + sol.price_subtotal
+        if sols_len != 0:
+                for sol in sols:
+                    amount = amount + sol.price_subtotal
+        else:
+             amount = self.price_subtotal
+             sols_len = 1
         res = [sols_len,amount]
         return res
 
