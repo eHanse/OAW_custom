@@ -22,9 +22,10 @@ class SaleOrderLine(models.Model):
                 for sol in sols:
                     amount = amount + sol.price_subtotal
         else:
-             amount = self.price_subtotal
+             amount =0
              sols_len = 1
-        res = [sols_len,amount]
+
+        res = [amount,sols_len]
         return res
 
     @api.multi
@@ -33,8 +34,8 @@ class SaleOrderLine(models.Model):
             # Relational field
             prod_tmpl = sol.product_tmpl_id
             res = self._get_amount(prod_tmpl.id)
-            prod_tmpl.total = res[1]
-            prod_tmpl.average = res[1]/res[0]
+            prod_tmpl.total = res[0]
+            prod_tmpl.average = res[0]/res[1]
         return
 
 
