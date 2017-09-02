@@ -62,24 +62,3 @@
             <field name="view_id" ref="sale.view_order_line_tree"/>
             <field name="domain">[('state', '=', 'done')]</field>
             <field name="limit">80</field>
-
-            <field name="priority" eval="30"/>
-
-            <field name="view_id" ref="products_sales_tree_view"/>
-
-
-            <field name="qty_local_stock" widget="integer" string="HK Stock"/>
-                    <field name="average" string="Average Price"/>
-
-
-
-        <record id="product_template_search_view_z2" model="ir.ui.view">
-            <field name="name">Adds product name to search view</field>
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_search_view"/>
-            <field name="arch" type="xml">
-               <xpath expr="//field[@name='categ_id']" position="before">
-                    <field name="name" string="Product Ref"/>
-               </xpath>
-            </field>
-        </record>

@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "products_sales_view",
+    'name': "remove_scrap_button",
 
     'summary': """
-      Shows sales for each product. """,
+      Hides scrap buttons. """,
       
     'description': """
-        A view accessible through a menueitem under Sales/Products.
-        Menu item links to Products/Sales. Default view shall be grouped by customer.
-        Remove field "route".
-        Field "subtotal" behind customer.
+        Hides scrap buttons of stock_view.xml.
     """,
 
     'author': "OA Trade",
@@ -25,17 +22,14 @@
                 "product",
                 "decimal_precision",
                 "sale",
-                "sale_stock",
-                "product_offer",
+                "stock",
     ],
 
     # always loaded
     'data': [
-        'views/products_sales_view.xml',
-        'views/sale_view.xml',
+        'views/stock_view.xml',
     ],
     # only loaded in demonstration mode
-    'post_init_hook': '_update_prod_tmpl_fields',
     'installable': True,
     'demo': [],
 }

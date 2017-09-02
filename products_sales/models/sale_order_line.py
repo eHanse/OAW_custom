@@ -6,6 +6,9 @@ import openerp.addons.decimal_precision as dp
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
+    #products_sales_qty = fields.Integer(string="Qty of sales of a product")
+
+
     @api.multi
     def _get_amount(self, prod_tmpl_id):
         amount = 0.0
@@ -14,22 +17,31 @@ class SaleOrderLine(models.Model):
             ('state','=', 'done'),
         ]
         sols = self.search(domain)
-        for sol in sols:
-            amount = amount + sol.price_subtotal
-        return amount
+        sols_len = len(sols)
+        if sols_len != 0:
+                for sol in sols:
+                    amount = amount + sol.price_subtotal
+        else:
+             amount =0
+             sols_len = 1
+
+        res = [amount,sols_len]
+        return res
 
     @api.multi
-    def _update_prod_tmpl_amount_sold(self):
+    def _update_prod_tmpl_amount_and_average(self):
         for sol in self:
             # Relational field
             prod_tmpl = sol.product_tmpl_id
-            amount = self._get_amount(prod_tmpl.id)
-            prod_tmpl.total = amount
+            res = self._get_amount(prod_tmpl.id)
+            prod_tmpl.total = res[0]
+            prod_tmpl.average = res[0]/res[1]
         return
+
 
     @api.multi
     def write(self, vals):
         res = super(SaleOrderLine, self).write(vals)
-        self._update_prod_tmpl_amount_sold()
+        self._update_prod_tmpl_amount_and_average()
         return res
 
