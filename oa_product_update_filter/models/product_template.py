@@ -14,7 +14,10 @@ class ProductTemplate(models.Model):
         compute="_update_c24_date"
     )
 
-
+    price_change_date = fields.Datetime(
+        string="Update Currency Amount Price",
+        store=True,
+    )
 
     @api.multi
     @api.depends('chrono')
