@@ -14,7 +14,7 @@ class ProductTemplate(models.Model):
         compute="_update_c24_date"
     )
 
-    price_change_date = fields.Datetime(
+    currency_price_change_date = fields.Datetime(
         string="Update Currency Amount Price",
         store=True,
     )
@@ -24,11 +24,3 @@ class ProductTemplate(models.Model):
     def _update_c24_date(self):
         for p in self:
             self.updated_c24_date = fields.Datetime.now()
-
-   # @api.multi
-   # def _get_product(self):
-    #    rec = self.env['product.product'].search([('id', '=', 'product_tmpl_id')])[0]
-     #   if rec:
-      #      for pt in self:
-       #         pt.product_id = rec.id
-

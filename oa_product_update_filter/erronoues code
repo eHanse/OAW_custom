@@ -4,3 +4,8 @@
     def update_updated_date(self):
         for pt in self:
             pt.updated_date = fields.Datetime.now()
+ @api.multi
+    @api.depends('product_tmpl_id.currency_price_change_date')
+    def update_updated_price_change_date(self):
+        for p in self:
+            p.product_tmpl_id.updated_date = fields.Datetime.now()

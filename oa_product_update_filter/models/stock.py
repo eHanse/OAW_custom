@@ -25,15 +25,17 @@ from openerp import models, fields, api
 
 class StockQuant(models.Model):
     _inherit = 'stock.quant'
-    
+
 
     @api.multi
-    def update_pt_price_rise(self,record):
-        # Relations of involved models: quant to product.product (Many2One) and product.product to product.template (Many2One)
-        # Meaning: If quant A and quant B belongs product.product Z, both belong automatically to product.template R (Many2one to Many2one)
+    def update_pt_price_change(self,record):
+        # Relations of the involved models: stock.quant to product.product (Many2One)
+        # and product.product to product.template (Many2One).
+        # Meaning: If stock.quant A and stock.quant B belong product.product Z,
+        # both stock.quant belong automatically to product.template R (Many2one to Many2one).
         # Get all quants
         # that are of the same product (template) like record
-        # that are VCI quants (owner_id=1 is company)
+        # that are VCI quants (owner_id = 1 is company)
         domain = [
             ('product_id', '=', record['product_id']),
             ('owner_id', '!=', 1),
@@ -45,10 +47,12 @@ class StockQuant(models.Model):
         last_quant = quants[length-1]
         if last_quant.purchase_price_unit != record['purchase_price_unit']:
             # In case the price changed, we set its product_template field related to price changes
-            last_quant.product_id.product_tmpl_id.price_change_date=fields.Datetime.now()
+            last_quant.product_id.product_tmpl_id.currency_price_change_date=fields.Datetime.now()
 
+    # Price change for VCI only possible by DO-INs, which will call - presumable - call the create function
+    # Record is the stock being added
     @api.model
     def create(self,vals):
-        record = super (StockQuant, self).create(vals)
-        self.update_pt_price_rise(record)
+        record = super(StockQuant, self).create(vals)
+        self.update_pt_price_change(record)
         return record
