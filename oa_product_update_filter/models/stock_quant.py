@@ -28,7 +28,7 @@ class StockQuant(models.Model):
 
 
     @api.multi
-    def update_pt_price_change(self,record):
+    def update_pt_price_change(self,vals):
         # Relations of the involved models: stock.quant to product.product (Many2One)
         # and product.product to product.template (Many2One).
         # Meaning: If stock.quant A and stock.quant B belong product.product Z,
@@ -37,15 +37,18 @@ class StockQuant(models.Model):
         # that are of the same product (template) like record
         # that are VCI quants (owner_id = 1 is company)
         domain = [
-            ('product_id', '=', record['product_id']),
-            ('owner_id', '!=', 1),
+            ('product_id', '=', vals['product_id']),
         ]
-        quants = self.search(domain)
-        length = len(quants)
-        # Assuming that in Python lists are extended at their rear, last element in list is last added.
-        # Module where pruchase_price_unit is defined might need to be added to __openerp__
-        last_quant = quants[length-1]
-        if last_quant.purchase_price_unit != record['purchase_price_unit']:
+        # ('owner_id', '!=', 1),
+        qnts = self.env['stock.quant'].search(domain)
+        # Get purchase_price_unit of quant being created by accessing it's last stock_move (assuming it is a DO-IN)
+        # Are quants not only created by DO-INs ?
+        domain = [
+            ('product_id', '=', vals['product_id']),
+        ]
+        current_purchase_price = self.env['stock.move'].search(domain)[0].purchase_price_unit
+        last_quant = qnts[0]
+        if last_quant.purchase_price_unit != current_purchase_price:
             # In case the price changed, we set its product_template field related to price changes
             last_quant.product_id.product_tmpl_id.currency_price_change_date=fields.Datetime.now()
 
@@ -53,6 +56,5 @@ class StockQuant(models.Model):
     # Record is the stock being added
     @api.model
     def create(self,vals):
-        record = super(StockQuant, self).create(vals)
-        self.update_pt_price_change(record)
-        return record
+        self.update_pt_price_change(vals)
+        return super(StockQuant, self).create(vals)

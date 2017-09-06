@@ -14,7 +14,14 @@ class ProductTemplate(models.Model):
         compute="_update_c24_date"
     )
 
+    #For a filter in Product and Product Offer views
     currency_price_change_date = fields.Datetime(
+        string="Update Currency Amount Price",
+        store=True,
+    )
+
+    #For a filter in Product and Product Offer views
+    list_price_change_date = fields.Datetime(
         string="Update Currency Amount Price",
         store=True,
     )
@@ -24,3 +31,9 @@ class ProductTemplate(models.Model):
     def _update_c24_date(self):
         for p in self:
             self.updated_c24_date = fields.Datetime.now()
+
+    @api.multi
+    @api.depends('list_price')
+    def update_updated_date(self):
+        for pt in self:
+            pt.list_price_change_date = fields.Datetime.now()
