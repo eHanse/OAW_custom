@@ -14,18 +14,50 @@ class ProductTemplate(models.Model):
         compute="_update_c24_date"
     )
 
-    #For a filter in Product and Product Offer views
+    #For a filter in Product and Product Offer views.
+    # Trigger: stock_move.purchase_price_unit, supplier_stock.price_unit
     currency_price_change_date = fields.Datetime(
         string="Update Currency Amount Price",
         store=True,
     )
 
-    #For a filter in Product and Product Offer views
+    #For a filter in Product and Product Offer
+    # Trigger: product_template.list_price
     list_price_change_date = fields.Datetime(
         string="Update Currency Amount Price",
         store=True,
     )
 
+    # For a filter in Product and Product Offer
+    # Trigger: stock_quant.create(), supplier_stock.create()
+    new_entry_date = fields.Datetime(
+        string="Update Currency Amount Price",
+        store=True,
+    )
+
+    # For a filter in Product and Product Offer
+    # Trigger: product_template.write(),
+    # Trigger: product_product.price_up_date
+    price_up_date = fields.Datetime(
+        string="Update Currency Amount Price",
+        store=True,
+    )
+
+    # For a filter in Product and Product Offer
+    # Trigger: product_template.write(),
+    # Trigger: product_product.price_up_date
+    price_down_date = fields.Datetime(
+        string="Update Currency Amount Price",
+        store=True,
+    )
+
+    def price_check(self,vals):
+        # get the current price
+        curr_net_price = self.net_price
+        if curr_net_price < vals['net_price']:
+            self.price_up_date = fields.Datetime.now()
+        elif curr_net_price > vals['net_price']:
+            self.price_down_date = fields.Datetime.now()
     @api.multi
     @api.depends('chrono')
     def _update_c24_date(self):
@@ -37,3 +69,9 @@ class ProductTemplate(models.Model):
     def update_updated_date(self):
         for pt in self:
             pt.list_price_change_date = fields.Datetime.now()
+
+    @api.multi
+    def write(self, vals):
+        self.price_check(vals)
+        return super(ProductTemplate, self).write(vals)
+

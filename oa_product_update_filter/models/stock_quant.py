@@ -29,32 +29,51 @@ class StockQuant(models.Model):
 
     @api.multi
     def update_pt_price_change(self,vals):
+        # Situation: Many2one to Many2one)
         # Relations of the involved models: stock.quant to product.product (Many2One)
         # and product.product to product.template (Many2One).
-        # Meaning: If stock.quant A and stock.quant B belong product.product Z,
-        # both stock.quant belong automatically to product.template R (Many2one to Many2one).
+        # Meaning: If stock.quant A and stock.quant B belong to product.product Z,
+        # both stock.quant belong automatically to product.template R .
+
         # Get all quants
         # that are of the same product (template) like record
         # that are VCI quants (owner_id = 1 is company)
         domain = [
             ('product_id', '=', vals['product_id']),
+            ('owner_id', '!=', 1),
         ]
+        # This tuple should limit qnts to have only VCI. But it is not working.
         # ('owner_id', '!=', 1),
-        qnts = self.env['stock.quant'].search(domain)
+        qnts = self.env['stock.quant'].search(domain, order='create_date DESC')
+        if qnts:
+            last_quant = qnts[0]
         # Get purchase_price_unit of quant being created by accessing it's last stock_move (assuming it is a DO-IN)
         # Are quants not only created by DO-INs ?
         domain = [
             ('product_id', '=', vals['product_id']),
+            ('owner_id', '!=', 1),
         ]
-        current_purchase_price = self.env['stock.move'].search(domain)[0].purchase_price_unit
-        last_quant = qnts[0]
-        if last_quant.purchase_price_unit != current_purchase_price:
+        its_stock_move = self.env['stock.move'].search(domain, order='create_date DESC')
+        if its_stock_move:
+          current_purchas_price = its_stock_move[0].purchase_price_unit
+
+        if last_quant.purchase_price_unit != current_purchas_price:
             # In case the price changed, we set its product_template field related to price changes
             last_quant.product_id.product_tmpl_id.currency_price_change_date=fields.Datetime.now()
+
+    @api.multi
+    def update_new_entry(self, vals):
+        # Get the product_template of the quant being created
+        #tmpl = self.product_id.product_tmpl_id
+        tmpl = vals['product_id.product_tmpl_id']
+        # Set the date field
+        tmpl.new_entry_date = fields.Datetime.now()
+
 
     # Price change for VCI only possible by DO-INs, which will call - presumable - call the create function
     # Record is the stock being added
     @api.model
     def create(self,vals):
         self.update_pt_price_change(vals)
+        self.update_new_entry(vals)
         return super(StockQuant, self).create(vals)

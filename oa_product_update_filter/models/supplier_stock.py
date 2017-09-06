@@ -14,6 +14,18 @@ class SupplierStock(models.Model):
         store=True,
     )
 
+    list_price_change_date = fields.Datetime(
+        string="Update listprice, HKD Retail",
+        store=True,
+    )
+
+    # For a filter in Supplier Stock
+    # Trigger:  supplier_stock.create()
+    new_entry_date = fields.Datetime(
+        string="Update Currency Amount Price",
+        store=True,
+    )
+
     # two cases lead to a price change
     # 1. newly created supplier stock
     # 2. modified supplier stock
@@ -41,11 +53,35 @@ class SupplierStock(models.Model):
             last_added_stock.product_id.product_tmpl_id.currency_price_change_date = fields.Datetime.now()
             return True
 
+    # Updates list_price_change_date
+    # Here, self could contain multiple records.
+    @api.multi
+    @api.depends('product_id.product_tmpl_id.list_price_change_date')
+    def update_updated_price_change_date(self):
+        for sup_stock in self:
+            sup_stock.list_price_change_date = fields.Datetime.now()
+
+    @api.multi
+    def update_new_entry_date(self, vals):
+        # Get the product_template of the quant being created
+        #tmpl = self.product_id.product_tmpl_id
+        tmpl = vals['product_id.product_tmpl_id']
+        # Set the date field
+        tmpl.new_entry_date = fields.Datetime.now()
+        # Update all date fields of it's product_id;
+        domain = [
+            ('product_id', '=', vals['product_id']),
+        ]
+        sup_stocks_of_same_product = self.env['supplier_stock'].search(domain)
+        for rec in sup_stocks_of_same_product:
+            rec.new_entry_date = fields.Datetime.now()
+
 
     # case 1: record is the supplier stock to be added
     @api.model
     def create(self, vals):
-        set_own_price_update_field = self.create_pt_price_change_date(vals)
+        self.update_new_entry_date(vals)
+        set_own_price_update_field = self.create_pt_price_change_date(vals) #
         if set_own_price_update_field:
             vals['currency_price_change_date'] = fields.Datetime.now()
         return super(SupplierStock, self).create(vals)
@@ -58,3 +94,6 @@ class SupplierStock(models.Model):
         if set_own_price_update_field:
             vals['currency_price_change_date'] = fields.Datetime.now()
         return super(SupplierStock, self).write(vals)
+
+
+

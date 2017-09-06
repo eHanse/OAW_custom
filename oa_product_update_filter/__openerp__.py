@@ -7,10 +7,9 @@
     'website': 'oa-trade.com',
     'category': 'Product',
      'depends': [
-        "sale_line_quant",
-        "product",
-        "product_offer",
-        "product_listprice_list_view",
+        "product_product",
+        "product_template",
+        "stock_quant",
         "supplier_stock",
     ],
 
