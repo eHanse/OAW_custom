@@ -51,7 +51,7 @@ class StockQuant(models.Model):
         # Are quants not only created by DO-INs ?
         domain = [
             ('product_id', '=', vals['product_id']),
-            ('owner_id', '!=', 1),
+            ('quant_owner_id', '!=', 1),
         ]
         its_stock_move = self.env['stock.move'].search(domain, order='create_date DESC')
         if its_stock_move:
@@ -65,7 +65,10 @@ class StockQuant(models.Model):
     def update_new_entry(self, vals):
         # Get the product_template of the quant being created
         #tmpl = self.product_id.product_tmpl_id
-        tmpl = vals['product_id.product_tmpl_id']
+        domain = [
+            ('id', '=', vals['product_id']),
+        ]
+        tmpl = self.env['product.product'].search(domain)[0].product_tmpl_id
         # Set the date field
         tmpl.new_entry_date = fields.Datetime.now()
 
