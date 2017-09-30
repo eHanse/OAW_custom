@@ -15,7 +15,7 @@
     ],
 
     'description': """
-        1. Adds c24-Filters;
+        1. Adds c24-Filters; 2. Currency
     """,
     'data': [
             'views/product_template_views.xml',
