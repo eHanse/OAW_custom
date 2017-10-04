@@ -32,30 +32,24 @@ class StockQuant(models.Model):
         # Get all quants
         # that are of the same product (template) like record
         # that are VCI quants (owner_id != 1 is company)
+        # disregarding the location
         domain = [
             ('product_id', '=', vals['product_id']),
             ('owner_id', '!=', 1),
         ]
         qnts = self.env['stock.quant'].search(domain, order='create_date DESC')
 
-        # Get purchase_price_unit of quant that is created
-        # by accessing its stock.move
-        # that are VCI quants
-        # TODO that are in DO-INS: Location dest id = 12 ???
+        # Assuming that vals history_ids has only one tuple of 2 values on creation!
+        history_ids_tuple = vals['history_ids'][0]
+        stock_move_id = history_ids_tuple[1]
         domain = [
-            ('product_id', '=', vals['product_id']),
-            ('quant_owner_id', '!=', 1),
-            ('location_dest_id', '=', 12),
+            ('id', '=', stock_move_id),
         ]
-        stock_moves = self.env['stock.move'].search(domain, order='create_date DESC')
+        stock_move = self.env['stock.move'].search(domain)
+        current_purchase_price = stock_move.purchase_price_unit
 
-
-        # Purchase Price of the last entered product
-        if stock_moves:
-          current_purchas_price = stock_moves[0].purchase_price_unit
-
-        if qnts[0]:
-            if qnts[0].purchase_price_unit != current_purchas_price:
+        if qnts:
+            if qnts[0].purchase_price_unit != current_purchase_price:
                 # In case the price changed, we set the corresponding date field
                 qnts[0].product_id.product_tmpl_id.currency_price_change_date=fields.Datetime.now()
 

@@ -71,8 +71,9 @@ class ProductTemplate(models.Model):
         for pt in self:
             pt.list_price_change_date = fields.Datetime.now()
 
-    @api.multi
-    def write(self, vals):
-        #self.price_check(vals)
-        return super(ProductTemplate, self).write(vals)
+    # Whats that for ??????????
+    # @api.multi
+    # def write(self, vals):
+    #     #self.price_check(vals)
+    #     return super(ProductTemplate, self).write(vals)
 
