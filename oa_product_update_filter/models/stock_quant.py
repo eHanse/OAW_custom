@@ -28,7 +28,7 @@ class StockQuant(models.Model):
 
     #For VCI Currency Amount Price Change Filter
     @api.multi
-    def update_pt_price_change(self,vals):
+    def new_vci_pt_price_change(self,vals):
         # Get all quants
         # that are of the same product (template) like record
         # that are VCI quants (owner_id != 1 is company)
@@ -36,22 +36,30 @@ class StockQuant(models.Model):
         domain = [
             ('product_id', '=', vals['product_id']),
             ('owner_id', '!=', 1),
+            ('location_id', '=', 12),
         ]
         qnts = self.env['stock.quant'].search(domain, order='create_date DESC')
 
-        # Assuming that vals history_ids has only one tuple of 2 values on creation!
-        history_ids_tuple = vals['history_ids'][0]
-        stock_move_id = history_ids_tuple[1]
+        # # Assuming that vals history_ids has only one tuple of 2 values on creation!
+        # history_ids_tuple = vals['history_ids'][0]
+        # stock_move_id = history_ids_tuple[1]
+        # domain = [
+        #     ('id', '=', stock_move_id),
+        # ]
+        # Get all stock moves with
+        # the product_id of the stock.quant record to be updated
         domain = [
-            ('id', '=', stock_move_id),
+            ('product_id', '=', vals['product_id']),
+            ('quant_owner_id', '!=', 1),
+            ('location_dest_id', '=', 12),
+            ('state', '=', 'assigned'),
         ]
-        stock_move = self.env['stock.move'].search(domain)
-        current_purchase_price = stock_move.purchase_price_unit
-
+        stock_moves = self.env['stock.move'].search(domain, order='create_date DESC')
         if qnts:
-            if qnts[0].purchase_price_unit != current_purchase_price:
-                # In case the price changed, we set the corresponding date field
-                qnts[0].product_id.product_tmpl_id.currency_price_change_date=fields.Datetime.now()
+            if stock_moves:
+                if qnts[0].purchase_price_unit != stock_moves[0].purchase_price_unit:
+                    # In case the price changed, we set the corresponding date field
+                    qnts[0].product_id.product_tmpl_id.currency_price_change_date=fields.Datetime.now()
 
 
     # For New Entry Filter
@@ -71,6 +79,7 @@ class StockQuant(models.Model):
     # Record is the stock being added
     @api.model
     def create(self,vals):
-        self.update_pt_price_change(vals)
+        self.new_vci_pt_price_change(vals)
         self.update_new_entry(vals)
         return super(StockQuant, self).create(vals)
+

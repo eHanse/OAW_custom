@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="supplier_stock_search_z1" model="ir.ui.view">
+            <field name="name">product.template.search.update.filter</field>
+            <field name="model">supplier.stock</field>
+            <field name="inherit_id" ref="supplier_stock.supplier_stock_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='new_entry']" position="after">
+                    <!-- For Overseas Currency Amount Price Change in 24h -->
+                    <filter name="currency_price_change_date" string="Overseas Price Change" domain="[('updated_c24_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+               </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
