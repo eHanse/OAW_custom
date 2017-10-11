@@ -10,7 +10,7 @@ class ProductProduct(models.Model):
     currency_price_change_date = fields.Datetime(
         related="product_tmpl_id.currency_price_change_date",
     )
-    # For a filter in List Price Update
+
     list_price_change_date = fields.Datetime(
         related="product_tmpl_id.list_price_change_date",
     )

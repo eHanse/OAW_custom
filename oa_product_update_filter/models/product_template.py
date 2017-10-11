@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
     updated_c24_date = fields.Datetime(
         string="Updated C24 Date",
         store=True,
-        compute="_update_c24_date"
+        compute="update_c24_date"
     )
 
     #For a filter in Product and Product Offer views.
@@ -61,7 +61,7 @@ class ProductTemplate(models.Model):
     #
     @api.multi
     @api.depends('chrono')
-    def _update_c24_date(self):
+    def update_c24_date(self):
         for p in self:
             self.updated_c24_date = fields.Datetime.now()
 

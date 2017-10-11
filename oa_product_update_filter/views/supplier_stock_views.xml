@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='new_entry']" position="after">
                     <!-- For Overseas Currency Amount Price Change in 24h -->
-                    <filter name="currency_price_change_date" string="Overseas Price Change" domain="[('updated_c24_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+                    <filter name="currency_price_change_date" string="Overseas Price Change" domain="[('currency_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
                </xpath>
             </field>
         </record>
