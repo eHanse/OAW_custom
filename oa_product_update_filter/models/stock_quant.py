@@ -26,24 +26,14 @@ from openerp import models, fields, api
 class StockQuant(models.Model):
     _inherit = 'stock.quant'
 
-    # For New Entry Filter
-    @api.multi
-    def update_new_entry(self, vals):
-        # Get the product_template of the quant being created
-        #tmpl = self.product_id.product_tmpl_id
+   # For filter New Entry 24
+    @api.model
+    def create(self, vals):
+        # For Filter: New Entry 24h
         domain = [
             ('id', '=', vals['product_id']),
         ]
-        tmpl = self.env['product.product'].search(domain)[0].product_tmpl_id
-        # Set the date field
-        tmpl.new_entry_date = fields.Datetime.now()
-
-
-    # Price change for VCI only possible by DO-INs, which will  - presumable - call the create function
-    # Record is the stock being added
-    @api.model
-    def create(self,vals):
-        #self.new_vci_pt_price_change(vals)
-        self.update_new_entry(vals)
+        product_ref = self.env['product.product'].search(domain, order='create_date DESC', limit=1)
+        product_ref.product_tmpl_id.new_entry_date = fields.Datetime.now()
         return super(StockQuant, self).create(vals)
 
