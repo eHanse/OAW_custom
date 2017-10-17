@@ -13,9 +13,9 @@
                 <!-- For filter New Stock Entry 24-->
                 <filter name="new_entry_date" string="New Stock Entry 24" domain="[('new_entry_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
                 <!-- For filter Sales HKD Price Up-->
-                <filter name="sales_hkd_price_up" string="Sales HKD Price Up" domain="[('price_up_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+                <filter name="sales_hkd_price_up" string="Sale HKD Price Up" domain="[('price_up_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
                 <!-- For filter Sales HKD Price Down -->
-                <filter name="sales_hkd_price_down" string="Sales HKD Price Down" domain="[('price_up_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+                <filter name="sales_hkd_price_down" string="Sale HKD Price Down" domain="[('price_down_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
            </xpath>
            <xpath expr="//filter[@name='received_two_weeks']" position="after">
                 <!-- Overseas and VCI Currency Amount Price Change in 24h -->
