@@ -15,7 +15,7 @@
     ],
 
     'description': """
-        1. Adds c24-Filters; 2. Currency
+        1. Adds c24-Filters; 2. Adds Change Date Filters for Supplier Stock and Product/LPU views
     """,
     'data': [
             'views/product_template_views.xml',
