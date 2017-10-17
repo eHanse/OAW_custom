@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="view_order_form_z11" model="ir.ui.view">
+                  <field name="name">view.order.form.make.mto.button.invis</field>
+                  <field name="model">sale.order</field>
+                  <field name="inherit_id" ref="sale.view_order_form"/>
+                  <field name="arch" type="xml">
+                    <xpath expr="/form/header/button[@name='action_button_confirm']" position="attributes">
+                           <attribute name="invisible">[('is_mto', '=', True)]</attribute>
+
+                    </xpath>
+
+                  </field>
+         </record>
+    </data>
+</openerp>
