@@ -7,7 +7,9 @@
                   <field name="inherit_id" ref="sale.view_order_form"/>
                   <field name="arch" type="xml">
                     <xpath expr="/form/header/button[@name='action_button_confirm']" position="attributes">
-                           <attribute name="invisible">[('is_mto', '=', True)]</attribute>
+                           <attribute name="attrs">
+                                 {'invisible': ['|', ('is_mto','=',True)]}
+                            </attribute>
 
                     </xpath>
 
