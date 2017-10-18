@@ -20,7 +20,7 @@
            <xpath expr="//filter[@name='received_two_weeks']" position="after">
                 <!-- Overseas and VCI Currency Amount Price Change in 24h -->
                 <filter name="currency_price_change_date" string="Overseas VCI Price Change in 24h" domain="[('currency_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
-               <!-- For HKD Retail 24 change filter-->
+               <!-- For Retail HKD 24 change filter-->
                 <filter name="list_price_change_date" string="Retail HKD change in 24h" domain="[('list_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
                <!-- For c24-Filter -->
                 <filter name="updated_c24_one_week" string="C24 updated in 7 days" domain="[('updated_c24_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]"/>
