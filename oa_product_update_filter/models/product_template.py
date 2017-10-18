@@ -17,7 +17,7 @@ class ProductTemplate(models.Model):
     # For a filter in Product and Product Offer views.
     # Trigger: stock.quant (stock_move.purchase_price_unit), supplier_stock.price_unit
     currency_price_change_date = fields.Datetime(
-        string="Update Currency Amount Price",
+        string="Currency Amount Price Change Date",
         store=True,
     )
 
@@ -25,7 +25,7 @@ class ProductTemplate(models.Model):
     # Effective in Product and Product Offer
     # Trigger: product_template.list_price "Retail HKD"
     list_price_change_date = fields.Datetime(
-        string="Update Currency Amount Price",
+        string="Retail HKD Change Date",
         store=True,
         compute="update_list_price_change_date"
     )
@@ -41,7 +41,7 @@ class ProductTemplate(models.Model):
     # Trigger: product_template.write(),
     # Trigger: product_product.price_up_date
     price_up_date = fields.Datetime(
-        string="Update Currency Amount Price",
+        string="Sale HKD Price Up Date",
         store=True,
     )
 
@@ -49,10 +49,11 @@ class ProductTemplate(models.Model):
     # Trigger: product_template.write(),
     # Trigger: product_product.price_up_date
     price_down_date = fields.Datetime(
-        string="Update Currency Amount Price",
+        string="Sale HKD Price Down Date",
         store=True,
     )
 
+    # For Filter Sale HKD up down
     @api.multi
     def write(self, vals):
         for pt in self:
@@ -78,10 +79,6 @@ class ProductTemplate(models.Model):
         for pt in self:
             pt.list_price_change_date = fields.Datetime.now()
 
-            # For Filter "Retail HKD changed in 24h"
 
-    @api.multi
-    @api.depends('net_price')
-    def update_sale_hkd_price(self):
-        for pt in self:
-            pt.list_price_change_date = fields.Datetime.now()
+
+
