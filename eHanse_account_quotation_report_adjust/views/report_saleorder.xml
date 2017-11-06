@@ -29,14 +29,14 @@
 
                 <div class="col-xs-4" style="text-align:right">
                    <!-- <strong>Your Reference:</strong> <span t-field="o.client_order_ref"/> <br /> -->
-                   <strong t-if="o.state not in ['draft','sent']">Date Ordered:</strong> <strong t-if="o.state in ['draft','sent']">Date:</strong> <span t-field="o.date_order" t-field-options='{"format": "dd.MMM.yyyy"}'/><br />
-                   <strong>Code:</strong> <span t-field="o.partner_invoice_id.ref"/>
-                   <strong>Code:</strong> <span t-field="o.partner_invoice_id.ref"/><br/>
-                   <strong>Code:</strong>  <span t-field="o.name"/>
+                   <strong t-if="o.state not in ['draft','sent']">Date Ordered:</strong> <strong t-if="o.state in ['draft','sent']">Date:</strong> <span t-field="o.date_order" t-field-options='{"format": "yyyy-MM-dd"}'/><br />
+                   <strong>Code:</strong> <span t-field="o.order_ref_report"/><br />
+                   <!--<strong>Code:</strong> <span t-field="o.name"/>-->
+
                 </div>
 
     </xpath>
-    
+
     <!--blöde customer ID loswerden -->
     <xpath expr="//*/div[@t-field='o.partner_id']" position ="replace">
                       <br />
@@ -45,8 +45,8 @@
 
     <xpath expr="//*/h2" position="replace">
          <h2>
-             <span t-if="o.state not in ['draft','sent']">Order N° </span>
-             <span t-if="o.state in ['draft','sent']">INVOICE </span>
+             <!--<span t-if="o.state not in ['draft','sent']">Order N° </span>-->
+             <span>INVOICE </span>
              <!--<span t-field="o.name"/>-->
          </h2>
          <br />
