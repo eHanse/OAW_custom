@@ -29,6 +29,9 @@
     'description': """
 * Makes adjustments on quotation print output to show 1.case number 2.table 3.replace comments
     """,
+    'depends': [
+        "sale",
+    ],
     'data': [
         'views/report_saleorder.xml',
     ],
