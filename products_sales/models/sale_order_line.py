@@ -38,7 +38,8 @@ class SaleOrderLine(models.Model):
             prod_tmpl.average = res[0]/res[1]
         return
 
-
+    # Will be executed whenever quotation is confirmed. The sol of the quotation exists already by then.
+    # That is why sols of newly created quotation are considered when _update_prod_tmpl.... function is called.
     @api.multi
     def write(self, vals):
         res = super(SaleOrderLine, self).write(vals)

@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) eHanse UG https://ehanse.de.
+#    Copyright (C) Rooms For (Hong Kong) Limited T/A OSCG (<http://www.openerp-asia.net>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,22 +19,21 @@
 #
 ##############################################################################
 
-{
-    'name': 'Adjustments on Quotation Report',
-    'version': '0.7',
-    'author': 'eHanse IT and Consulting UG',
-    'website': 'https://ehanse.de',
-    'category': 'Accounting',
-    'depends': ["account",],
-    'description': """
-* Makes adjustments on quotation print output to show 1.case number 2.table 3.replace comments
-    """,
-    'depends': [
-        "sale",
-    ],
-    'data': [
-        'views/report_saleorder.xml',
-    ],
-    'installable': True,
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from openerp import models, fields, api
+
+
+
+class StockQuant(models.Model):
+    _inherit = 'stock.quant'
+
+   # For filter New Entry 24
+    @api.model
+    def create(self, vals):
+        # For Filter: New Entry 24h
+        domain = [
+            ('id', '=', vals['product_id']),
+        ]
+        product_ref = self.env['product.product'].search(domain, order='create_date DESC', limit=1)
+        product_ref.product_tmpl_id.new_entry_date = fields.Datetime.now()
+        return super(StockQuant, self).create(vals)
+

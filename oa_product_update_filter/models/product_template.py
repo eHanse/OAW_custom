@@ -11,21 +11,74 @@ class ProductTemplate(models.Model):
     updated_c24_date = fields.Datetime(
         string="Updated C24 Date",
         store=True,
-        compute="_update_c24_date"
+        compute="update_c24_date"
     )
 
+    # For a filter in Product and Product Offer views.
+    # Trigger: stock.quant (stock_move.purchase_price_unit), supplier_stock.price_unit
+    currency_price_change_date = fields.Datetime(
+        string="Currency Amount Price Change Date",
+        store=True,
+    )
 
+    # For a filter
+    # Effective in Product and Product Offer
+    # Trigger: product_template.list_price "Retail HKD"
+    list_price_change_date = fields.Datetime(
+        string="Retail HKD Change Date",
+        store=True,
+        compute="update_list_price_change_date"
+    )
+
+    # For a filter in Product and Product Offer: New Stock Entry 24
+    # Trigger: stock_quant.create(), supplier_stock.create()
+    new_entry_date = fields.Datetime(
+        string="New Entry",
+        store=True,
+    )
+
+    # For a filter in Product and Product Offer
+    # Trigger: product_template.write(),
+    # Trigger: product_product.price_up_date
+    price_up_date = fields.Datetime(
+        string="Sale HKD Price Up Date",
+        store=True,
+    )
+
+    # For a filter in Product and Product Offer
+    # Trigger: product_template.write(),
+    # Trigger: product_product.price_up_date
+    price_down_date = fields.Datetime(
+        string="Sale HKD Price Down Date",
+        store=True,
+    )
+
+    # For Filter Sale HKD up down
+    @api.multi
+    def write(self, vals):
+        for pt in self:
+            if 'net_price' in vals:
+                # get the current price
+                curr_net_price = pt.net_price
+                if curr_net_price < vals['net_price']:
+                    vals['price_up_date'] = fields.Datetime.now()
+                elif curr_net_price > vals['net_price']:
+                    vals['price_down_date'] = fields.Datetime.now()
+        return super(ProductTemplate, self).write(vals)
 
     @api.multi
     @api.depends('chrono')
-    def _update_c24_date(self):
+    def update_c24_date(self):
         for p in self:
             self.updated_c24_date = fields.Datetime.now()
 
-   # @api.multi
-   # def _get_product(self):
-    #    rec = self.env['product.product'].search([('id', '=', 'product_tmpl_id')])[0]
-     #   if rec:
-      #      for pt in self:
-       #         pt.product_id = rec.id
+    # For Filter "Retail HKD changed in 24h"
+    @api.multi
+    @api.depends('list_price')
+    def update_list_price_change_date(self):
+        for pt in self:
+            pt.list_price_change_date = fields.Datetime.now()
+
+
+
 

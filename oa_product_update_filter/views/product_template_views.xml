@@ -9,19 +9,33 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product_offer.product_template_search_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//filter[@name='received_two_weeks']" position="after">
-                <filter name="updated_c24_one_week" string="C24 updated in 7 days" domain="[('updated_c24_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]"/>
+            <xpath expr="//filter[@name='received_today']" position="before">
+                <!-- For filter New Stock Entry 24-->
+                <filter name="new_entry_date" string="New Stock Entry 24" domain="[('new_entry_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+                <!-- For filter Sales HKD Price Up-->
+                <filter name="sales_hkd_price_up" string="Sale HKD Price Up" domain="[('price_up_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+                <!-- For filter Sales HKD Price Down -->
+                <filter name="sales_hkd_price_down" string="Sale HKD Price Down" domain="[('price_down_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
            </xpath>
+           <xpath expr="//filter[@name='received_two_weeks']" position="after">
+                <!-- Overseas and VCI Currency Amount Price Change in 24h -->
+                <filter name="currency_price_change_date" string="Overseas VCI Price Change in 24h" domain="[('currency_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+               <!-- For Retail HKD 24 change filter-->
+                <filter name="list_price_change_date" string="Retail HKD change in 24h" domain="[('list_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+               <!-- For c24-Filter -->
+                <filter name="updated_c24_one_week" string="C24 updated in 7 days" domain="[('updated_c24_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]"/>
+            </xpath>
         </field>
     </record>
 
+    <!--For c24-Filter: Needs to be in different group in order to be ANDed-->
     <record id="product_template_search_view_z11" model="ir.ui.view">
         <field name="name">product.template.search</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product_offer.product_template_search_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//filter[@name='local_overseas_wo_res']" position="after">
-                <filter name="c24_unset" string="No C24" domain="[('chrono','=',False)]"/>
+            <xpath expr="//group[@name='available']" position="after">
+                <filter name="c24_unset" string="No C24" domain="[('chrono', '=', False)]"/>
            </xpath>
         </field>
     </record>
