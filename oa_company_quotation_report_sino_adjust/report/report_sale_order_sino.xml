@@ -76,7 +76,7 @@
                                             <th class="text-right">Quantity</th>
                                              <th class="text-right">HK Retail</th>
                                             <th groups="sale.group_discount_per_so_line">Discount (%)</th>
-                                            <th class="text-right">Price</th>
+                                            <th class="text-right">Subtotal</th>
                                         </tr>
                                    </thead>
                                    <tbody class="sale_tbody">
