@@ -3,33 +3,23 @@ from openerp import models, fields, api
 
 
 class OnDraftInvoices(models.Model):
-    # No need for sophisticated subclass
-    # _name = 'purchase.order.ext'
+
     _inherit = 'account.invoice'
     _description = 'Trying to get partner_ref into account.invoice.tree'
-    # Relational Field unnecessary because there exists already one
-    # po_id = fields.Many2one('purchase.order', string='Purchase Order')
-    # Related Field
-    partner_ref = fields.Char(
-        'Supplier Reference',
-        compute='_get_partner_ref',
-        readonly=True,
-        store=True
-    )
 
+
+    # overwrite write() for updating PO for showing sup ref there
     @api.multi
-    @api.depends('origin')
-    def _get_partner_ref(self):
-        purchase_obj = self.env['purchase.order']
-        for ai in self:
-            if ai.type == 'in_invoice':
-                purchase_recs = purchase_obj.search(
-                    [('name', '=', ai.origin)],
-                )
-                if purchase_recs:
-                    ai.partner_ref = purchase_recs[0].partner_ref
 
-
+    def write(self, vals):
+        if 'supplier_invoice_number' in vals:
+            for ai in self:
+                #in-invoice = supplier invoice
+                if ai.type == 'in_invoice':
+                    for inv_line in ai.invoice_line:
+                        inv_line.po_id.partner_ref = vals['supplier_invoice_number']
+        res = super(OnDraftInvoices, self).write(vals)
+        return res
 
 
 
