@@ -2,6 +2,18 @@
 <openerp>
 <data>
 
+     <!--For c24-Filter: Needs to be in different group in order to be ANDed-->
+    <record id="product_product_tree_view_z2" model="ir.ui.view">
+        <field name="name">product.template.listview</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='discount']" position="after">
+                <field name="chrono24_price"/>
+           </xpath>
+        </field>
+    </record>
+
 
 
     <record id="product_template_search_view_z10" model="ir.ui.view">
@@ -23,7 +35,7 @@
                <!-- For Retail HKD 24 change filter-->
                 <filter name="list_price_change_date" string="Retail HKD change in 24h" domain="[('list_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
                <!-- For c24-Filter -->
-                <filter name="updated_c24_one_week" string="C24 updated in 7 days" domain="[('updated_c24_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]"/>
+                <filter name="updated_c24_one_week" string="Chrono24 Update in 7D" domain="[('updated_chrono24','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]"/>
             </xpath>
         </field>
     </record>
@@ -37,6 +49,22 @@
             <xpath expr="//group[@name='available']" position="after">
                 <filter name="c24_unset" string="No C24" domain="[('chrono', '=', False)]"/>
            </xpath>
+        </field>
+    </record>
+
+
+    <!-- New Button for posting Chrono24 as relevant for Sales Deparment-->
+    <record id="product_template_form_view_chrono24" model="ir.ui.view">
+        <field name="name">product.template.common.form.advanced</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_product_variant']" position="after">
+                    <button name="updated_chrono24_date_button" string="Chrono24 Notice Updated" type="object" groups="base.group_sale_manager"/>
+            </xpath>
+            <xpath expr="//field[@name='active']" position="after">
+                <field name="updated_chrono24"/>
+            </xpath>
         </field>
     </record>
 
