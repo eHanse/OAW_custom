@@ -10,11 +10,6 @@ from addons.OAW_custom.oa_product_update_filter.models import product_product
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    # updated_c24_date = fields.Datetime(
-    #     string="Updated C24 Date",
-    #     store=True,
-    #     compute="update_c24_date"
-    # )
 
     # For a filter in Product and Product Offer views.
     # Trigger: stock.quant (stock_move.purchase_price_unit), supplier_stock.price_unit
