@@ -4,9 +4,6 @@
 
 from openerp import models, fields, api
 
-from addons.OAW_custom.oa_product_update_filter.models import product_product
-
-
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
