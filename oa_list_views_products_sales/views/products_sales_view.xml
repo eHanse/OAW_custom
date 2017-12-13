@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+         <record id="products_sales_tree_view" model="ir.ui.view">
+            <field name="name">products.sales.tree.view</field>
+            <field name="model">product.template</field>
+            <field name="priority" eval="30"/>
+            <field name="arch" type="xml">
+                <tree string="Products Sales"  default_order="id desc">
+                    <field name="id" readonly="1" invisible="1"/>
+                    <field name="image_small" string="Image" widget="image" height="64px"/>
+                    <button name="action_view_sales" type="object" icon="terp-gtk-jump-to-ltr" string="Open Sales"/>
+                    <field name="default_code" string="Code"/>
+                    <field name="name" string="Product Ref"/>
+                    <field name="qty_local_stock" widget="integer" string="HK Stock"/>
+                    <field name="average" string="Average Price"/>
+                    <field name="total" string="Total"/>
+                </tree>
+            </field>
+         </record>
+
+         <record id="product_template_search_view_z2" model="ir.ui.view">
+            <field name="name">Adds product name to search view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='categ_id']" position="before">
+                    <field name="name" string="Product Ref"/>
+                   <field name="default_code" string="Code"/>
+               </xpath>
+            </field>
+        </record>
+
+        <record id="action_products_view" model="ir.actions.act_window">
+            <field name="name">Products total sales</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="products_sales_tree_view"/>
+            <field name="domain">[('total', '>', 0)]</field>
+            <field name="limit">80</field>
+        </record>
+
+        <!--Tell the action to open in tree view with following ir.ui.view: -->
+         <record id="action_products_tree_view" model="ir.actions.act_window.view">
+             <field name="ir.actions.act_window" ref="action_products_view"/>
+             <field name="view_id" ref="products_sales_tree_view"/>
+             <field name="view_mode">tree</field>
+             <field name="sequence">10</field>
+
+         </record>
+
+         <menuitem id="products_sales"
+                    parent="base.menu_product"
+                    action="action_products_view"
+                    sequence="2"
+                    groups=""/>
+
+
+
+    </data>
+</openerp>
