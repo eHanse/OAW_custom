@@ -34,8 +34,8 @@
                 <filter name="currency_price_change_date" string="Overseas VCI Price Change in 24h" domain="[('currency_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
                <!-- For Retail HKD 24 change filter-->
                 <filter name="list_price_change_date" string="Retail HKD change in 24h" domain="[('list_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
-               <!-- For c24-Filter -->
-                <filter name="updated_c24_one_week" string="Chrono24 Update in 7D" domain="[('updated_chrono24','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]"/>
+               <filter name="updated_date_chrono24" string="Chrono24 Updated 7D" domain="[('updated_date_chrono24','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]"/>
+               <filter name="updated_chrono24" string="Chrono24 Updated" domain="[('chrono24_updated','=',True)]"/>
             </xpath>
         </field>
     </record>
@@ -62,9 +62,9 @@
             <xpath expr="//field[@name='is_product_variant']" position="after">
                     <button name="updated_chrono24_date_button" string="Chrono24 Notice Updated" type="object" groups="base.group_sale_manager"/>
             </xpath>
-            <xpath expr="//field[@name='active']" position="after">
-                <field name="updated_chrono24"/>
-            </xpath>
+            <!--<xpath expr="//field[@name='active']" position="after">-->
+                <!--<field name="updated_date_chrono24"/>-->
+            <!--</xpath>-->
         </field>
     </record>
 
