@@ -34,9 +34,8 @@
                 <filter name="currency_price_change_date" string="Overseas VCI Price Change in 24h" domain="[('currency_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
                <!-- For Retail HKD 24 change filter-->
                 <filter name="list_price_change_date" string="Retail HKD change in 24h" domain="[('list_price_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
-               <!-- For c24 Date Filter -->
-               <!-- For c24 updated filter-->
-               <!--<filter name="Chrono24 Updated" string="Chrono24 Updated" domain="[('chrono24_updated','=',True)]"/>-->
+               <filter name="updated_date_chrono24" string="Chrono24 Updated 7D" domain="[('updated_date_chrono24','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]"/>
+               <filter name="updated_chrono24" string="Chrono24 Updated" domain="[('chrono24_updated','=',True)]"/>
             </xpath>
         </field>
     </record>

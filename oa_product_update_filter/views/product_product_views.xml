@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
-    <!--For Update Button in Product Tree View-->
-    <record id="update_product_update_chrono24_notice_date_action" model="ir.actions.server">
-        <field name="name">Update Chrono24 Notice Date</field>
-        <field name="model_id" ref="product.model_product_product"/>
-        <field name="state">code</field>
-        <field name="code">action = self.updated_chrono24_date_button(cr, uid, context.get('active_ids', []), context=context)</field>
-    </record>
 
-    <record id="update_chrono24_notice" model="ir.values">
-        <field eval="'client_action_multi'" name="key2"/>
-        <field eval="'product.product'" name="model"/>
-        <field name="name">update.product.update_chrono24_notice.date</field>
-        <field eval="'ir.actions.server,%d'%update_product_update_chrono24_notice_date_action" name="value"/>
-    </record>
+    <record id="product_product_tree_view_z2" model="ir.ui.view">
+            <field name="name">product.product.tree.view.z2</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='additional_info']" position="after">
+                        <field name="chrono24_updated" string="Chrono24 Updated"/>
+                        <field name="chrono" string="Chrono24"/>
+                        <field name="chronoNote"/>
+                    </xpath>
+            </field>
+        </record>
 
 </data>
 </openerp>

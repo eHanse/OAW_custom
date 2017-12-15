@@ -7,6 +7,16 @@ from openerp import models, fields, api
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    chrono = fields.Boolean(
+        default=False
+    )
+    # button for new simplified chrono mechanics
+    chrono24_updated = fields.Boolean(
+        default=False
+    )
+    chronoNote = fields.Char(
+        string="Note Chrono24"
+    )
 
     # For a filter in Product and Product Offer views.
     # Trigger: stock.quant (stock_move.purchase_price_unit), supplier_stock.price_unit
