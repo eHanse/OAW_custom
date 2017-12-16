@@ -75,7 +75,7 @@ class ProductTemplate(models.Model):
         for pt in self:
             # Chrono24 Mechanic: Only if the product template is already activated
             if pt.chrono:
-                if 'net_price' in vals or 'stock_cost' in vals or 'chrono24_price' in vals or 'qty_reserved' in vals or 'qty_local_stock' in vals or 'qty_overseas' in vals:
+                if 'list_price' in vals or 'net_price' in vals or 'stock_cost' in vals or 'chrono24_price' in vals or 'qty_reserved' in vals or 'qty_local_stock' in vals or 'qty_overseas' in vals:
                     if self.updated_chrono24_date(pt,vals):
                         pt.updated_date_chrono24 = fields.Datetime.now()
                         # Field defined in different module, though
@@ -118,8 +118,14 @@ class ProductTemplate(models.Model):
             stock_situation = pt.qty_local_stock - vals['qty_reserved']
         if stock_situation and stock_situation >= 0:
             return True
+        if 'list_price' in vals:
+            if pt.list_price != vals['list_price']:
+                return True
         if 'stock_cost' in vals:
             if pt.stock_cost != vals['stock_cost']:
+                return True
+        if 'net_price' in vals:
+            if pt.net_price != vals['net_price']:
                 return True
         if 'chrono24_price' in vals:
             if pt.chrono24_price != vals['chrono24_price']:
