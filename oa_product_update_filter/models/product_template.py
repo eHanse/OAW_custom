@@ -108,26 +108,27 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def updated_chrono24_date(self,pt,vals):
-        stock_situation = False
+        #stock_situation = False
         # Suggestion: stock situation is if either of these is in vals ...
         if 'qty_local_stock' in vals and 'qty_reserved' in vals:
-            stock_situation = vals['qty_local_stock'] - vals['qty_reserved']
+            if vals['qty_local_stock'] - vals['qty_reserved'] >= 0:
+                return True
         elif 'qty_local_stock' in vals:
-            stock_situation = vals['qty_local_stock'] - pt.qty_reserved
+            if vals['qty_local_stock'] - pt.qty_reserved >= 0:
+                return True
         elif 'qty_reserved' in vals:
-            stock_situation = pt.qty_local_stock - vals['qty_reserved']
-        if stock_situation and stock_situation >= 0:
-            return True
-        if 'list_price' in vals:
+            if pt.qty_local_stock - vals['qty_reserved'] >= 0:
+                return True
+        elif 'list_price' in vals:
             if pt.list_price != vals['list_price']:
                 return True
-        if 'stock_cost' in vals:
+        elif 'stock_cost' in vals:
             if pt.stock_cost != vals['stock_cost']:
                 return True
-        if 'net_price' in vals:
+        elif 'net_price' in vals:
             if pt.net_price != vals['net_price']:
                 return True
-        if 'chrono24_price' in vals:
+        elif 'chrono24_price' in vals:
             if pt.chrono24_price != vals['chrono24_price']:
                 return True
         return False
