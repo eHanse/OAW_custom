@@ -18,10 +18,12 @@ class SupplierStock(models.Model):
     partner_quantity = fields.Char(
         string='Quantity',
         compute="_get_quantity",
-        store=True,
+        #store=True,
     )
+    # Because of the store attribute = true we need to determine api.depends decorator
 
     @api.multi
+    #@api.depends("quantity")
     def _get_quantity(self):
         for ps in self:
             if ps.quantity == 0.0:

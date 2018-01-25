@@ -27,6 +27,7 @@
     'category': 'Kanban Views',
     'depends': ['product',
                 'product_offer',
+                'oa_partner_stock_offer',
                 ],
     'description': """Changes resolution of kanban ALL images.""",
     'data': ['views/product_view.xml'],    

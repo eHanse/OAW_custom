@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api
+import openerp.addons.decimal_precision as dp
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -66,6 +67,7 @@ class ProductTemplate(models.Model):
 
     chrono24_price = fields.Float(
         string='Chrono24 Price',
+        digits=dp.get_precision('Product Price'),
         store=True,
     )
 
@@ -75,7 +77,9 @@ class ProductTemplate(models.Model):
         for pt in self:
             # Chrono24 Mechanic: Only if the product template is already activated
             if pt.chrono:
-                if 'list_price' in vals or 'net_price' in vals or 'stock_cost' in vals or 'chrono24_price' in vals or 'qty_reserved' in vals or 'qty_local_stock' in vals or 'qty_overseas' in vals:
+                if 'list_price' in vals or 'net_price' in vals or 'stock_cost' in vals or \
+                    'chrono24_price' in vals or 'qty_reserved' in vals or 'qty_local_stock' in vals  \
+                     or 'qty_overseas' in vals or 'updated_date_chrono24' in vals:
                     if self.updated_chrono24_date(pt,vals):
                         pt.updated_date_chrono24 = fields.Datetime.now()
                         # Field defined in different module, though
@@ -108,8 +112,6 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def updated_chrono24_date(self,pt,vals):
-        #stock_situation = False
-        # Suggestion: stock situation is if either of these is in vals ...
         if 'qty_local_stock' in vals and 'qty_reserved' in vals:
             if vals['qty_local_stock'] - vals['qty_reserved'] >= 0:
                 return True
@@ -133,8 +135,9 @@ class ProductTemplate(models.Model):
                 return True
         return False
 
-    # What was this for?
+    # For the button in the form view
     @api.multi
     def updated_chrono24_date_button(self):
         for pt in self:
-            pt.updated_date_chrono24 = fields.Datetime.now()
+            pt.chrono24_updated=True
+
