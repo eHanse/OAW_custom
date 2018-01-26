@@ -27,7 +27,6 @@
                                     <li> HK Retail HKD: <field name="hk_retail"/></li>
                                     <!--<li t-if="record.type.raw_value != 'service'">Quantity: <field name="partner_quantity"/></li>-->
                                     <li>Quantity: <field name="partner_quantity"/></li>
-                                    <!--TODO: Add fields -->
                                 </ul>
                             </div>
                         </div>
@@ -44,12 +43,25 @@
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_type">form</field>
         <field name="view_id" ref="partner_stock_offer_kanban"/>
-        <!--<field name="context">{"search_default_overseas":1}</field>-->
+        <field name="context">{"search_default_cheapest_part_stock":1}</field>
     </record>
 
     <menuitem action="partner_stock_offer_kanban_action"
         id="menu_partner_stock_offer_kanban_action"
         parent="base.menu_product" sequence="100" />
+
+    <!--Search View -->
+    <record id="partner_stock_offer_kanban_search" model="ir.ui.view">
+        <field name="name">Partner Stock Offer Search</field>
+        <field name="model">supplier.stock</field>
+        <field name="inherit_id" ref="supplier_stock.supplier_stock_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='filter']" position="inside">
+                    <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('cheapest','=',True)]"/>
+           </xpath>
+        </field>
+    </record>
+
 
 </data>
 </openerp>

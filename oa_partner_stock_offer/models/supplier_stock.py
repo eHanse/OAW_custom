@@ -17,13 +17,18 @@ class SupplierStock(models.Model):
     # quantity, computed field
     partner_quantity = fields.Char(
         string='Quantity',
-        compute="_get_quantity",
-        #store=True,
+        store=True,
     )
-    # Because of the store attribute = true we need to determine api.depends decorator
+
+    # Cheapest entry of product_id?
+    cheapest = fields.Boolean(
+        string='Cheapest entry',
+        store=True,
+    )
+
+
 
     @api.multi
-    #@api.depends("quantity")
     def _get_quantity(self):
         for ps in self:
             if ps.quantity == 0.0:
@@ -34,3 +39,16 @@ class SupplierStock(models.Model):
                 ps.partner_quantity = '2'
             elif ps.quantity >= 3.0:
                 ps.partner_quantity = '>=3'
+            ps_products= self.search(
+                [('product_id', '=', ps.product_id.id)], order='price_unit_base ASC'
+            )
+            if ps_products:
+                for psc in ps_products:
+                        psc.cheapest = False
+                ps_products[0].cheapest = True
+
+    @api.multi
+    def write(self, vals):
+        for ps in self:
+            ps._get_quantity()
+        return super(SupplierStock, self).write(vals)

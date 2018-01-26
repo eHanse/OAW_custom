@@ -11,10 +11,7 @@
     'depends': [
         'product',
         'product_offer',
-        'sale_stock',
-        'sale_line_quant_extended',
         'supplier_stock',
-        'stock_reverse_owner',
     ],
     'description': """
         Creates a kanban view next to product_offer views based on supplier_stock model 'supplier_stock.py'
