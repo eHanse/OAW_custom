@@ -58,7 +58,7 @@ class ProductTemplate(models.Model):
     )
 
     # Field that listens to changes associated to chrono24 filter
-    updated_date_chrono24 = fields.Datetime(
+    updated_chrono24 = fields.Datetime(
         store=True,
         default=False,
         string="Updated Chrono24 Date",
@@ -73,28 +73,16 @@ class ProductTemplate(models.Model):
     @api.multi
     def write(self, vals):
         for pt in self:
-            # Chrono24 Mechanic: Only if the product template is already activated
-            if pt.chrono:
-                if 'list_price' in vals or 'net_price' in vals or 'stock_cost' in vals or 'chrono24_price' in vals or 'qty_reserved' in vals or 'qty_local_stock' in vals or 'qty_overseas' in vals:
-                    if self.updated_chrono24_date(pt,vals):
-                        pt.updated_date_chrono24 = fields.Datetime.now()
-                        # Field defined in different module, though
-                        pt.chrono24_updated = True
-            # Chrono24 Mechanic: Or if product template is getting activated
-            if 'chrono' in vals:
-                if vals['chrono']:
-                    pt.updated_date_chrono24 = fields.Datetime.now()
-                    # Field defined in different module, though
-                    pt.chrono24_updated = True
-                else:
-                    pt.chrono24_updated = False
-            # Other Filter: get the current price
-            if 'net_price' in vals:
-                curr_net_price = pt.net_price
-                if curr_net_price < vals['net_price']:
-                    vals['price_up_date'] = fields.Datetime.now()
-                elif curr_net_price > vals['net_price']:
-                    vals['price_down_date'] = fields.Datetime.now()
+            if 'net_price' in vals or 'stock_cost' in vals or 'chrono24_price' in vals or 'qty_reserved' in vals or 'qty_local_stock' in vals or 'qty_overseas' in vals:
+                # Method for chrono24
+                vals['updated_chrono24'] = self.updated_chrono24_date(pt,vals)
+                # get the current price
+                if 'net_price' in vals:
+                    curr_net_price = pt.net_price
+                    if curr_net_price < vals['net_price']:
+                        vals['price_up_date'] = fields.Datetime.now()
+                    elif curr_net_price > vals['net_price']:
+                        vals['price_down_date'] = fields.Datetime.now()
         return super(ProductTemplate, self).write(vals)
 
 
@@ -108,8 +96,6 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def updated_chrono24_date(self,pt,vals):
-        #stock_situation = False
-        # Suggestion: stock situation is if either of these is in vals ...
         if 'qty_local_stock' in vals and 'qty_reserved' in vals:
             if vals['qty_local_stock'] - vals['qty_reserved'] >= 0:
                 return True
@@ -133,7 +119,7 @@ class ProductTemplate(models.Model):
                 return True
         return False
 
-    # What was this for?
+
     @api.multi
     def updated_chrono24_date_button(self):
         for pt in self:
