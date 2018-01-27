@@ -26,7 +26,7 @@
                                     <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                     <li> HK Retail HKD: <field name="hk_retail"/></li>
                                     <!--<li t-if="record.type.raw_value != 'service'">Quantity: <field name="partner_quantity"/></li>-->
-                                    <li>Quantity: <field name="partner_quantity"/></li>
+                                    <li>Quantity: <field name="partner_qty"/></li>
                                 </ul>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
         <field name="inherit_id" ref="supplier_stock.supplier_stock_search"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='filter']" position="inside">
-                    <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('cheapest','=',True)]"/>
+                    <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
            </xpath>
         </field>
     </record>

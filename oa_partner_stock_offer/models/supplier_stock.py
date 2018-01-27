@@ -15,13 +15,12 @@ class SupplierStock(models.Model):
          store=True,
     )
     # quantity, computed field
-    partner_quantity = fields.Char(
-        string='Quantity',
+    partner_qty = fields.Char(
+        string='Evaluated Quantity',
         store=True,
     )
-
     # Cheapest entry of product_id?
-    cheapest = fields.Boolean(
+    lowest_cost = fields.Boolean(
         string='Cheapest entry',
         store=True,
     )
@@ -49,6 +48,14 @@ class SupplierStock(models.Model):
 
     @api.multi
     def write(self, vals):
-        for ps in self:
-            ps._get_quantity()
-        return super(SupplierStock, self).write(vals)
+        res = super(SupplierStock, self).write(vals)
+        if 'quantity' in vals or 'price_unit_base' in vals:
+            for ps in self:
+                ps._get_quantity()
+        return res
+
+    @api.model
+    def create(self,vals):
+        res =super(SupplierStock,self).create(vals)
+        res._get_quantity()
+        return res
