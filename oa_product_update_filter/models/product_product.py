@@ -9,7 +9,9 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
 
+
     @api.multi
-    def update_updated_date(self):
-        for p in self:
-            p.product_tmpl_id.updated_date = fields.Datetime.now()
+    def updated_chrono24_date_button(self):
+        for pt in self:
+            pt.product_tmpl_id.updated_date_chrono24 = fields.Datetime.now()
+            pt.product_tmpl_id.chrono24_updated = True
