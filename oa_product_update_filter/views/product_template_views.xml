@@ -50,7 +50,7 @@
                     <button name="updated_chrono24_date_button" string="Chrono24 Notice Updated" type="object" groups="base.group_sale_manager"/>
             </xpath>
             <xpath expr="//field[@name='active']" position="after">
-                <field name="updated_chrono24"/>
+                <field name="updated_date_chrono24"/>
             </xpath>
         </field>
     </record>
