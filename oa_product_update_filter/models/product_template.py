@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api
+import openerp.addons.decimal_precision as dp
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -58,7 +59,7 @@ class ProductTemplate(models.Model):
     )
 
     # Field that listens to changes associated to chrono24 filter
-    updated_chrono24 = fields.Datetime(
+    updated_date_chrono24 = fields.Datetime(
         store=True,
         default=False,
         string="Updated Chrono24 Date",
@@ -66,6 +67,7 @@ class ProductTemplate(models.Model):
 
     chrono24_price = fields.Float(
         string='Chrono24 Price',
+        digits=dp.get_precision('Product Price'),
         store=True,
     )
 
@@ -73,16 +75,31 @@ class ProductTemplate(models.Model):
     @api.multi
     def write(self, vals):
         for pt in self:
-            if 'net_price' in vals or 'stock_cost' in vals or 'chrono24_price' in vals or 'qty_reserved' in vals or 'qty_local_stock' in vals or 'qty_overseas' in vals:
-                # Method for chrono24
-                vals['updated_chrono24'] = self.updated_chrono24_date(pt,vals)
-                # get the current price
-                if 'net_price' in vals:
-                    curr_net_price = pt.net_price
-                    if curr_net_price < vals['net_price']:
-                        vals['price_up_date'] = fields.Datetime.now()
-                    elif curr_net_price > vals['net_price']:
-                        vals['price_down_date'] = fields.Datetime.now()
+            # Chrono24 Mechanic: Only if the product template is already activated
+            if pt.chrono:
+                if 'list_price' in vals or 'net_price' in vals or 'stock_cost' in vals or \
+                    'chrono24_price' in vals or 'qty_reserved' in vals or 'qty_local_stock' in vals  \
+                     or 'qty_overseas' in vals:
+                    if self.updated_chrono24_date(pt,vals):
+                        pt.updated_date_chrono24 = fields.Datetime.now()
+                        # Field defined in different module, though
+                        pt.chrono24_updated = True
+            # Chrono24 Mechanic: Or if product template is getting activated
+            if 'chrono' in vals:
+                # In both case: if turned on or turned off, the chrono24 offer has to be taken care of
+                if vals['chrono']:
+                    pt.updated_date_chrono24 = fields.Datetime.now()
+                    pt.chrono24_updated = True
+                else:
+                    pt.updated_date_chrono24 = fields.Datetime.now()
+                    pt.chrono24_updated = True
+            # Price UP and DOWN filter: get the current price
+            if 'net_price' in vals:
+                curr_net_price = pt.net_price
+                if curr_net_price < vals['net_price']:
+                    vals['price_up_date'] = fields.Datetime.now()
+                elif curr_net_price > vals['net_price']:
+                    vals['price_down_date'] = fields.Datetime.now()
         return super(ProductTemplate, self).write(vals)
 
 
@@ -120,7 +137,4 @@ class ProductTemplate(models.Model):
         return False
 
 
-    @api.multi
-    def updated_chrono24_date_button(self):
-        for pt in self:
-            pt.updated_date_chrono24 = fields.Datetime.now()
+
