@@ -25,6 +25,12 @@ class SupplierStock(models.Model):
         store=True,
     )
 
+    image_medium = fields.Binary(
+        'Image',
+        related='product_id.product_tmpl_id.image_medium',
+        readonly=True,
+    )
+
 
 
     @api.multi

@@ -19,6 +19,6 @@
     'data': [
         'views/partner_stock_template_views.xml',
     ],
-    #'post_init_hook': '_update_prod_tmpl_fields',
+    'post_init_hook': '_update_partner_offer_fields',
     'installable': True,
 }
