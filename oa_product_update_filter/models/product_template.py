@@ -79,20 +79,21 @@ class ProductTemplate(models.Model):
             if pt.chrono:
                 if 'list_price' in vals or 'net_price' in vals or 'stock_cost' in vals or \
                     'chrono24_price' in vals or 'qty_reserved' in vals or 'qty_local_stock' in vals  \
-                     or 'qty_overseas' in vals or 'updated_date_chrono24' in vals:
+                     or 'qty_overseas' in vals:
                     if self.updated_chrono24_date(pt,vals):
                         pt.updated_date_chrono24 = fields.Datetime.now()
                         # Field defined in different module, though
                         pt.chrono24_updated = True
             # Chrono24 Mechanic: Or if product template is getting activated
             if 'chrono' in vals:
+                # In both case: if turned on or turned off, the chrono24 offer has to be taken care of
                 if vals['chrono']:
                     pt.updated_date_chrono24 = fields.Datetime.now()
-                    # Field defined in different module, though
                     pt.chrono24_updated = True
                 else:
-                    pt.chrono24_updated = False
-            # Other Filter: get the current price
+                    pt.updated_date_chrono24 = fields.Datetime.now()
+                    pt.chrono24_updated = True
+            # Price UP and DOWN filter: get the current price
             if 'net_price' in vals:
                 curr_net_price = pt.net_price
                 if curr_net_price < vals['net_price']:
@@ -135,9 +136,4 @@ class ProductTemplate(models.Model):
                 return True
         return False
 
-    # For the button in the form view
-    @api.multi
-    def updated_chrono24_date_button(self):
-        for pt in self:
-            pt.chrono24_updated=True
 
