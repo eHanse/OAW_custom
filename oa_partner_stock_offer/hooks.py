@@ -28,6 +28,6 @@ def _update_partner_offer_fields(cr, registry):
             ) AS lowest_price_product
         WHERE
           ss.product_id = lowest_price_product.product_id AND
-          ss.product_id = lowest_price_product.min_price
+          ss.price_unit_base = lowest_price_product.min_price
     ''')
 

@@ -18,7 +18,7 @@
                                          <!--<span t-if="record.default_code.value">-->
                                              <!--[<field name="default_code"/>]-->
                                           <!--</span>-->
-                                         <field name="product_name"/>
+                                         <field name="product_id"/>
                                     </a>
                                 </h4>
                                 <div name="tags"/>
