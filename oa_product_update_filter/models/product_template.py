@@ -137,4 +137,3 @@ class ProductTemplate(models.Model):
         return False
 
 
-

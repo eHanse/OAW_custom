@@ -66,6 +66,8 @@
             <xpath expr="//group[@name='others']" position="inside">
                 <filter name="real_stock_negative" string="Negative Quants"/>
             </xpath>
+
+
         </field>
     </record>
 
