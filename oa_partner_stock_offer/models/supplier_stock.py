@@ -37,25 +37,25 @@ class SupplierStock(models.Model):
     def _get_quantity(self):
         for ps in self:
             if ps.quantity == 0.0:
-                ps.partner_quantity = '0'
+                ps.partner_qty = '0'
             elif ps.quantity == 1.0:
-                ps.partner_quantity = '1'
+                ps.partner_qty = '1'
             elif ps.quantity == 2.0:
-                ps.partner_quantity = '2'
+                ps.partner_qty = '2'
             elif ps.quantity >= 3.0:
-                ps.partner_quantity = '>=3'
+                ps.partner_qty = '>=3'
             ps_products= self.search(
                 [('product_id', '=', ps.product_id.id)], order='price_unit_base ASC'
             )
             if ps_products:
                 for psc in ps_products:
-                        psc.cheapest = False
-                ps_products[0].cheapest = True
+                        psc.lowest_cost = False
+                ps_products[0].lowest_cost = True
 
     @api.multi
     def write(self, vals):
         res = super(SupplierStock, self).write(vals)
-        if 'quantity' in vals or 'price_unit_base' in vals:
+        if 'quantity' in vals or 'price_unit' in vals:
             for ps in self:
                 ps._get_quantity()
         return res
