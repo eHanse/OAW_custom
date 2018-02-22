@@ -49,8 +49,12 @@ class SupplierStock(models.Model):
             )
             if ps_products:
                 for psc in ps_products:
-                        psc.cheapest = False
-                ps_products[0].cheapest = True
+                    psc.sudo().write({
+                        'cheapest': False
+                    })
+                ps_products[0].sudo().write({
+                    'cheapest': True
+                })
 
     @api.multi
     def write(self, vals):
