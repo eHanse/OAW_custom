@@ -41,7 +41,7 @@ class SupplierStock(models.Model):
                 ps.partner_qty = '2'
             elif ps.quantity >= 3.0:
                 ps.partner_qty = '>=3'
-            ps_products= self.search(
+            ps_products= self.sudo().search(
                 [('product_id', '=', ps.product_id.id)], order='price_unit_base ASC'
             )
             if ps_products:
