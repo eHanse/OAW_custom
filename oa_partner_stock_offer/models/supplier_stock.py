@@ -24,14 +24,11 @@ class SupplierStock(models.Model):
         string='Cheapest entry',
         store=True,
     )
-
     image_medium = fields.Binary(
         'Image',
         related='product_id.product_tmpl_id.image_medium',
         readonly=True,
     )
-
-
 
     @api.multi
     def _get_quantity(self):
@@ -49,8 +46,12 @@ class SupplierStock(models.Model):
             )
             if ps_products:
                 for psc in ps_products:
-                        psc.lowest_cost = False
-                ps_products[0].lowest_cost = True
+                    psc.sudo().write({
+                        'lowest_cost': False
+                    })
+                ps_products[0].sudo().write({
+                    'lowest_cost': True
+                })
 
     @api.multi
     def write(self, vals):

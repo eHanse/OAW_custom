@@ -34,7 +34,9 @@ class SupplierStock(models.Model):
         if 'price_unit' in vals:
             for stock in self:
                 vals['currency_price_change_date'] = fields.Datetime.now()
-                stock.product_id.product_tmpl_id.currency_price_change_date = fields.Datetime.now()
+                stock.product_id.product_tmpl_id.sudo().write({
+                    'currency_price_change_date': fields.Datetime.now()
+                })
         res = super(SupplierStock, self).write(vals)
         return res
 
@@ -59,17 +61,23 @@ class SupplierStock(models.Model):
                 ]
                 product_ref = self.env['product.product'].search(secondDomain, order='create_date DESC', limit=1)
                 if product_ref:
-                    product_ref[0].product_tmpl_id.new_entry_date = fields.Datetime.now()
+                    product_ref[0].product_tmpl_id.sudo().write({
+                        'new_entry_date': fields.Datetime.now()
+                    })
             # For Purchase Price Unit filter
             else:
                 # Purchase price unit change
                 if last_added_stock[0].price_unit != vals['price_unit']:
                     vals['currency_price_change_date'] = fields.Datetime.now()
-                    last_added_stock[0].product_id.product_tmpl_id.currency_price_change_date = fields.Datetime.now()
+                    last_added_stock[0].product_id.product_tmpl_id.sudo().write({
+                        'currency_price_change_date': fields.Datetime.now()
+                    })
                 # For New Entry filter : New Stock with same price but maybe different supplier
                 else:
                     vals['new_entry_date'] = fields.Datetime.now()
-                    last_added_stock[0].product_id.product_tmpl_id.new_entry_date = fields.Datetime.now()
+                    last_added_stock[0].product_id.product_tmpl_id.sudo().write({
+                        'new_entry_date': fields.Datetime.now()
+                    })
         res = super(SupplierStock, self).create(vals)
         return res
 
