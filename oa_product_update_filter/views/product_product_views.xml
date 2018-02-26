@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
             <field name="arch" type="xml">
                     <xpath expr="//field[@name='additional_info']" position="after">
-                        <field name="chrono24_price" string="CHrono 24 Price"/>
+                        <field name="chrono24_price" string="Chrono 24 Price"/>
                         <field name="chrono24_updated" string="Chrono24 Updated"/>
                         <field name="chrono" string="Chrono24"/>
                         <field name="chronoNote"/>
