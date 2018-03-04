@@ -24,7 +24,7 @@
                                 <div name="tags"/>
                                 <ul>
                                     <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
-                                    <li> HK Retail HKD: <field name="hk_retail"/></li>
+                                    <li>Retail HKD: <field name="hk_retail"/></li>
                                     <!--<li t-if="record.type.raw_value != 'service'">Quantity: <field name="partner_quantity"/></li>-->
                                     <li>Quantity: <field name="partner_qty"/></li>
                                 </ul>
