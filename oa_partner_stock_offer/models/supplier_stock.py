@@ -24,11 +24,19 @@ class SupplierStock(models.Model):
         string='Cheapest entry',
         store=True,
     )
+    # Flags those ps that have multiple entries with same product_id
+    has_duplicates = fields.Boolean(
+        string='Has Duplicates',
+        store=True,
+    )
     image_medium = fields.Binary(
         'Image',
         related='product_id.product_tmpl_id.image_medium',
         readonly=True,
     )
+
+
+
 
     @api.multi
     def _get_quantity(self):
@@ -46,9 +54,16 @@ class SupplierStock(models.Model):
             )
             if ps_products:
                 for psc in ps_products:
-                    psc.sudo().write({
-                        'lowest_cost': False
-                    })
+                    if len(ps_products) >=2:
+                        psc.sudo().write({
+                            'lowest_cost': False,
+                            'has_duplicates': True
+                        })
+                    else:
+                        psc.sudo().write({
+                            'lowest_cost': False,
+                            'has_duplicates': False,
+                        })
                 ps_products[0].sudo().write({
                     'lowest_cost': True
                 })

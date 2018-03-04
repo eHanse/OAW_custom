@@ -29,5 +29,17 @@ def _update_partner_offer_fields(cr, registry):
         WHERE
           ss.product_id = lowest_price_product.product_id AND
           ss.price_unit_base = lowest_price_product.min_price
+
+
+    ''')
+
+    cr.execute('''
+        UPDATE supplier_stock
+            SET has_duplicates=True
+            FROM
+                (SELECT count(id) COUNT,product_id
+                 FROM supplier_stock
+                 GROUP BY product_id) AS have_duplicates
+        WHERE supplier_stock.product_id=have_duplicates.product_id AND have_duplicates.COUNT >1
     ''')
 
