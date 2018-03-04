@@ -6,7 +6,7 @@
         <field name="name">Supplier.stock.partner.stock.offer</field>
         <field name="model">supplier.stock</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban default_order="product_id">
                 <!--<field name="type"/>-->
                 <templates>
                     <t t-name="kanban-box">
@@ -50,6 +50,22 @@
         id="menu_partner_stock_offer_kanban_action"
         parent="base.menu_product" sequence="100" />
 
+    <!--&lt;!&ndash;For partner access&ndash;&gt;-->
+      <!--<record id="partner_stock_offer_kanban_action" model="ir.actions.act_window">-->
+        <!--<field name="name">Partner Stock Offer</field>-->
+        <!--<field name="type">ir.actions.act_window</field>-->
+        <!--<field name="res_model">supplier.stock</field>-->
+        <!--<field name="view_mode">kanban</field>-->
+        <!--<field name="view_type">kanban</field>-->
+        <!--<field name="view_id" ref="partner_stock_offer_kanban"/>-->
+        <!--<field name="context">{"search_default_cheapest_part_stock":1}</field>-->
+      <!--</record>-->
+
+     <!--<menuitem action="partner_stock_offer_kanban_action"-->
+        <!--id="menu_partner_stock_offer_kanban_action"-->
+        <!--groups="model_security_adjust_oaw.group_supplier,stock.group_stock_user"-->
+        <!--parent="base.menu_product" sequence="100" />-->
+
     <!--Search View -->
     <record id="partner_stock_offer_kanban_search" model="ir.ui.view">
         <field name="name">Partner Stock Offer Search</field>
@@ -58,6 +74,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='filter']" position="inside">
                     <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
+                    <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True),]"/>
            </xpath>
         </field>
     </record>
