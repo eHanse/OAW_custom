@@ -6,7 +6,8 @@
       Views related to Supplier Reference. """,
 
     'description': """
-         Adds partner_ref to tree and search views OPOL, PO, RFQ, On Draft Invoices
+         Adds partner_ref to tree and search views OPOL, PO, RFQ, On Draft Invoices. \
+         Adjusts "Description" field in purchase.order.form view
     """,
 
     'author': "OA Watches",
