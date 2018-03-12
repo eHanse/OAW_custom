@@ -17,10 +17,4 @@ class PurchaseOrderLine(models.Model):
         readonly=True
     )
 
-    # Overwriting original description field
-    name = fields.Text(
-        required=False,
-        string="Description",
-    )
-
 
