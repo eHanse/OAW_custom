@@ -10,7 +10,7 @@ class SupplierStock(models.Model):
 
     # Field to access through related field: Supplier.Stock > Product.Product > Product.Template
     hk_retail = fields.Float(
-        'HK Retail',
+        'Retail HKD',
          related='product_id.list_price',
          store=True,
     )

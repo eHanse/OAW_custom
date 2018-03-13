@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='is_mto']" position="before">
                     <field name="partner_ref" string="Supplier Reference"/>
-                </xpath>                
+                </xpath>
             </field>
         </record> 
         
@@ -34,6 +34,13 @@
                  <xpath expr="//field[@name='mto']" position="before">                
                     <field name="sup_ref" string='Supplier Reference'/>
                  </xpath>
+
+                    <xpath expr="//field[@name='name']" position="attributes">
+                         <attribute name="invisible">1</attribute>
+                    </xpath>
+                <xpath expr="//field[@name='vci']" position="after">
+                            <field name="new_description" String="New Description"></field>
+                    </xpath>
             </field>
         </record> 
         
