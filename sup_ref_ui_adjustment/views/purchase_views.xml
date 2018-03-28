@@ -34,13 +34,6 @@
                  <xpath expr="//field[@name='mto']" position="before">                
                     <field name="sup_ref" string='Supplier Reference'/>
                  </xpath>
-
-                    <xpath expr="//field[@name='name']" position="attributes">
-                         <attribute name="invisible">1</attribute>
-                    </xpath>
-                <xpath expr="//field[@name='vci']" position="after">
-                            <field name="new_description" String="New Description"></field>
-                    </xpath>
             </field>
         </record> 
         
@@ -56,21 +49,7 @@
             </field>
         </record>
 
-        <!--Replaces the description field by the product template name-->
-         <record id="po_order_from_ext" model="ir.ui.view">
-                  <field name="name">po.order.form.new.description</field>
-                  <field name="model">purchase.order</field>
-                  <field name="inherit_id" ref="purchase.purchase_order_form"/>
-                  <field name="arch" type="xml">
-                    <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
-                        <attribute name="invisible">1</attribute>
-                    </xpath>
-                    <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
-                           <field name="new_description" String="New Description"></field>
-                    </xpath>
 
-                  </field>
-        </record>
         
     </data>
 </openerp>

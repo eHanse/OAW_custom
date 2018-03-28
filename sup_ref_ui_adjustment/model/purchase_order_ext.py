@@ -10,11 +10,3 @@ class PurchaseOrderLine(models.Model):
         'Supplier Reference',
         related='order_id.partner_ref',
     )
-
-    new_description = fields.Char(
-        related='product_id.product_tmpl_id.name',
-        string="Description",
-        readonly=True
-    )
-
-
