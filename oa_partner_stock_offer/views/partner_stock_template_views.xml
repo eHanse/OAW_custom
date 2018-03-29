@@ -80,6 +80,7 @@
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_type">form</field>
         <field name="view_id" ref="partner_stock_offer_kanban"/>
+        <field name="context">{}</field>
     </record>
 
 
