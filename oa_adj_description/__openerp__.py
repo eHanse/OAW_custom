@@ -33,12 +33,16 @@
                 "purchase",
                 "sale_line_quant",
                 "purchase_view_adjust_oaw",
-                'account'],
+                'account',
+                'stock_transfer_lot_filter'
+                ],
 
     # always loaded
     'data': ["views/purchase_views.xml",
              "views/account_invoice_views.xml",
              "views/stock_move_views.xml",
+             "views/stock_quant.xml",
+             "views/stock_transfer_details.xml",
              ],
     'installable': True,    
     # only loaded in demonstration mode
