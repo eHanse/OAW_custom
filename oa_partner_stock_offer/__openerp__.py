@@ -12,7 +12,7 @@
         'product',
         'product_offer',
         'supplier_stock',
-        #'model_security_adjust_oaw',
+        'model_security_adjust_oaw',
     ],
     'description': """
         Creates a kanban view next to product_offer views based on supplier_stock model 'supplier_stock.py'

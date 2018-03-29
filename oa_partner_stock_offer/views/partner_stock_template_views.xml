@@ -50,21 +50,39 @@
         id="menu_partner_stock_offer_kanban_action"
         parent="base.menu_product" sequence="100" />
 
-    <!--&lt;!&ndash;For partner access&ndash;&gt;-->
-      <!--<record id="partner_stock_offer_kanban_action" model="ir.actions.act_window">-->
-        <!--<field name="name">Partner Stock Offer</field>-->
-        <!--<field name="type">ir.actions.act_window</field>-->
-        <!--<field name="res_model">supplier.stock</field>-->
-        <!--<field name="view_mode">kanban</field>-->
-        <!--<field name="view_type">kanban</field>-->
-        <!--<field name="view_id" ref="partner_stock_offer_kanban"/>-->
-        <!--<field name="context">{"search_default_cheapest_part_stock":1}</field>-->
-      <!--</record>-->
+    <!--groups="model_security_adjust_oaw.group_supplier,stock.group_stock_user"/>-->
+    <!--Solely for supplier-->
+    <menuitem
+        id="base.menu_base_products_supplier"
+        name="Your Offer"
+        groups="model_security_adjust_oaw.group_supplier"
+        sequence="15"/>
 
-     <!--<menuitem action="partner_stock_offer_kanban_action"-->
-        <!--id="menu_partner_stock_offer_kanban_action"-->
-        <!--groups="model_security_adjust_oaw.group_supplier,stock.group_stock_user"-->
-        <!--parent="base.menu_product" sequence="100" />-->
+    <menuitem
+        id="base.menu_products_supplier"
+        name="Products"
+        groups="model_security_adjust_oaw.group_supplier"
+        parent="base.menu_base_products_supplier"
+        sequence="15"/>
+
+    <menuitem
+        id="products_supplier"
+        name="Your Watches"
+        groups="model_security_adjust_oaw.group_supplier"
+        parent="base.menu_products_supplier"
+        sequence="15"
+        action="partner_stock_kanban_action"/>
+
+    <record id="partner_stock_kanban_action" model="ir.actions.act_window">
+        <field name="name">Partner Stock</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">supplier.stock</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="partner_stock_offer_kanban"/>
+    </record>
+
+
 
     <!--Search View -->
     <record id="partner_stock_offer_kanban_search" model="ir.ui.view">
