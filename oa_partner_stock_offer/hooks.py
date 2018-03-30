@@ -43,3 +43,23 @@ def _update_partner_offer_fields(cr, registry):
         WHERE supplier_stock.product_id=have_duplicates.product_id AND have_duplicates.COUNT >1
     ''')
 
+    cr.execute('''
+          UPDATE supplier_stock ss
+              SET new_description = subquery.name
+              FROM
+                  (SELECT
+                    pt.name AS name,
+                    ss.product_id AS prod_id
+                   FROM
+                    product_template pt
+                    JOIN product_product pp ON pt.id = pp.product_tmpl_id
+                    JOIN supplier_stock ss ON ss.product_id = pp.id)
+                    AS subquery
+          WHERE ss.product_id = subquery.prod_id
+      ''')
+
+
+
+
+
+
