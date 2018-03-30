@@ -35,6 +35,13 @@ class SupplierStock(models.Model):
         readonly=True,
     )
 
+    new_description = fields.Char(
+        string='Description',
+        related='product_id.product_tmpl_id.name',
+        readonly=True,
+        store=True
+    )
+
 
 
 
