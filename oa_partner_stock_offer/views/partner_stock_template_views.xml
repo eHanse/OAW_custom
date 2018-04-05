@@ -7,6 +7,13 @@
         <field name="model">supplier.stock</field>
         <field name="inherit_id" ref="supplier_stock.view_supplier_stock_tree"/>
         <field name="arch" type="xml">
+             <xpath expr="//field[@name='partner_loc_id']" position="replace">
+
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="before">
+                <field name="partner_loc_id" options="{'no_create_edit':true}" groups="model_security_adjust_oaw.group_supplier"/>
+                <field name="partner_loc_id" options="{'no_create_edit':false}" groups="stock.group_stock_user"/>
+            </xpath>
             <xpath expr="//field[@name='product_id']" position="after">
                 <field name="new_description"/>
             </xpath>
@@ -39,12 +46,24 @@
                                     <li>Retail HKD: <field name="hk_retail"/></li>
                                     <!--<li t-if="record.type.raw_value != 'service'">Quantity: <field name="partner_quantity"/></li>-->
                                     <li>Quantity: <field name="partner_qty"/></li>
+                                    <li>Location: <field name="short_loc"/> </li>
                                 </ul>
                             </div>
                         </div>
                     </t>
                 </templates>
             </kanban>
+        </field>
+    </record>
+
+    <!--Search View for for supplier access views-->
+    <record id="partner_stock_external_kanban_search" model="ir.ui.view">
+        <field name="name">Partner Stock External Search</field>
+        <field name="model">supplier.stock</field>
+        <field name="arch" type="xml">
+            <search>
+
+            </search>
         </field>
     </record>
 
@@ -66,7 +85,7 @@
     <!--Solely for supplier-->
     <menuitem
         id="base.menu_base_products_supplier"
-        name="Your Offer"
+        name="Stock Offer"
         groups="model_security_adjust_oaw.group_supplier"
         sequence="15"/>
 
@@ -79,7 +98,7 @@
 
     <menuitem
         id="products_supplier"
-        name="Your Watches"
+        name="Stock Offer"
         groups="model_security_adjust_oaw.group_supplier"
         parent="base.menu_products_supplier"
         sequence="15"
@@ -93,11 +112,12 @@
         <field name="view_type">form</field>
         <field name="view_id" ref="partner_stock_offer_kanban"/>
         <field name="context">{}</field>
+        <field name="search_view_id" ref="partner_stock_external_kanban_search"/>
     </record>
 
 
 
-    <!--Search View -->
+    <!--Search View for internal views -->
     <record id="partner_stock_offer_kanban_search" model="ir.ui.view">
         <field name="name">Partner Stock Offer Search</field>
         <field name="model">supplier.stock</field>
@@ -109,6 +129,8 @@
            </xpath>
         </field>
     </record>
+
+
 
 
 </data>
