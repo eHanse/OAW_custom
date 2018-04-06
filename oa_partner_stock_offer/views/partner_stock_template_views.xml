@@ -7,12 +7,13 @@
         <field name="model">supplier.stock</field>
         <field name="inherit_id" ref="supplier_stock.view_supplier_stock_tree"/>
         <field name="arch" type="xml">
-             <xpath expr="//field[@name='partner_loc_id']" position="replace">
-
-            </xpath>
-            <xpath expr="//field[@name='product_id']" position="before">
-                <field name="partner_loc_id" options="{'no_create_edit':true}" groups="model_security_adjust_oaw.group_supplier"/>
-                <field name="partner_loc_id" options="{'no_create_edit':false}" groups="stock.group_stock_user"/>
+            <xpath expr="//field[@name='partner_loc_id']" position="replace">
+                <field name="partner_loc_id"
+                       options="{'no_create_edit': False}"
+                       groups="stock.group_stock_user"/>
+                <field name="partner_loc_id_supplier"
+                       options="{'no_quick_create': True, 'no_create_edit': True}"
+                       groups="model_security_adjust_oaw.group_supplier"/>
             </xpath>
             <xpath expr="//field[@name='product_id']" position="after">
                 <field name="new_description"/>
@@ -77,6 +78,30 @@
         <field name="context">{"search_default_cheapest_part_stock":1}</field>
     </record>
 
+    <record id="partner_stock_kanban_action" model="ir.actions.act_window">
+        <field name="name">Partner Stock</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">supplier.stock</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="partner_stock_offer_kanban"/>
+        <field name="context">{'default_partner_id': 1}</field>
+        <field name="search_view_id" ref="partner_stock_external_kanban_search"/>
+    </record>
+
+    <!--Search View for internal views -->
+    <record id="partner_stock_offer_kanban_search" model="ir.ui.view">
+        <field name="name">Partner Stock Offer Search</field>
+        <field name="model">supplier.stock</field>
+        <field name="inherit_id" ref="supplier_stock.supplier_stock_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='filter']" position="inside">
+                    <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
+                    <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True),]"/>
+           </xpath>
+        </field>
+    </record>
+
     <menuitem action="partner_stock_offer_kanban_action"
         id="menu_partner_stock_offer_kanban_action"
         parent="base.menu_product" sequence="100" />
@@ -103,35 +128,6 @@
         parent="base.menu_products_supplier"
         sequence="15"
         action="partner_stock_kanban_action"/>
-
-    <record id="partner_stock_kanban_action" model="ir.actions.act_window">
-        <field name="name">Partner Stock</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">supplier.stock</field>
-        <field name="view_mode">kanban,tree,form</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="partner_stock_offer_kanban"/>
-        <field name="context">{}</field>
-        <field name="search_view_id" ref="partner_stock_external_kanban_search"/>
-    </record>
-
-
-
-    <!--Search View for internal views -->
-    <record id="partner_stock_offer_kanban_search" model="ir.ui.view">
-        <field name="name">Partner Stock Offer Search</field>
-        <field name="model">supplier.stock</field>
-        <field name="inherit_id" ref="supplier_stock.supplier_stock_search"/>
-        <field name="arch" type="xml">
-            <xpath expr="//group[@name='filter']" position="inside">
-                    <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
-                    <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True),]"/>
-           </xpath>
-        </field>
-    </record>
-
-
-
 
 </data>
 </openerp>

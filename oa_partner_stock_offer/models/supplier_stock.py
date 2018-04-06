@@ -47,6 +47,11 @@ class SupplierStock(models.Model):
         related='partner_loc_id.short_loc',
         readonly=True,
     )
+    partner_loc_id_supplier = fields.Many2one(
+        comodel_name='supplier.location',
+        string='Partner Location',
+        required=True,
+    )
 
 
     @api.multi
@@ -92,3 +97,8 @@ class SupplierStock(models.Model):
         res =super(SupplierStock,self).create(vals)
         res._get_quantity()
         return res
+
+    @api.onchange('partner_loc_id_supplier')
+    def _onchange_partner_loc_id_supplier(self):
+        if self.partner_loc_id_supplier:
+            self.partner_loc_id = self.partner_loc_id_supplier
