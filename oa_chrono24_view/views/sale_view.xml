@@ -1,0 +1,80 @@
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        &lt;!&ndash;Customizing fields to be displayed in order line list&ndash;&gt;
+         <record id="sale_order_line_tree_z2" model="ir.ui.view">
+            <field name="name">sale.order.line.tree.z2</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='product_uom']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                 </xpath>
+                  <xpath expr="//field[@name='salesman_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                 </xpath>
+                 <xpath expr="//field[@name='name']" position="replace">
+                 </xpath>
+                <xpath expr="//field[@name='order_partner_id']" position="replace">
+                 </xpath>
+                <xpath expr="//field[@name='price_subtotal']" position="replace">
+                 </xpath>
+                 <xpath expr="//field[@name='product_id']" position="after">
+                     <field name="order_partner_id"/>
+                  </xpath>
+                 <xpath expr="//field[@name='order_partner_id']" position="after">
+                     <field name="price_subtotal"/>
+                     <field name="name"/>
+                  </xpath>
+                  <xpath expr="//field[@name='state']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                 <xpath expr="//field[@name='invoiced']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+
+            </field>
+         </record>
+
+        &lt;!&ndash;Removes route field of view that inherits from order line tree view&ndash;&gt;
+         <record id="sale_order_line_tree_z3" model="ir.ui.view">
+            <field name="name">sale.order.line.tree.z3</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale_stock.view_order_line_tree_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='route_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+         </record>
+
+            &lt;!&ndash;Whats that for &ndash;&gt;
+         <record id="products_sales_tree_view_search" model="ir.ui.view">
+            <field name="name">products.sales.tree.view</field>
+            <field name="model">product.template</field>
+            <field name="priority" eval="30"/>
+            <field name="arch" type="xml">
+                <search string="Products Sales"  default_order="id desc">
+                    <field name="id" readonly="1" invisible="1"/>
+                </search>
+            </field>
+         </record>
+
+        <record id="view_sales_order_line_filter_z2" model="ir.ui.view">
+            <field name="name">Adds Group By customer</field>
+            <field name="model">sale.order.line</field>
+            <field name="priority" eval="30"/>
+             <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@string='Status']" position="after">
+                    <filter string="Customer" ion="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'order_partner_id'}"/>
+                </xpath>
+            </field>
+         </record>
+
+       
+
+    </data>
+</openerp>
+-->
