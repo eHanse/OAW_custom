@@ -16,18 +16,15 @@ class SupplierLocation(models.Model):
 
     @api.model
     def create(self, vals):
-        res = super(SupplierLocation, self).create(vals)
         to_shorten = vals['name']
         splits = to_shorten.split(" ")
-        self.short_loc = splits[1]
-        return res
+        vals['short_loc'] = splits[1] if len(splits) > 1 else vals['name']
+        return super(SupplierLocation, self).create(vals)
 
     @api.multi
     def write(self,vals):
         if 'name' in vals:
             to_shorten = vals['name']
             splits = to_shorten.split(" ")
-            vals['short_loc'] = splits[1]
+            vals['short_loc'] = splits[1] if len(splits) > 1 else vals['name']
         return super(SupplierLocation,self).write(vals)
-
-
