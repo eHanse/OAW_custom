@@ -6,13 +6,15 @@ openerp.base_import_security_group = function (instance) {
         load_list: function () {
             var self = this;
             this._super.apply(self, arguments);
-            new openerp.web.Model('res.users').call('has_group', ['base_import_security_group.group_import_csv'])
-                .then(function (import_enabled) {
+            new openerp.web.Model('res.users').call('has_group', ['base_import_security_group.group_import_csv']).then(
+                function (import_enabled) {
                     self.options.import_enabled = import_enabled;
                     if (import_enabled) {
-                        self.$buttons.find('span.oe_alternative').show();
+                        self.$buttons.find('a.oe_list_button_import').show();
+                        self.$buttons.find('span.oe_fade').show();
                     }
-                });
+                }
+            );
         }
     });
 };

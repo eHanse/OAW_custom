@@ -34,20 +34,17 @@ class SupplierStock(models.Model):
         related='product_id.product_tmpl_id.image_medium',
         readonly=True,
     )
-
     new_description = fields.Char(
         string='Reference',
         related='product_id.product_tmpl_id.name',
         readonly=True,
         store=True
     )
-
     short_loc = fields.Char(
         string='Location',
         related='partner_loc_id.short_loc',
         readonly=True,
     )
-
 
     @api.multi
     def _get_quantity(self):
