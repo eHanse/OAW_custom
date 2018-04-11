@@ -3,10 +3,10 @@
     'name': "oa_chrono24_view",
 
     'summary': """
-      Creates a distinct view for chono24. """,
+      Creates a distinct view for chono24 matters. """,
       
     'description': """
-        View accessible through Sales/ and will replace ListPriceUPdate view
+        View accessible through Sales/ and will replace ListPriceUpdate view
         for standard Sales user. Bases on Listprice Update.
     """,
 
@@ -32,10 +32,8 @@
     # always loaded
     'data': [
         'views/chrono24_views.xml',
-        #'views/sale_view.xml',
     ],
     # only loaded in demonstration mode
-    #'post_init_hook': '_update_prod_tmpl_fields',
     'installable': True,
     'demo': [],
 }
