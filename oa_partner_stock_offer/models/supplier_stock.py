@@ -6,7 +6,11 @@ from openerp import models, api, fields
 
 
 class SupplierStock(models.Model):
+    # _inherit = ["supplier.stock","mail.thread"]
     _inherit = "supplier.stock"
+
+    # Using "display_name" field computed by name_get() method to create the form view's representation
+    _rec_name = 'display_name'
 
     # Field to access through related field: Supplier.Stock > Product.Product > Product.Template
     hk_retail = fields.Float(
@@ -42,7 +46,14 @@ class SupplierStock(models.Model):
         store=True
     )
 
-
+    # Overwriting display_name's method
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append(
+                (rec.id, rec.product_id.name)
+            )
+        return result
 
 
     @api.multi
