@@ -6,7 +6,11 @@ from openerp import models, api, fields
 
 
 class SupplierStock(models.Model):
+    # _inherit = ["supplier.stock","mail.thread"]
     _inherit = "supplier.stock"
+
+    # Using "display_name" field computed by name_get() method to create the form view's representation
+    _rec_name = 'display_name'
 
     # Field to access through related field: Supplier.Stock > Product.Product > Product.Template
     hk_retail = fields.Float(
@@ -29,6 +33,11 @@ class SupplierStock(models.Model):
         string='Has Duplicates',
         store=True,
     )
+    # Flags those ps that have multiple entries with same product_id
+    owners_duplicates = fields.Boolean(
+        string='Your duplicates',
+        store=True,
+    )
     image_medium = fields.Binary(
         'Image',
         related='product_id.product_tmpl_id.image_medium',
@@ -40,11 +49,24 @@ class SupplierStock(models.Model):
         readonly=True,
         store=True
     )
+<<<<<<< HEAD
+
+    # Overwriting display_name's method
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append(
+                (rec.id, rec.product_id.name)
+            )
+        return result
+
+=======
     short_loc = fields.Char(
         string='Location',
         related='partner_loc_id.short_loc',
         readonly=True,
     )
+>>>>>>> master
 
     @api.multi
     def _get_quantity(self):
@@ -75,6 +97,24 @@ class SupplierStock(models.Model):
                 ps_products[0].sudo().write({
                     'lowest_cost': True
                 })
+            # Duplidates of the supplier accessing his entries
+            owners_duplicates = self.sudo().search(
+                [('product_id', '=', ps.product_id.id),
+                 ('partner_id', '=', ps.partner_id.id),
+                 ], order='price_unit_base ASC'
+            )
+            if owners_duplicates:
+                for psc in owners_duplicates:
+                    if len(ps_products) >=2:
+                        psc.sudo().write({
+                            'lowest_cost': False,
+                            'owners_duplicates': True
+                        })
+                    else:
+                        psc.sudo().write({
+                            'lowest_cost': False,
+                            'owners_duplicates': False,
+                        })
 
     @api.multi
     def write(self, vals):
