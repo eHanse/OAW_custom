@@ -163,7 +163,7 @@
     <!--Supplier Access: Menu Items-->
     <menuitem
         id="base.menu_base_products_supplier"
-        name="Your Offer"
+        name="Stock Offer"
         groups="model_security_adjust_oaw.group_supplier"
         sequence="15"/>
 
@@ -176,7 +176,7 @@
 
     <menuitem
         id="products_supplier"
-        name="Your Watches"
+        name="Stock Offer"
         groups="model_security_adjust_oaw.group_supplier"
         parent="base.menu_products_supplier"
         sequence="15"

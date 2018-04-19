@@ -8,3 +8,4 @@
 from . import supplier_stock
 # from . import sale_order
 # from . import sale_order_line
+from . import supplier_location_ext

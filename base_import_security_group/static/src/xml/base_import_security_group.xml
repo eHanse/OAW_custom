@@ -1,0 +1,11 @@
+<templates>
+    <!-- Hide import button, and only show after validation of privileges -->
+    <t t-extend="ListView.buttons">
+        <t t-jquery="a[class*='oe_list_button_import']">
+            this.attr('style', 'display: none;');
+        </t>
+        <t t-jquery="span.oe_fade">
+            this.attr('style', 'display: none;');
+        </t>
+    </t>
+</templates>
