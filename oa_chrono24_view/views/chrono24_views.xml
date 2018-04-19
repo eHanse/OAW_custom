@@ -6,6 +6,7 @@
         <record id="chrono24_view_search" model="ir.ui.view">
             <field name="name">Partner Stock External Search</field>
             <field name="model">product.template</field>
+            <field name="priority" eval="23"/>
             <field name="arch" type="xml">
                 <search>
                     <filter name="updated_chrono24" string="Chrono24 updated" domain="[('chrono24_updated','=',True)]"/>
