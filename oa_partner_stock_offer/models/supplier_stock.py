@@ -33,6 +33,11 @@ class SupplierStock(models.Model):
         string='Has Duplicates',
         store=True,
     )
+    # Flags those ps that have multiple entries with same product_id
+    owners_duplicates = fields.Boolean(
+        string='Your duplicates',
+        store=True,
+    )
     image_medium = fields.Binary(
         'Image',
         related='product_id.product_tmpl_id.image_medium',
@@ -85,6 +90,24 @@ class SupplierStock(models.Model):
                 ps_products[0].sudo().write({
                     'lowest_cost': True
                 })
+            # Duplidates of the supplier accessing his entries
+            owners_duplicates = self.sudo().search(
+                [('product_id', '=', ps.product_id.id),
+                 ('partner_id', '=', ps.partner_id.id),
+                 ], order='price_unit_base ASC'
+            )
+            if owners_duplicates:
+                for psc in owners_duplicates:
+                    if len(ps_products) >=2:
+                        psc.sudo().write({
+                            'lowest_cost': False,
+                            'owners_duplicates': True
+                        })
+                    else:
+                        psc.sudo().write({
+                            'lowest_cost': False,
+                            'owners_duplicates': False,
+                        })
 
     @api.multi
     def write(self, vals):

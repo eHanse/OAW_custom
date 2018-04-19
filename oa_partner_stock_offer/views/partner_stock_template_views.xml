@@ -106,13 +106,15 @@
         <field name="model">supplier.stock</field>
         <field name="arch" type="xml">
             <search>
-                <field
+                <field name="product_name" string="Internal Code"/>
                 <!--originally "new entry" filter of supplier stock but renamed for partner-->
                 <filter name="new_entry" string="Last Stock Entry" domain="[('create_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>
                 <!-- For filter New Stock Entry 24-->
                 <filter name="updated_one_day" string="Updated in 24" domain="[('updated_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>
                 <!--Show partner entries with missing foto-->
                 <filter name="no_photo" string="No Photo" domain="[('image_small','=', False)]"/>
+                <!--Shows the owners duplicates-->
+                <filter name="owners_duplicates" string="Your duplicates" domain="[('owners_duplicates','=', True)]"/>
             </search>
         </field>
     </record>
