@@ -49,7 +49,6 @@ class SupplierStock(models.Model):
         readonly=True,
         store=True
     )
-<<<<<<< HEAD
 
     # Overwriting display_name's method
     def name_get(self):
@@ -60,13 +59,7 @@ class SupplierStock(models.Model):
             )
         return result
 
-=======
-    short_loc = fields.Char(
-        string='Location',
-        related='partner_loc_id.short_loc',
-        readonly=True,
-    )
->>>>>>> master
+
 
     @api.multi
     def _get_quantity(self):
