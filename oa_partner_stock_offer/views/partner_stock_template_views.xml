@@ -115,6 +115,8 @@
                 <filter name="no_photo" string="No Photo" domain="[('image_small','=', False)]"/>
                 <!--Shows the owners duplicates-->
                 <filter name="owners_duplicates" string="Your duplicates" domain="[('owners_duplicates','=', True)]"/>
+                <!--Shows products by brand-->
+                <filter name="available_prod_by_brand" string="Available Products By Brand" domain="[('quantity','&gt;', 0)]" context="{'group_by':'prod_cat'}"/>
             </search>
         </field>
     </record>

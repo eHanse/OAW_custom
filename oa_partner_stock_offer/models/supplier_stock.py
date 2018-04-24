@@ -6,7 +6,6 @@ from openerp import models, api, fields
 
 
 class SupplierStock(models.Model):
-    # _inherit = ["supplier.stock","mail.thread"]
     _inherit = "supplier.stock"
 
     # Using "display_name" field computed by name_get() method to create the form view's representation
@@ -43,6 +42,15 @@ class SupplierStock(models.Model):
         related='product_id.product_tmpl_id.image_medium',
         readonly=True,
     )
+    # For Filter by brand
+    prod_cat = fields.Char(
+        'Category',
+        related='product_id.categ_id.name',
+        readonly=True,
+        store=True,
+    )
+
+
     new_description = fields.Char(
         string='Reference',
         related='product_id.product_tmpl_id.name',
@@ -51,7 +59,8 @@ class SupplierStock(models.Model):
     )
 
     # Overwriting display_name's method
-    def name_get(self):
+    @api.multi
+    def name_get(self, *args, **kwargs):
         result = []
         for rec in self:
             result.append(
