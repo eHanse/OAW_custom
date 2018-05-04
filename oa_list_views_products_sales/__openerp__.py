@@ -27,6 +27,7 @@
                 "sale",
                 "sale_stock",
                 "product_offer",
+                "model_security_adjust_oaw"
     ],
 
     # always loaded

@@ -32,41 +32,26 @@ class SupplierStock(models.Model):
         string='Has Duplicates',
         store=True,
     )
-    # Flags those ps that have multiple entries with same product_id
-    owners_duplicates = fields.Boolean(
-        string='Your duplicates',
-        store=True,
-    )
+    #For form view
     image_medium = fields.Binary(
         'Image',
         related='product_id.product_tmpl_id.image_medium',
         readonly=True,
     )
-    # For Filter by brand
-    prod_cat = fields.Char(
-        'Category',
-        related='product_id.categ_id.name',
-        readonly=True,
-        store=True,
-    )
+    short_loc_name = fields.Char(
+        "Location",
+        related='partner_loc_id.short_loc')
 
 
-    new_description = fields.Char(
-        string='Reference',
-        related='product_id.product_tmpl_id.name',
-        readonly=True,
-        store=True
-    )
-
-    # Overwriting display_name's method
-    @api.multi
-    def name_get(self, *args, **kwargs):
-        result = []
-        for rec in self:
-            result.append(
-                (rec.id, rec.product_id.name)
-            )
-        return result
+    # # Overwriting display_name's method for Supplier Access User
+    # @api.multi
+    # def name_get(self, *args, **kwargs):
+    #     result = []
+    #     for rec in self:
+    #         result.append(
+    #             (rec.id, rec.product_id.name)
+    #         )
+    #     return result
 
 
 
@@ -99,25 +84,6 @@ class SupplierStock(models.Model):
                 ps_products[0].sudo().write({
                     'lowest_cost': True
                 })
-            # Duplidates of the supplier accessing his entries
-            owners_duplicates = self.sudo().search(
-                [('product_id', '=', ps.product_id.id),
-                 ('partner_id', '=', ps.partner_id.id),
-                 ], order='price_unit_base ASC'
-            )
-            if owners_duplicates:
-                for psc in owners_duplicates:
-                    if len(ps_products) >=2:
-                        psc.sudo().write({
-                            'lowest_cost': False,
-                            'owners_duplicates': True
-                        })
-                    else:
-                        psc.sudo().write({
-                            'lowest_cost': False,
-                            'owners_duplicates': False,
-                        })
-
     @api.multi
     def write(self, vals):
         res = super(SupplierStock, self).write(vals)
