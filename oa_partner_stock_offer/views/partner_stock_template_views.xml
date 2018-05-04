@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
-    <!--Tree View: Internal and Supplier Access-->
-    <record id="view_supplier_stock_tree_desc_adj" model="ir.ui.view">
-        <field name="name">sview.supplier.tock.tree.desc.adj</field>
-        <field name="model">supplier.stock</field>
-        <field name="inherit_id" ref="supplier_stock.view_supplier_stock_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='product_id']" position="after">
-                <field name="new_description"/>
-            </xpath>
-        </field>
-    </record>
-
-    <!-- Kanban: Internal and Supplier Access-->
-    <!-- Partner Stock Offer: derived from Product Offer (EN)  availability-->
+    <!-- KANBAN, FORM-->
     <record id="partner_stock_offer_kanban" model="ir.ui.view">
-        <field name="name">Supplier.stock.partner.stock.offer</field>
+        <field name="name">partner.stock.offer.kanban</field>
         <field name="model">supplier.stock</field>
         <field name="arch" type="xml">
             <kanban default_order="product_id">
-                <!--<field name="type"/>-->
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_vignette oe_semantic_html_override">
@@ -28,9 +14,6 @@
                             <div class="oe_kanban_details">
                                 <h4>
                                     <a type="open">
-                                         <!--<span t-if="record.default_code.value">-->
-                                             <!--[<field name="default_code"/>]-->
-                                          <!--</span>-->
                                          <field name="product_id"/>
                                     </a>
                                 </h4>
@@ -38,8 +21,8 @@
                                 <ul>
                                     <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                     <li>Retail HKD: <field name="hk_retail"/></li>
-                                    <!--<li t-if="record.type.raw_value != 'service'">Quantity: <field name="partner_quantity"/></li>-->
                                     <li>Quantity: <field name="partner_qty"/></li>
+                                    <li>Location: <field name="short_loc_name"/></li>
                                 </ul>
                             </div>
                         </div>
@@ -49,9 +32,8 @@
         </field>
     </record>
 
-    <!--Supplier Access: Form View-->
-     <record id="partner_stock_offer_form" model="ir.ui.view">
-        <field name="name">Supplier.stock.partner.stock.offer form view</field>
+      <record id="partner_stock_offer_form" model="ir.ui.view">
+        <field name="name">Sview.supplier.access.form</field>
         <field name="model">supplier.stock</field>
         <field name="arch" type="xml">
            <form>
@@ -60,9 +42,9 @@
                    <group string="Product Information">
                    <group>
                        <field name="partner_id" options="{'no_open':True}"/>
-                       <field name="partner_loc_id_supplier" options="{'no_open':True}"/>
-                       <!--<field name="brand"/>-->
+                       <field name="partner_loc_id"/>
                        <field name="new_description"/>
+                       <field name="prod_cat_selection" options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"/>
                        <field name="product_id" options="{'no_open':True}"/>
                        <field name="quantity"/>
                        <field name="currency_id" options="{'no_open':True}"/>
@@ -79,14 +61,13 @@
                    </group>
                    </group>
                </sheet>
-               <!--<div class="oa_chatter">-->
-                   <!--<field name="message_follower_ids" widget="mail_followers" groups="model_security_adjust_oaw.group_supplier"/>-->
-                   <!--<field name="message_ids" widget="mail_thread"/>-->
-               <!--</div>-->
+               <div class="oa_chatter">
+                   <field name="message_follower_ids" widget="mail_followers" groups="model_security_adjust_oaw.group_supplier"/>
+                   <field name="message_ids" widget="mail_thread"/>
+               </div>
            </form>
         </field>
     </record>
-
      <!--Internal: Search View -->
     <record id="partner_stock_offer_kanban_search" model="ir.ui.view">
         <field name="name">Partner Stock Offer Search</field>
@@ -95,93 +76,53 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='filter']" position="inside">
                     <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
-                    <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True),]"/>
+                    <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True)]"/>
            </xpath>
         </field>
     </record>
-
-    <!--Supplier Access: Search View-->
-    <record id="partner_stock_external_kanban_search" model="ir.ui.view">
-        <field name="name">Partner Stock External Search</field>
-        <field name="model">supplier.stock</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="product_name" string="Internal Code"/>
-                <!--originally "new entry" filter of supplier stock but renamed for partner-->
-                <filter name="new_entry" string="Last Stock Entry" domain="[('create_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>
-                <!-- For filter New Stock Entry 24-->
-                <filter name="updated_one_day" string="Updated in 24" domain="[('updated_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>
-                <!--Show partner entries with missing foto-->
-                <filter name="no_photo" string="No Photo" domain="[('image_small','=', False)]"/>
-                <!--Shows the owners duplicates-->
-                <filter name="owners_duplicates" string="Your duplicates" domain="[('owners_duplicates','=', True)]"/>
-                <!--Shows products by brand-->
-                <filter name="available_prod_by_brand" string="Available Products By Brand" domain="[('quantity','&gt;', 0)]" context="{'group_by':'prod_cat'}"/>
-            </search>
-        </field>
-    </record>
-
-    <!--ACTIONS AND MENUITEMS-->
-
-    <!--Internal: act_window -->
-   <record id="partner_stock_offer_kanban_action" model="ir.actions.act_window">
-        <field name="name">Partner Stock Offer</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">supplier.stock</field>
-        <field name="view_mode">kanban,tree,form</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="partner_stock_offer_kanban"/>
-        <field name="context">{"search_default_cheapest_part_stock":1}</field>
-    </record>
-    <!--Supplier Access: act_window-->
-    <record id="partner_stock_supplier_access_action" model="ir.actions.act_window">
+    <!--act_window, overriding the one in supplier.stock -->
+   <record id="supplier_stock.action_supplier_stock" model="ir.actions.act_window">
         <field name="name">Partner Stock</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">supplier.stock</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,form,tree</field>
         <field name="view_type">form</field>
-        <field name="context">{}</field>
+        <field name="view_id" ref="partner_stock_offer_kanban"/>
+        <field name="search_view_id" ref="supplier_stock.supplier_stock_search"/>
     </record>
-    <!--Supplier Access: View actions  for each view mode but tree mode; referencing act_window action-->
-    <record id="partner_stock_offer_kanban_action_kanban" model="ir.actions.act_window.view">
+
+    <!-- act_window.view -->
+    <record id="supplier_stock.action_supplier_stock_tree" model="ir.actions.act_window.view">
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="supplier_stock.view_supplier_stock_tree"/>
+        <field name="act_window_id" ref="supplier_stock.action_supplier_stock"/>
+    </record>
+    <record id="supplier_stock.action_supplier_stock_kanban" model="ir.actions.act_window.view">
         <field name="view_mode">kanban</field>
         <field name="view_id" ref="partner_stock_offer_kanban"/>
-        <field name="act_window_id" ref="partner_stock_offer_kanban_action"/>
-        <!--<field name="search_view_id" ref="partner_stock_external_kanban_search"/>-->
+        <field name="act_window_id" ref="supplier_stock.action_supplier_stock"/>
+        <field name="context">{"search_default_cheapest_part_stock":1}</field>
     </record>
-
-    <record id="partner_stock_offer_kanban_action_form" model="ir.actions.act_window.view">
+    <record id="supplier_stock.action_supplier_stock_form" model="ir.actions.act_window.view">
         <field name="view_mode">form</field>
         <field name="view_id" ref="partner_stock_offer_form"/>
-        <field name="act_window_id" ref="partner_stock_offer_kanban_action"/>
-        <!--<field name="search_view_id" ref="partner_stock_external_kanban_search"/>-->
+        <field name="act_window_id" ref="supplier_stock.action_supplier_stock"/>
     </record>
 
-    <!--Menuitem structure-->
-    <menuitem action="partner_stock_offer_kanban_action"
-        id="menu_partner_stock_offer_kanban_action"
-        parent="base.menu_product" sequence="100" />
+    <!--INSERTIONS INTO SUPPLIER ACCESS-->
+      <record id="view_supplier_access_kanban_adj1" model="ir.ui.view">
+        <field name="name">view.supplier.access.kanban.adj1</field>
+        <field name="model">supplier.stock</field>
+        <field name="inherit_id" ref="model_security_adjust_oaw.view_supplier_access_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="partner_qty"/>
+                <li>Retail HKD: <field name="hk_retail"/></li>
+                <li>Quantity: <field name="partner_qty"/></li>
+            </xpath>
+            </field>
+      </record>
 
-    <!--Supplier Access: Menu Items-->
-    <menuitem
-        id="base.menu_base_products_supplier"
-        name="Stock Offer"
-        groups="model_security_adjust_oaw.group_supplier"
-        sequence="15"/>
-
-    <menuitem
-        id="base.menu_products_supplier"
-        name="Products"
-        groups="model_security_adjust_oaw.group_supplier"
-        parent="base.menu_base_products_supplier"
-        sequence="15"/>
-
-    <menuitem
-        id="products_supplier"
-        name="Stock Offer"
-        groups="model_security_adjust_oaw.group_supplier"
-        parent="base.menu_products_supplier"
-        sequence="15"
-        action="partner_stock_supplier_access_action"/>
 </data>
 </openerp>
+

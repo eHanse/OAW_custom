@@ -11,7 +11,6 @@
         in RFQ \n
         in 'Supplier Invoice', \n
         in 'Stock Moves' behind Product name field, \n
-        in 'Partner Stock Offer' behind Product name field, \n
         in 'Invoice Lines' behind Product name field, \n
         in 'Quants' behind Product name field, \n
         in 'Receipts' and 'Internal Transfer' form views, behind Product name \n
