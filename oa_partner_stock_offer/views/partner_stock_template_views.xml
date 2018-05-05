@@ -33,7 +33,7 @@
     </record>
 
       <record id="partner_stock_offer_form" model="ir.ui.view">
-        <field name="name">Sview.supplier.access.form</field>
+        <field name="name">view.supplier.access.form</field>
         <field name="model">supplier.stock</field>
         <field name="arch" type="xml">
            <form>
@@ -61,8 +61,9 @@
                    </group>
                    </group>
                </sheet>
-               <div class="oa_chatter">
-                   <field name="message_follower_ids" widget="mail_followers" groups="model_security_adjust_oaw.group_supplier"/>
+               <div class="oe_chatter">
+                   <!--<field name="message_follower_ids" widget="mail_followers" groups="model_security_adjust_oaw.group_supplier"/>-->
+                   <field name="message_follower_ids" widget="mail_followers"/>
                    <field name="message_ids" widget="mail_thread"/>
                </div>
            </form>
@@ -85,7 +86,7 @@
         <field name="name">Partner Stock</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">supplier.stock</field>
-        <field name="view_mode">kanban,form,tree</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="view_type">form</field>
         <field name="view_id" ref="partner_stock_offer_kanban"/>
         <field name="search_view_id" ref="supplier_stock.supplier_stock_search"/>
