@@ -28,6 +28,7 @@
     'depends': ['product',
                 'product_offer',
                 'oa_partner_stock_offer',
+                'model_security_adjust_oaw'
                 ],
     'description': """Changes resolution of kanban ALL images.""",
     'data': ['views/product_view.xml'],    
