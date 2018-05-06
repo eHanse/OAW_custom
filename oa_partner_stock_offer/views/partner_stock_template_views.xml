@@ -116,8 +116,7 @@
         <field name="model">supplier.stock</field>
         <field name="inherit_id" ref="model_security_adjust_oaw.view_supplier_access_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='currency_id']" position="after">
-                <field name="partner_qty"/>
+            <xpath expr="//field[@name='retail_in_currency']" position="after">
                 <li>Retail HKD: <field name="hk_retail"/></li>
                 <li>Quantity: <field name="partner_qty"/></li>
             </xpath>
