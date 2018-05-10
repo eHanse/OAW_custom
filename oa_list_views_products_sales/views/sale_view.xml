@@ -24,6 +24,7 @@
                   </xpath>
                  <xpath expr="//field[@name='order_partner_id']" position="after">
                      <field name="price_subtotal"/>
+                     <field name="subtotal_hkd"/>
                      <field name="name"/>
                   </xpath>
                   <xpath expr="//field[@name='state']" position="attributes">
