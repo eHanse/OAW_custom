@@ -34,6 +34,7 @@
     'data': [
         'views/products_sales_view.xml',
         'views/sale_view.xml',
+        "wizards/products_sales_wizard.xml",
     ],
     # only loaded in demonstration mode
     'post_init_hook': '_update_prod_tmpl_fields',
