@@ -30,3 +30,5 @@ def _update_prod_tmpl_fields(cr, registry):
 
     cr.execute(sql)
 
+
+
