@@ -16,6 +16,26 @@
             </field>
     </record>
 
+    <record id="product_product_tree_view_z3" model="ir.ui.view">
+            <field name="name">product.product.tree.view.z3</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='update']" position="after">
+                   <group expand="0" name='update_supplier_stock' string="Update Partner Stock">
+                        <filter name="qty_up" string="Qty Up" domain="[('last_in_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>
+                        <filter name="qty_down" string="Qty Down" domain="[('last_in_date','&gt;=',(context_today()+datetime.timedelta(weeks=-2)).strftime('%Y-%m-%d'))]"/>
+                        <filter name="cost_price_up" string="Cost Price Up" domain="[('last_in_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>
+                        <filter name="cost_price_down" string="Cost Price Down" domain="[('last_in_date','&gt;=',(context_today()+datetime.timedelta(weeks=-2)).strftime('%Y-%m-%d'))]"/>
+                        <filter name="received_today" string="Received today" domain="[('last_in_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>
+                     </group>
+                </xpath>
+            </field>
+    </record>
+
+      <!--FILTER-->
+
+
     <record id="update_chrono24_by_note_action" model="ir.actions.server">
         <field name="name">Update Chrono24 Note</field>
         <field name="model_id" ref="product.model_product_product"/>
