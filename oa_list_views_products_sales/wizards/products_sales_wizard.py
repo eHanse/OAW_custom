@@ -14,7 +14,5 @@ class ProductsSalesInit(models.TransientModel):
         self.ensure_one()
         if self.env.context.get('active_ids', False):
             pts = self.env.context.get('active_ids')
-        else:
-            pts = []
-        self.env['product.template']._initialize_values(pts)
+            self.env['product.template']._initialize_values(pts)
         return {'type': 'ir.actions.act_window_close'}
