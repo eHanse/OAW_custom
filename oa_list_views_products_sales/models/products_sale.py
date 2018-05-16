@@ -42,9 +42,11 @@ class ProductsSale (models.Model):
             ]
             sols = SOL.search(domain)
             sols_len = len(sols)
+            template = self.env['product.template'].browse(pt)
             if sols_len != 0:
                 #Updating pt's sol count
-                pt.counts = sols_len
+                template.total = 0.0
+                template.counts = sols_len
                 for sol in sols:
                     date = sol.order_id.date_order
                     rate = 1.0
@@ -55,10 +57,10 @@ class ProductsSale (models.Model):
                         ], order='name desc', limit=1).rate or 1.0
                     sol.subtotal_hkd = sol.price_subtotal / rate
                     #Updating pt's total
-                    pt.total =+ sol.subtotal_hkd
+                    template.total =+ sol.subtotal_hkd
 
                 #Updating pt's average
-                pt.average = pt.total/pt.counts
+                template.average = template.total/template.counts
         return
 
 
