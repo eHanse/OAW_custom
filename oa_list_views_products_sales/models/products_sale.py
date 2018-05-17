@@ -17,15 +17,50 @@ class ProductsSale (models.Model):
     average = fields.Float(
         string="Average Price",
         digits=dp.get_precision('Product Price'),
-        readonly=True
+        readonly=True,
+        compute='_calc_average'
     )
 
+    counts = fields.Integer(
+        "amount of sol",
+        readonlu=True
+    )
+    @api.multi
+    def _calc_average(self):
+        for pt in self:
+            if pt.counts != 0:
+                pt.average = pt.total/pt.counts
 
+    @api.multi
+    def _initialize_values(self, pts):
+        SOL = self.env['sale.order.line']
+        Rate = self.env['res.currency.rate']
+        for pt in pts:
+            domain = [
+                ('product_tmpl_id', '=', pt),
+                ('state', '=', 'done'),
+            ]
+            sols = SOL.search(domain)
+            sols_len = len(sols)
+            template = self.env['product.template'].browse(pt)
+            if sols_len != 0:
+                #Updating pt's sol count
+                template.total = 0.0
+                template.counts = sols_len
+                for sol in sols:
+                    date = sol.order_id.date_order
+                    rate = 1.0
+                    if date and sol.order_id.currency_id != self.env.user.company_id.currency_id:
+                        rate = Rate.search([
+                            ('currency_id', '=', sol.order_id.currency_id.id),
+                            ('name', '<=', date),
+                        ], order='name desc', limit=1).rate or 1.0
+                    sol.subtotal_hkd = sol.price_subtotal / rate
+                    #Updating pt's total
+                    template.total =+ sol.subtotal_hkd
 
-
-
-
-
-
+                #Updating pt's average
+                template.average = template.total/template.counts
+        return
 
 
