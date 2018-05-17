@@ -10,7 +10,7 @@
                 <tree string="Products Sales"  default_order="id desc">
                     <field name="id" readonly="1" invisible="1"/>
                     <field name="image_small" string="Image" widget="image" height="64px"/>
-                    <button name="action_view_sales" type="object" icon="terp-gtk-jump-to-ltr" string="Open Sales"/>
+                    <button name="action_view_sales_ext" type="object" icon="terp-gtk-jump-to-ltr" string="Open Sales"/>
                     <field name="default_code" string="Code"/>
                     <field name="name" string="Product Ref"/>
                     <field name="qty_local_stock" widget="integer" string="HK Stock"/>

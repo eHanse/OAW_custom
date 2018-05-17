@@ -16,3 +16,5 @@ class ProductsSalesInit(models.TransientModel):
             pts = self.env.context.get('active_ids')
             self.env['product.template']._initialize_values(pts)
         return {'type': 'ir.actions.act_window_close'}
+
+
