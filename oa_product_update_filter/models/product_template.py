@@ -71,6 +71,50 @@ class ProductTemplate(models.Model):
         store=True,
     )
 
+    # For Partner Stock filter
+    qty_up = fields.Boolean(
+        string='Quantity increased',
+        readonly=True,
+        store=True
+
+    )
+    qty_down = fields.Boolean(
+        string='Quantity decreased',
+        readonly=True,
+        store=True
+    )
+    costprice_up = fields.Boolean(
+        string='Costprice increased',
+        readonly=True,
+        store=True
+
+    )
+    costprice_down = fields.Boolean(
+        string='Costprice decreased',
+        readonly=True,
+        store=True
+    )
+    note_updated = fields.Boolean(
+        string='Partner Note updated',
+        store=True
+
+    )
+    partner_stock_updated = fields.Boolean(
+        string='Partner Stock To Check',
+        default=False,
+        store=True
+    )
+
+    @api.onchange('partner_stock_updated')
+    def _onchange_partner_stock_updated(self):
+        if not self.partner_stock_updated:
+            self.qty_down = False
+            self.qty_up = False
+            self.costprice_up = False
+            self.costprice_down = False
+            self.note_updated = False
+            self.partner_stock_updated = False
+
     # For Filter Sale HKD up down
     @api.multi
     def write(self, vals):

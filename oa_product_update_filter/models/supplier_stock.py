@@ -40,8 +40,33 @@ class SupplierStock(models.Model):
         res = super(SupplierStock, self).write(vals)
         return res
 
+    def check_changes(self, vals):
+        pt = self.product_id.product_tmpl_id
+        if 'quantity' in vals:
+            curr_quantity = self.quantity
+            if curr_quantity < vals['quantity']:
+                pt.sudo().write({'qty_up': True, 'partner_stock_updated': True})
+            elif curr_quantity > vals['quantity']:
+                pt.sudo().write({'qty_down': True, 'partner_stock_updated': True})
+        if 'price_unit' in vals:
+            curr_price_unit = self.price_unit
+            if curr_price_unit < vals['price_unit']:
+                pt.sudo().write({'costprice_up': True, 'partner_stock_updated': True})
+            elif curr_price_unit > vals['quantity']:
+                pt.sudo().write({'costprice_down': True, 'partner_stock_updated': True})
+        if 'partner_note' in vals:
+            pt.sudo().write({'note_updated': True})
 
-   # For Purchase Price Unit filter: create Entry of same product with different price
+    @api.multi
+    def write(self, vals):
+        for ps in self:
+            ps.check_changes(vals)
+        res = super(SupplierStock, self).write(vals)
+        return res
+
+
+
+                # For Purchase Price Unit filter: create Entry of same product with different price
     #For New Entry Filter: Create New Entry with Product; new entry but same price
     @api.model
     def create(self, vals):

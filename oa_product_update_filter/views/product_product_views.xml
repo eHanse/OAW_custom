@@ -12,8 +12,26 @@
                         <field name="chrono24_updated" string="Chrono24 Updated"/>
                         <field name="chrono" string="Chrono24"/>
                         <field name="chronoNote"/>
+                        <field name="partner_stock_updated"/>
                     </xpath>
             </field>
+    </record>
+
+   <record id="product_template_search_view_partner_stock_filter" model="ir.ui.view">
+        <field name="name">product,template.search.view.partner.stock.filter</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='update']" position="after">
+               <group expand="0" name='update_supplier_stock' string="Update Partner Stock">
+                    <filter name="qty_up" string="Qty Up" domain="[('qty_up','=',True)]"/>
+                    <filter name="qty_down" string="Qty Down" domain="[('qty_down','=',True)]"/>
+                    <filter name="cost_price_up" string="Cost Price Up" domain="[('costprice_up','=',True)]"/>
+                    <filter name="cost_price_down" string="Cost Price Down" domain="[('costprice_down','=',True)]"/>
+                    <filter name="note_updated" string="Note Updated" domain="[('note_updated','=',True)]"/>
+                 </group>
+            </xpath>
+        </field>
     </record>
 
     <record id="update_chrono24_by_note_action" model="ir.actions.server">
