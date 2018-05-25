@@ -76,9 +76,11 @@
         <field name="inherit_id" ref="supplier_stock.supplier_stock_search"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='filter']" position="inside">
+
                     <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
                     <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True)]"/>
                     <filter name="qty_greate_zero" string="Qty > 0" domain="[('quantity','&gt;=',True)]"/>
+
            </xpath>
         </field>
     </record>
