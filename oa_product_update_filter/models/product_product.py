@@ -10,6 +10,7 @@ class ProductProduct(models.Model):
 
 
 
+
     @api.multi
     def updated_chrono24_date_button(self):
         for pt in self:
