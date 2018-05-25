@@ -76,8 +76,10 @@
         <field name="inherit_id" ref="supplier_stock.supplier_stock_search"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='filter']" position="inside">
-                <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
-                <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True)]"/>
+
+                    <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
+                    <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True)]"/>
+                    <filter name="qty_greate_zero" string="Qty > 0" domain="[('quantity','&gt;=',True)]"/>
 
            </xpath>
         </field>
@@ -120,6 +122,18 @@
             <xpath expr="//field[@name='retail_in_currency']" position="after">
                 <li>Retail HKD: <field name="hk_retail"/></li>
                 <li>Quantity: <field name="partner_qty"/></li>
+            </xpath>
+            </field>
+      </record>
+
+    <!--INSERTIONS INTO SUPPLIER ACCESS-->
+      <record id="view_supplier_access_search_adj1" model="ir.ui.view">
+        <field name="name">view.supplier.access.search.adj1</field>
+        <field name="model">supplier.stock</field>
+        <field name="inherit_id" ref="model_security_adjust_oaw.partner_stock_external_kanban_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='available_prod_by_brand']" position="after">
+                <filter name="qty_greate_zero" string="Qty > 0" domain="[('quantity','&gt;=',True)]"/>
             </xpath>
             </field>
       </record>
