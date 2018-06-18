@@ -52,7 +52,7 @@ class SupplierStock(models.Model):
             curr_price_unit = self.price_unit
             if curr_price_unit < vals['price_unit']:
                 pt.sudo().write({'costprice_up': True, 'partner_stock_updated': True})
-            elif curr_price_unit > vals['quantity']:
+            elif curr_price_unit > vals['price_unit']:
                 pt.sudo().write({'costprice_down': True, 'partner_stock_updated': True})
         if 'partner_note' in vals:
             pt.sudo().write({'note_updated': True})
