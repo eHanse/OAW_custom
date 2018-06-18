@@ -135,6 +135,9 @@
             <xpath expr="//filter[@name='available_prod_by_brand']" position="after">
                 <filter name="qty_greate_zero" string="Qty > 0" domain="[('quantity','&gt;=',True)]"/>
             </xpath>
+             <xpath expr="//field[@name='product_id']" position="after">
+                   <field name="prod_cat_selection" string="Brand"/>
+            </xpath>
             </field>
       </record>
 
