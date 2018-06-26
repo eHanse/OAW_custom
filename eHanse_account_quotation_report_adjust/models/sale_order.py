@@ -27,6 +27,8 @@ class SaleOrder(models.Model):
               partner_id = self.env['res.partner'].search(domain)
               partner_ref = partner_id.ref
               # New reference
+              if partner_ref == False:
+                  partner_ref = partner_id.name
               res.order_ref_report = sub_order_ref+" "+partner_ref
         return res
 
