@@ -6,7 +6,13 @@
                   <field name="model">sale.order</field>
                   <field name="inherit_id" ref="sale.view_order_form"/>
                   <field name="arch" type="xml">
-                    <xpath expr="/form/header/button[@name='action_button_confirm']" position="attributes">
+                    <xpath expr="/form/header/button[@name='action_button_confirm'][1]" position="attributes">
+                           <attribute name="attrs">
+                                 {'invisible': ['|', ('is_mto','=',True)]}
+                            </attribute>
+
+                    </xpath>
+                      <xpath expr="/form/header/button[@name='action_button_confirm'][2]" position="attributes">
                            <attribute name="attrs">
                                  {'invisible': ['|', ('is_mto','=',True)]}
                             </attribute>
@@ -15,5 +21,7 @@
 
                   </field>
          </record>
+
+
     </data>
 </openerp>

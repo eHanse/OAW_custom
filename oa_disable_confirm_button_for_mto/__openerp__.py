@@ -9,6 +9,7 @@
     'category': 'Sale',
     'depends': [
         "sale",
+        "model_security_adjust_oaw"
     ],
     'description': """
         Makes confirm button invisable for is_mto is True
