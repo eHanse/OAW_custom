@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="view_order_form_inherit_delivery_2" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock for delivery remove Purchase Price</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_line_quant.sale_order_line_quant_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='stock_owner_id']" position="attributes">
+                    <attribute name="groups">stock.group_stock_manager</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_order_form_inherit_delivery_4" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock for delivery remove Purchase Price</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='purchase_price']" position="attributes">
+                    <attribute name="groups">stock.group_stock_manager</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_order_form_inherit_delivery_3" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock for delivery remove Margin</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='margin']" position="attributes">
+                    <attribute name="groups">stock.group_stock_manager</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!--Overwriting Quotation AND Order forms tree portion it's group rights -->
+        <record id="view_order_form_delivery_3" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="priority" eval="30"></field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('model_secu_delivery.group_delivery')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+                <xpath expr="//button[@string='Create Invoice']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+      <record id="view_order_form_inherit_delivery" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="model_security_adjust_oaw.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_delivery']"
+                       position="attributes">
+                    <attribute name="groups">model_secu_delivery.group_delivery,stock.group_stock_manager</attribute>
+                </xpath>
+                <xpath expr="//button[@name='ship_recreate']"
+                       position="attributes">
+                    <attribute name="groups">model_secu_delivery.group_delivery,stock.group_stock_manager</attribute>
+                </xpath>
+                <xpath expr="//button[@name='ship_corrected']"
+                       position="attributes">
+                    <attribute name="groups">model_secu_delivery.group_delivery,stock.group_stock_manager</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
