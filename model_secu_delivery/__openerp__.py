@@ -13,7 +13,6 @@
         'product',
         'sale_line_quant',
         'sale_margin',
-        'model_security_adjust_oaw'
     ],
     'summary':"""A group for delivery users""",
     'description': """
