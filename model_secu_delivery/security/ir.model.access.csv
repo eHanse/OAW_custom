@@ -1,1 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_picking,stock.picking,stock.model_stock_picking,group_delivery,1,1,0,0
+access_stock_pack_operation,access_stock_pack_operation,stock.model_stock_pack_operation,group_delivery,1,1,0,0
+access_stock_move_op_link,access_stock_move_op_link,stock.model_stock_move_operation_link,group_delivery,1,1,1,1
+access_quant,access_quant,stock.model_stock_quant,group_delivery,1,1,0,0
+access_product_template,access_product_template,product.model_product_template,group_delivery,1,1,0,0

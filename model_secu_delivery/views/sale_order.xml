@@ -2,40 +2,25 @@
 <openerp>
     <data>
 
-        <record id="view_order_form_inherit_delivery" model="ir.ui.view">
-            <field name="name">sale.order.form.sale.stock for delivery</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale_line_quant.sale_order_line_quant_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='stock_owner_id']" position="attributes">
-                    <attribute name="groups">stock.group_stock_manager</attribute>
-                    <attribute name="invisible">1</attribute>
-                </xpath>
 
-            </field>
-        </record>
         <record id="view_order_form_inherit_delivery_2" model="ir.ui.view">
             <field name="name">sale.order.form.sale.stock for delivery remove Purchase Price</field>
             <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
+            <field name="inherit_id" ref="sale_line_quant.sale_order_line_quant_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='purchase_price']" position="attributes">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='stock_owner_id']" position="attributes">
                     <attribute name="groups">stock.group_stock_manager</attribute>
-
                 </xpath>
-
             </field>
         </record>
         <record id="view_order_form_inherit_delivery_4" model="ir.ui.view">
             <field name="name">sale.order.form.sale.stock for delivery remove Purchase Price</field>
             <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line"/>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='purchase_price']" position="attributes">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='purchase_price']" position="attributes">
                     <attribute name="groups">stock.group_stock_manager</attribute>
-
                 </xpath>
-
             </field>
         </record>
         <record id="view_order_form_inherit_delivery_3" model="ir.ui.view">
@@ -50,95 +35,42 @@
             </field>
         </record>
 
-        <!--New Quotations Menu Item-->
-        <record id="view_delivery_quotation_tree" model="ir.ui.view">
-            <field name="name">sale.order.tree</field>
-            <field name="model">sale.order</field>
-            <field name="priority">4</field>
-            <field name="arch" type="xml">
-                <tree string="Quotation" create="false" fonts="bold:message_unread==True"
-                      colors="grey:state=='cancel';blue:state in ('waiting_date','manual');red:state in ('invoice_except','shipping_except')">
-                    <field name="message_unread" invisible="1"/>
-                    <field name="name" string="Quotation Number"/>
-                    <field name="date_order"/>
-                    <field name="partner_id"/>
-                    <field name="user_id"/>
-                    <field name="amount_total" sum="Total Tax Included"/>
-                    <field name="state"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_order_form_delivery" model="ir.ui.view">
+        <!--Overwriting Quotation AND Order forms tree portion it's group rights -->
+        <record id="view_order_form_delivery_3" model="ir.ui.view">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
-            <field name="mode">primary</field>
-            <field name="priority">30</field>
+            <field name="priority" eval="30"></field>
             <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('model_secu_delivery.group_delivery')])]"/>
             <field name="arch" type="xml">
-                <xpath expr="//tree" position="attributes">
+                <xpath expr="//field[@name='order_line']/tree" position="attributes">
                     <attribute name="create">false</attribute>
+                </xpath>
+                <xpath expr="//button[@string='Create Invoice']" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
             </field>
         </record>
 
-        <record id="action_delivery_quotations" model="ir.actions.act_window">
-            <field name="name">Delivery Quotations</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">sale.order</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('state','in',('draft','sent','cancel'))]</field>
-            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
-            <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_delivery_quotation_tree')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('view_order_form_delivery')})]"/>
-        </record>
 
-        <menuitem id="menu_sale_quotations"
-                  action="action_delivery_quotations" parent="base.menu_sales"
-                  sequence="5"
-                  groups="model_secu_delivery.group_delivery"/>
-
-
-        <!--New Sales Order Menu Item-->
-         <record id="view_order_line_tree_delivery" model="ir.ui.view">
-            <field name="name">sale.order.line.tree</field>
-            <field name="model">sale.order.line</field>
+      <record id="view_order_form_inherit_delivery" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="model_security_adjust_oaw.view_order_form_inherit"/>
             <field name="arch" type="xml">
-                <tree string="Sales Order Lines" create="false">
-                    <field name="product_id" invisible="1"/>
-                    <field name="order_id"/>
-                    <field name="order_partner_id"/>
-                    <field name="name"/>
-                    <field name="product_uom_qty" string="Qty"/>
-                    <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
-                    <field name="salesman_id"/>
-                    <field name="price_subtotal" sum="Total"/>
-                    <field name="state"/>
-                    <field name="invoiced"/>
-                </tree>
+                <xpath expr="//button[@name='action_view_delivery']"
+                       position="attributes">
+                    <attribute name="groups">model_secu_delivery.group_delivery,stock.group_stock_manager</attribute>
+                </xpath>
+                <xpath expr="//button[@name='ship_recreate']"
+                       position="attributes">
+                    <attribute name="groups">model_secu_delivery.group_delivery,stock.group_stock_manager</attribute>
+                </xpath>
+                <xpath expr="//button[@name='ship_corrected']"
+                       position="attributes">
+                    <attribute name="groups">model_secu_delivery.group_delivery,stock.group_stock_manager</attribute>
+                </xpath>
             </field>
         </record>
-        <record id="action_orders_delivery" model="ir.actions.act_window">
-            <field name="name">Sales Orders</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">sale.order</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
-            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
-            <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_order_line_tree_delivery')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('view_order_form_delivery')})]"/>
-
-        </record>
-
-        <menuitem action="action_orders_delivery"
-                  id="menu_sale_order_delivery"
-                  parent="base.menu_sales"
-                  sequence="6"
-                  groups="model_secu_delivery.group_delivery"/>
-
     </data>
 </openerp>

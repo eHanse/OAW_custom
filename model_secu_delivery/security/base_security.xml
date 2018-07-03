@@ -12,5 +12,17 @@
         <field name="perm_unlink" eval="False"/>
         <field name="perm_write" eval="True"/>
         </record>
+
+        <!--delivery may see all records that have been created by anyone but only SEE and CONFIRM -->
+        <record model="ir.rule" id="delivery_see_sales_order_lines">
+        <field name="name">sales order: delivery : See all leads</field>
+        <field name="model_id" ref="sale.model_sale_order_line"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('group_delivery'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="True"/>
+        </record>
     </data>
 </openerp>
