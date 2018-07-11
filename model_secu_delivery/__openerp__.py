@@ -13,6 +13,9 @@
         'product',
         'sale_line_quant',
         'sale_margin',
+        'sale_stock'
+
+
     ],
     'summary':"""A group for delivery users""",
     'description': """
