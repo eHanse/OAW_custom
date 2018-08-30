@@ -25,7 +25,10 @@
     'author': 'eHanse',
     'website': 'https://www.ehanse.de',
     'category': 'Not a Partner yet',
-    'depends': ["base", "sale",],
+    'depends': ["base",
+                "sale",
+                "account_voucher",
+                ],
     'description': """
 * moves and creates, makes tabs invisible
     """,
