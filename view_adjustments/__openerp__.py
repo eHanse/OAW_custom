@@ -25,15 +25,19 @@
     'author': 'eHanse',
     'website': 'https://www.ehanse.de',
     'category': 'Not a Partner yet',
-    'depends': ["base", "sale",],
+    'depends': ["base",
+                "sale",
+                "account_voucher",
+                ],
     'description': """
-* moves and creates, makes tabs invisible
+* moves and creates, makes tabs invisible, minor adjustments on Customer/Supplier Payments
     """,
     'data': [
         'sale_view.xml',
         'sale_stock_view.xml',
         'product_view.xml',
+        'account_voucher_views.xml',
     ],
     'installable': True,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
