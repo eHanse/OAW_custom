@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="view_invoice_tree_cust_pay_ext" model="ir.ui.view">
+            <field name="name">view.invoice.tree.cust.pay.ext</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='number']" position="after">
+                    <field name="vouchers_sales_order"/>
+               </xpath>
+                <xpath expr="//field[@name='amount']" position="after">
+                    <field name="voucher_payment_reviewed"/>
+               </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
