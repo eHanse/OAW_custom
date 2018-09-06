@@ -40,8 +40,7 @@ class account_voucher_ext(osv.osv):
 
     def create(self, cr, uid, vals, context=None):
         res = super(account_voucher_ext,self).create(cr, uid, vals, context=context)
-        res.get_vouchers_sale_order(cr, uid, [res.id], context=context)
-
+        self.get_vouchers_sale_order(cr, uid, [res], context=context)
         return res
 
 
