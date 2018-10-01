@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="account_view_move_tree_editable" model="ir.ui.view">
+            <field name="name">account.view.move.tree.editable</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+              <!--Make sale order tree view editable-->
+                <xpath expr="//tree" position="attributes">
+                   <attribute name="editable">top</attribute>
+                </xpath>
+            </field>
+         </record>
+
+         <record id="view_move_tree_tree_editable" model="ir.ui.view">
+            <field name="name">view.move.tree.tree.editable</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <button name="action_orders_3" type="object" icon="terp-gtk-jump-to-ltr" string="Open its Customer Payment"/>
+               </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
