@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <!-- This following record adds the field order_policy to the header of SO form -->
+        <record id="view_stock_move_ext_3" model="ir.ui.view">
+            <field name="name">view.stock.move.ext.3</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock_view_adjust_oaw.view_move_tree_extended"/>
+            <field name="arch" type="xml">
+                <field name="po_id" position="after">
+                    <field name="source_document"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

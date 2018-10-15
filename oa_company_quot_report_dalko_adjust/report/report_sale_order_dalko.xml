@@ -2,24 +2,24 @@
 <openerp>
     <data>
         <report
-            id = "custom_report_quotation_sino"
+            id = "custom_report_quotation_dalko"
             model = "sale.order"
-            string = "Sino Quo Print"
+            string = "OA Quo Print"
             report_type = "qweb-pdf"
-            name = "oa_company_quotation_report_sino_adjust.report_sale_order_sino"
-            file = "oa_company_quotation_report_sino_adjust.report_sale_order_sino"
+            name = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
+            file = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
             />
 
-        <template id="report_sale_order_sino">
+        <template id="report_sale_order_dalko">
             <t t-call = "report.html_container">
                 <t t-foreach = "doc_ids" t-as="doc_id">
-                    <t t-raw = "translate_doc(doc_id, doc_model, 'partner_id.lang', 'oa_company_quotation_report_sino_adjust.report_sale_order_document')"/>
+                    <t t-raw = "translate_doc(doc_id, doc_model, 'partner_id.lang', 'oa_company_quot_report_dalko_adjust.report_sale_order_document')"/>
                 </t>
             </t>
         </template>
 
         <template id="report_sale_order_document">
-                    <t t-call="oa_company_quotation_report_sino_adjust.external_layout">
+                    <t t-call="oa_company_quot_report_dalko_adjust.external_layout">
                         <div class="page">
                             <div class="oe_structure"/>
                                 <div class="row">
@@ -157,9 +157,9 @@
 
 
             <template id="external_layout">
-                <t t-call="oa_company_quotation_report_sino_adjust.external_layout_header"/>
+                <t t-call="oa_company_quot_report_dalko_adjust.external_layout_header"/>
                 <t t-raw="0"/>
-                <t t-call="oa_company_quotation_report_sino_adjust.external_layout_footer"/>
+                <t t-call="oa_company_quot_report_dalko_adjust.external_layout_footer"/>
             </template>
 
             <template id="external_layout_header">
@@ -179,9 +179,9 @@
                     <div class="row">
                         <div>
                             <div class="col-xs-4">
-                                   <p>Sino Trading Ltd</p>
-                                   <p>1022 Unit, Harbour City</p>
-                                   <p>5 Canton Road</p>
+                                   <p>OA Trade Limited</p>
+                                   <p>RM 904 9/F Podium Plaza</p>
+                                   <p>5 Hanoi Road</p>
                                    <p>T.S.T., Hong Kong SAR</p>
                                    <br />
                             </div>
@@ -196,8 +196,8 @@
             <div class="footer">
                 <div class="text-center" style="border-top: 1px solid black;">
                     <ul  class="list-inline">
-                        <li>Email: <span>+852 6848 4386</span></li>
-                        <li>Email: <span>sinotradingltd@gmail.com</span></li>
+                        <li>Email: <span>+85265795515</span></li>
+                        <li>Email: <span>info@oa-trade.com</span></li>
                         <li><p>All our products are exclusively sold in the Hong Kong S.A.R. only</p></li>
                     </ul>
                     <ul class="list-inline">
