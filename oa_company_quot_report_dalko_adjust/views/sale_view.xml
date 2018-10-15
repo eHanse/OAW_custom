@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+             <record id="view_order_form_z10" model="ir.ui.view">
+                <field name="name">Adds print button to status bar</field>
+                <field name="model">sale.order</field>
+                 <field name="inherit_id" ref="sale.view_order_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//*/header/button[@name='print_quotation']" position="after">
+                        <button name="print_quotation_sino" string="Print Sino Quotation" type="object" states="draft" class="oe_highlight" groups="base.group_sale_manager"/>
+                        <button name="print_quotation_sino" string="Print Sino Quotation" type="object" states="sent,progress,manual" class="oe_highlight" groups="base.group_sale_manager"/>
+                    </xpath>
+                </field>
+             </record>
+    </data>
+</openerp>
