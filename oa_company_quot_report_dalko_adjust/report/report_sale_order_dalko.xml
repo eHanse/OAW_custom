@@ -4,7 +4,7 @@
         <report
             id = "custom_report_quotation_dalko"
             model = "sale.order"
-            string = "OA Quot Print"
+            string = "OA Quo Print"
             report_type = "qweb-pdf"
             name = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
             file = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
