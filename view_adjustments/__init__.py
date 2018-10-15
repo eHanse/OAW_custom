@@ -21,3 +21,4 @@
 
 import product
 import account_voucher
+import sale_ext
