@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="stock_view_adjust_oaw.view_move_tree_extended"/>
             <field name="arch" type="xml">
                 <field name="po_id" position="after">
-                    <field name="origin" string="Source Document"/>
+                    <field name="source_document"/>
                 </field>
             </field>
         </record>

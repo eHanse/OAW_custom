@@ -26,7 +26,7 @@
     # always loaded
     'data': [
 #              "views/purchase_views.xml",
-        "views/stock_move_ext.xml",
+             "views/stock_move_ext.xml",
              ],
     'installable': True,    
     # only loaded in demonstration mode
