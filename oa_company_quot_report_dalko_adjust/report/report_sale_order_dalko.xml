@@ -74,7 +74,7 @@
                                             <th>Description</th>
                                              <th>Case No.</th>
                                             <th class="text-right">Quantity</th>
-                                             <th class="text-right">HK Retail</th>
+                                             <th class="text-right">Retail</th>
                                             <th groups="sale.group_discount_per_so_line">Discount (%)</th>
                                             <th class="text-right">Subtotal</th>
                                         </tr>
