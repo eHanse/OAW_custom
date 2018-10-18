@@ -12,5 +12,19 @@
                 </field>
             </field>
         </record>
+         <!-- Addds Source Document to seachview  -->
+        <record id="view_stock_move_ext_3_search" model="ir.ui.view">
+            <field name="name">view_stock_move_ext_3_search</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock_view_adjust_oaw.view_move_search_z1"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//filter[@name='by_quant_owner']" position="after">
+                    <filter string="Source Document" name="by_sd" domain="[]" context="{'group_by':'source_document'}"/>
+                </xpath>
+                 <xpath expr="//field[@name='po_id']" position="after">
+                    <field string="Source Document" name="source_document" />
+                </xpath>
+            </field>
+        </record>
     </data>
 </openerp>
