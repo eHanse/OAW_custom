@@ -8,7 +8,8 @@ class StockMoveExtended(models.Model):
 
     source_document = fields.Char(
         'Source Document',
-        related = 'picking_id.origin'
+        related = 'picking_id.origin',
+        store=True
     )
 
 
