@@ -7,7 +7,7 @@
             <field name="name">sale.order.line.tree.z3</field>
             <field name="model">sale.order.line</field>
             <field name="arch" type="xml">
-                <tree string="Order Lines" create="false">
+                <tree string="Order Lines" create="false" >
                     <field name="order_id"/>
                     <field name="state" invisible="1"/>
                     <field name="is_mto"/>
@@ -24,6 +24,21 @@
                     <field name="order_date"/>
                     <field name="salesman_id"/>
                 </tree>
+            </field>
+        </record>
+
+
+        <record id="view_order_line_internal_tree_search" model="ir.ui.view">
+            <field name="name">view.order.line.internal.tree.search</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//filter[@string='Product']" position="after">
+                    <filter string="Supplier" name="by_supplier" domain="[]" context="{'group_by':'supplier_code'}"/>
+                </xpath>
+                 <xpath expr="//field[@name='salesman_id']" position="after">
+                    <field string="Supplier" name="supplier_code" />
+                </xpath>
             </field>
         </record>
 
@@ -67,6 +82,7 @@
             <field name="view_id" ref="view_order_line_tree_3"/>
             <field name="domain">[('is_mto','=',True),('order_id.is_shipment','=',False),('order_id.state','in',('draft','sent'))]</field>
             <field name="context">{}</field>
+            <field name="search_view_id" ref="view_order_line_internal_tree_search"/>
             <field name="limit">80</field>
         </record>
          <menuitem id="qol_tree_internal"
