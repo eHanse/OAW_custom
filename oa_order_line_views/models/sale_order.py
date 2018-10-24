@@ -8,6 +8,7 @@ class SaleOrderExt (models.Model):
     _inherit = 'sale.order'
     _description = 'Adding Sales Supplier'
 
+
     supplier_id = fields.Many2one(
         comodel_name='res.partner',
         string="Sales Supplier",
@@ -16,6 +17,7 @@ class SaleOrderExt (models.Model):
     supplier_code = fields.Char(
        'Code',
        related='supplier_id.ref',
+        store = True
    )
 
     is_shipment = fields.Boolean(
