@@ -35,6 +35,12 @@ class SaleOrderLineExt(models.Model):
         related='order_id.supplier_code',
         store=True
     )
+    supplier_note = fields.Char(
+        'Supplier Notes',
+    )
+    sales_remark = fields.Char(
+        'Sales Team Remark'
+    )
 
 
 

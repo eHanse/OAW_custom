@@ -12,12 +12,13 @@ class SaleOrderExt (models.Model):
     supplier_id = fields.Many2one(
         comodel_name='res.partner',
         string="Sales Supplier",
+        store=True
         # default = lambda self: self.env.user.partner_id
     )
     supplier_code = fields.Char(
        'Code',
        related='supplier_id.ref',
-        store = True
+
    )
 
     is_shipment = fields.Boolean(
