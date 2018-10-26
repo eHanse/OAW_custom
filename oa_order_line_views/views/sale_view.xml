@@ -7,22 +7,22 @@
             <field name="name">sale.order.line.tree.z3</field>
             <field name="model">sale.order.line</field>
             <field name="arch" type="xml">
-                <tree string="Order Lines" create="false" default_order="order_id asc">
-                    <field name="order_id"/>
+                <tree string="Order Lines" create="false" default_order="order_id asc" editable="Top">
+                    <field name="order_id" readonly="1"/>
                     <field name="state" invisible="1"/>
-                    <field name="is_mto"/>
-                    <field name="product_code"/>
-                    <field name="product_name"/>
-                    <field name="image_small" string="Image" widget="image" height="64px"/>
-                    <field name="order_partner_id"/>
-                    <field name="order_price_list"/>
-                    <field name="product_uom_qty" string="Qty"/>
-                    <field name="price_unit" string="Retail"/>
-                    <field name="discount"/>
-                    <field name="price_subtotal" sum="Total"/>
-                    <field name="supplier_code"/>
-                    <field name="order_date"/>
-                    <field name="salesman_id"/>
+                    <field name="is_mto" readonly="1"/>
+                    <field name="product_code" readonly="1"/>
+                    <field name="product_name" readonly="1"/>
+                    <field name="image_small" string="Image" widget="image" height="64px" readonly="1"/>
+                    <field name="order_partner_id" readonly="1"/>
+                    <field name="order_price_list" readonly="1"/>
+                    <field name="product_uom_qty" string="Qty" readonly="1"/>
+                    <field name="price_unit" string="Retail" readonly="1"/>
+                    <field name="discount" readonly="1"/>
+                    <field name="price_subtotal" sum="Total" readonly="1"/>
+                    <field name="supplier_code" readonly="1"/>
+                    <field name="order_date" readonly="1"/>
+                    <field name="salesman_id" readonly="1"/>
                     <field name="supplier_note" readonly="1"/>
                     <field name="sales_remark"/>
                 </tree>
@@ -49,16 +49,16 @@
             <field name="name">sale.order.line.tree.z4</field>
             <field name="model">sale.order.line</field>
             <field name="arch" type="xml">
-                <tree string="Order Lines" create="false">
-                    <field name="order_id"/>
+                <tree string="Order Lines" create="false" editable="Top">
+                    <field name="order_id" readonly="1"/>
                     <field name="state" invisible="1"/>
-                    <field name="is_mto"/>
-                    <field name="product_code"/>
-                    <field name="product_name"/>
-                    <field name="image_small" string="Image" widget="image" height="64px"/>
-                    <field name="order_price_list"/>
-                    <field name="product_uom_qty" string="Qty"/>
-                    <field name="order_date"/>
+                    <field name="is_mto" readonly="1"/>
+                    <field name="product_code" readonly="1"/>
+                    <field name="product_name" readonly="1"/>
+                    <field name="image_small" string="Image" widget="image" height="64px" readonly="1"/>
+                    <field name="order_price_list" readonly="1"/>
+                    <field name="product_uom_qty" string="Qty" readonly="1"/>
+                    <field name="order_date" readonly="1"/>
                     <field name="supplier_note"/>
                     <field name="sales_remark" readonly="1"/>
                 </tree>
