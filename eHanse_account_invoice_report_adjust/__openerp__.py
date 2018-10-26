@@ -25,7 +25,9 @@
     'author': 'eHanse IT and Consulting UG',
     'website': 'https://ehanse.de',
     'category': 'Accounting',
-    'depends': ["account",],
+    'depends': ["account",
+                "model_security_adjust_oaw",
+                ],
     'description': """
 * Makes adjustments on invoice print output to show case number
     """,

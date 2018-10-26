@@ -174,23 +174,22 @@
 
    </xpath>
 
-    <!--&lt;!&ndash; TEST des Displays von Payment Term Notes woanders&ndash;&gt;-->
-    <!--<xpath expr="//*/div[@class='col-xs-4 pull-right']" position="before">-->
-        <!--<div class="col-xs-4">-->
-            <!--<p>Lower</p>-->
-          <!--<p t-field="o.quot_report_note"/>-->
-        <!--</div>-->
-    <!--</xpath>-->
 
 
-    
-    
-    
+
+
     
    
 
 
 
 </template>
+
+
+    <template id="report_sale_supplier_fm_document_note_adjust" inherit_id="model_security_adjust_oaw.report_sale_supplier_fm_document">
+        <xpath expr="//p[@t-field='o.note']" position="replace">
+            <p t-field="o.quot_report_note"/>
+        </xpath>
+    </template>
 </data>
 </openerp>
