@@ -17,7 +17,7 @@
 
 
     ],
-    'summary':"""A group for delivery users""",
+    'summary':"""A group for delivery users. Must be installed after module_security_adjust_oaw""",
     'description': """
      Accesses mostly on "sales" module \
      in sales.order, NO ADD ITEMS \
@@ -30,7 +30,8 @@
          'security/base_security.xml',
          'security/ir.model.access.csv',
          'views/sale_order.xml',
-          'views/stock_picking.xml',
+         'views/sale_views.xml',
+         'views/stock_picking.xml',
     ],
 
     'qweb': [],

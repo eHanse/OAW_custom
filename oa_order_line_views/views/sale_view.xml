@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--Customizing fields to be displayed in order line list-->
+         <record id="view_order_line_tree_3" model="ir.ui.view">
+            <field name="name">sale.order.line.tree.z3</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Order Lines" create="false" default_order="order_id asc" editable="Top">
+                    <field name="order_id" readonly="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="is_mto" readonly="1"/>
+                    <field name="product_code" readonly="1"/>
+                    <field name="product_name" readonly="1"/>
+                    <field name="image_small" string="Image" widget="image" height="64px" readonly="1"/>
+                    <field name="order_partner_id" readonly="1"/>
+                    <field name="order_price_list" readonly="1"/>
+                    <field name="product_uom_qty" string="Qty" readonly="1"/>
+                    <field name="price_unit" string="Retail" readonly="1"/>
+                    <field name="discount" readonly="1"/>
+                    <field name="price_subtotal" sum="Total" readonly="1"/>
+                    <field name="supplier_code" readonly="1"/>
+                    <field name="order_date" readonly="1"/>
+                    <field name="salesman_id" readonly="1"/>
+                    <field name="supplier_note" readonly="1"/>
+                    <field name="sales_remark"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_order_line_internal_tree_search" model="ir.ui.view">
+            <field name="name">view.order.line.internal.tree.search</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//filter[@string='Product']" position="after">
+                    <filter string="Supplier" name="by_supplier" domain="[]" context="{'group_by':'supplier_code'}"/>
+                </xpath>
+                 <xpath expr="//field[@name='salesman_id']" position="after">
+                    <field string="Supplier" name="supplier_code" />
+                </xpath>
+            </field>
+        </record>
+
+          <!--Customizing fields to be displayed in external order line list-->
+         <record id="view_order_line_tree_4" model="ir.ui.view">
+            <field name="name">sale.order.line.tree.z4</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Order Lines" create="false" editable="Top" default_order="order_id asc">
+                    <field name="order_id" readonly="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="is_mto" readonly="1"/>
+                    <field name="product_code" readonly="1"/>
+                    <field name="product_name" readonly="1"/>
+                    <field name="image_small" string="Image" widget="image" height="64px" readonly="1"/>
+                    <field name="order_price_list" readonly="1"/>
+                    <field name="product_uom_qty" string="Qty" readonly="1"/>
+                    <field name="order_date" readonly="1"/>
+                    <field name="supplier_note"/>
+                    <field name="sales_remark" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Adds new fields to latest form view extension -->
+        <record id="view_sales_order_form_qol" model="ir.ui.view">
+            <field name="name">sale.order.form.qol</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_line_quant_extended.view_order_form_inherit_z160503"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="supplier_id" groups="base.group_sale_manager"/>
+
+                </field>
+                 <field name="open_issue" position="after">
+                    <field name="is_shipment" groups="base.group_sale_manager"/>
+                </field>
+            </field>
+        </record>
+
+
+        <!--The action-->
+        <record id="action_qol_internal_view" model="ir.actions.act_window">
+            <field name="name">Internal Order Line View</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_order_line_tree_3"/>
+            <field name="domain">[('is_mto','=',True),('order_id.is_shipment','=',False),('order_id.state','in',('draft','sent'))]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="view_order_line_internal_tree_search"/>
+            <field name="limit">80</field>
+        </record>
+         <menuitem id="qol_tree_internal"
+                    parent="base.menu_sales"
+                    action="action_qol_internal_view"
+                    sequence="2"
+                    groups="base.group_sale_salesman_all_leads"/>
+         <!--The action-->
+        <record id="action_qol_external_view" model="ir.actions.act_window">
+            <field name="name">Order Overview</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_order_line_tree_4"/>
+            <field name="domain">[('is_mto','=',True),('order_id.is_shipment','=',False),('order_id.state','in',('draft','sent'))]</field>
+            <field name="context">{}</field>
+            <field name="limit">80</field>
+        </record>
+        <menuitem id="qol_tree_external"
+                    parent="model_security_adjust_oaw.menu_sales_external"
+                    action="action_qol_external_view"
+                    sequence="2"
+                    groups="model_security_adjust_oaw.group_supplier"/>
+
+
+
+    </data>
+</openerp>
