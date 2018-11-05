@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+
+
+
+
+        <!-- Menu Items: Create a dedicated Products Menu under Sales for ECA group -->
+        <!--Top Menu: External Sales-->
+        <menuitem
+                id="products_eca_top"
+                name="Products"
+                groups="model_secu_eca.group_eca"
+                sequence="25"/>
+        <menuitem
+                id="products_eca_avail_en"
+                name="Available EN"
+                parent="model_secu_eca.products_eca_top"
+                groups="model_secu_eca.group_eca"
+                sequence="5"/>
+
+        <menuitem
+                id="products_eca_avail_cn"
+                name="Available CN"
+                parent="model_secu_eca.products_eca_top"
+                groups="model_secu_eca.group_eca"
+                sequence="15"/>
+
+
+
+    </data>
+</openerp>
+

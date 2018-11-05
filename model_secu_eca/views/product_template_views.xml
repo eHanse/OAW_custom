@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- ECA Availability -->
+    <record id="eca_pt_avail_en_view" model="ir.ui.view">
+        <field name="name">eca.pt.avail.en.view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="type"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_vignette oe_semantic_html_override">
+                            <a type="open"><img t-att-src="kanban_image('product.template', 'image_small', record.id.value)" class="oe_kanban_image"/></a>
+                            <div class="oe_kanban_details">
+                                <h4>
+                                    <a type="open">
+                                         <span t-if="record.default_code.value">
+                                             [<field name="default_code"/>]
+                                          </span>
+                                         <field name="name"/>
+                                    </a>
+                                </h4>
+                                <div name="tags"/>
+                                <ul>
+                                     <!--TODO: Product Category as Brand-->
+                                     <!--TODO: Name as Reference-->
+                                    <li>HKD Retail: <field name="list_price_integer"></field></li>
+                                    <li>Special : <field name="list_price_special"></field></li>
+                                    <li t-if="record.type.raw_value != 'service'">Available: <field name="internal_stock_available" no_export="True"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+<!-- ECA Availability -->
+    <record id="eca_pt_avail_cn_view" model="ir.ui.view">
+        <field name="name">eca.pt.avail.cn.view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="type"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_vignette oe_semantic_html_override">
+                            <a type="open"><img t-att-src="kanban_image('product.template', 'image_small', record.id.value)" class="oe_kanban_image"/></a>
+                            <div class="oe_kanban_details">
+                                <h4>
+                                    <a type="open">
+                                         <span t-if="record.default_code.value">
+                                             [<field name="default_code"/>]
+                                          </span>
+                                         <field name="name"/>
+                                    </a>
+                                </h4>
+                                <div name="tags"/>
+                                <ul>
+                                     <!--TODO: Product Category as Brand-->
+                                     <!--TODO: Name as Reference-->
+                                    <li>HKD Retail: <field name="list_price_integer"></field></li>
+                                    <li t-if="record.type.raw_value != 'service'">Available: <field name="internal_stock_available" no_export="True"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+<!--English Actions -->
+    <record id="eca_pt_avail_en_action" model="ir.actions.act_window">
+        <field name="name">Available</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="eca_pt_avail_en_view"/>
+        <field name="search_view_id" ref="eca_pt_search"/>
+        <field name="context">{"search_default_available":1}</field>
+    </record>
+     <record id="eca_pt_new_en_action" model="ir.actions.act_window">
+        <field name="name">New</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="eca_pt_avail_en_view"/>
+         <field name="search_view_id" ref="eca_pt_search"/>
+
+    </record>
+    <record id="eca_pt_special_en_action" model="ir.actions.act_window">
+        <field name="name">Special</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="eca_pt_avail_en_view"/>
+         <field name="search_view_id" ref="eca_pt_search"/>
+        <field name="context">{"search_default_list_price_special":1}</field>
+    </record>
+
+<!-- Chinese Actions -->
+       <record id="eca_pt_avail_cn_action" model="ir.actions.act_window">
+        <field name="name">Available Chinese</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="eca_pt_avail_cn_view"/>
+           <field name="search_view_id" ref="eca_pt_search"/>
+    </record>
+
+     <!--Search View -->
+    <record id="eca_pt_search" model="ir.ui.view">
+        <field name="name">eca.pt.search</field>
+        <field name="model">product.template</field>
+         <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_variant_ids']" position="before">
+                <group expand="0" name='available' string="Available">
+                    <filter name="available" string="Available" domain="[('internal_stock_available','=','Yes'),('updated_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>
+                    <filter name="list_price_special" string="Specials" domain="[('list_price_special','=',True)]"/>
+                </group>
+           </xpath>
+
+        </field>
+    </record>
+
+<!--English Menu Items-->
+   <menuitem
+        id="eca_avail_en"
+        name="Available"
+        parent="model_secu_eca.products_eca_avail_en"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_avail_en_action"
+        sequence="15"/>
+     <menuitem
+        id="eca_new_en"
+        name="New"
+        parent="model_secu_eca.products_eca_avail_en"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_new_en_action"
+        sequence="16"/>
+     <menuitem
+        id="eca_special_en"
+        name="Special Offers"
+        parent="model_secu_eca.products_eca_avail_en"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_special_en_action"
+        sequence="17"/>
+
+<!--Chinese Menu Items-->
+    <menuitem
+        id="eca_avail_cn"
+        name="Available (Chinese)"
+        parent="model_secu_eca.products_eca_avail_cn"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_avail_en_action"
+        sequence="17"/>
+
+
+
+    </data>
+</openerp>
+
