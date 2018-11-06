@@ -4,7 +4,7 @@
 
 from openerp import models, fields, api
 import openerp.addons.decimal_precision as dp
-from datetime import timedelta as td
+from datetime import datetime, timedelta as td
 from openerp.fields import Date as fDate
 
 
@@ -16,62 +16,58 @@ class ProductTemplate(models.Model):
 
     internal_stock = fields.Integer(
         string="Stock",
-        compute="_get_internal_stock",
+        compute = '_get_internal_stock',
         store=True,
         readonly=True,
     )
-
     internal_stock_available = fields.Char(
         string="Available",
-        compute="_get_internal_stock_avail",
+        compute="_get_internal_stock",
         readonly=True,
+        store = True,
     )
-
-    internal_stock_change = fields.Datetime(
-        compute='update_internal_stock_date',
+    internal_stock_change_date = fields.Datetime(
         store=True,
         string="Internal Stock Update",
     )
-
     list_price_special_date = fields.Datetime(
         store=True,
         string="Special Offer",
     )
-    list_price_special = fields.Boolean(
-        compute='update_list_price_special',
-        string="Inernal Stock Update",
-        default = False
+
+    brand = fields.Char(
+        'Brand',
+        related = 'categ_id.name',
     )
 
-    @api.multi
-    def update_list_price_special(self):
-        for pt in self:
-            now = fields.Datetime.now()
-            special_date = pt.list_price_special_date
-            if special_date:
-                delta = now-special_date
-                if delta.seconds < 86400 :
-                    pt.list_price_special = True
-                else:
-                    pt.list_price_special = False
-            else :
-                pt.list_price_special = False
-                print pt.list_price_special
+    # list_price_special = fields.Boolean(
+    #     compute='update_list_price_special',
+    #     string="Inernal Stock Update",
+    #     default = False
+    # )
+    #
+    # # @api.multi
+    # def update_list_price_special(self):
+    #     for pt in self:
+    #         now = fields.Datetime.now()
+    #         special_date = pt.list_price_special_date
+    #         datetimeFormat = '%Y-%m-%d %H:%M:%S'
+    #         if special_date:
+    #             now_dt = datetime.strptime(now,datetimeFormat)
+    #             special_date_dt = datetime.strptime(special_date,datetimeFormat)
+    #             delta = now_dt - special_date_dt
+    #             if delta.seconds < 86400 :
+    #                 pt.list_price_special = True
+    #             else:
+    #                 pt.list_price_special = False
+    #         else :
+    #             pt.list_price_special = False
 
-    @api.multi
-    @api.depends('internal_stock_available')
-    def update_internal_stock_date(self):
-        for pt in self:
-            pt.internal_stock_change = fields.Datetime.now()
     @api.multi
     @api.depends('local_stock_not_reserved', 'qty_overseas')
     def _get_internal_stock(self):
         for pt in self:
             pt.internal_stock = pt.local_stock_not_reserved + pt.qty_overseas
-
-
-    def _get_internal_stock_avail(self):
-        for pt in self:
             if pt.internal_stock > 0:
                 pt.internal_stock_available = 'Yes'
             else:
@@ -81,8 +77,18 @@ class ProductTemplate(models.Model):
     @api.multi
     def write(self, vals):
         for pt in self:
+            # For Special Price Filter
             if 'list_price' in vals:
                 if pt.list_price > vals['list_price']:
                     pt.list_price_special_date = fields.Datetime.now()
-
+            # For New Arrival Filter
+            if 'qty_local_stock' in vals and 'qty_reserved' in vals:
+                if pt.qty_local_stock + pt.qty_reserved < vals['qty_local_stock'] + vals['qty_reserved']:
+                    pt.internal_stock_change_date = fields.Datetime.now()
+            if 'qty_local_stock' in vals:
+                if pt.qty_local_stock < vals['qty_local_stock']:
+                    pt.internal_stock_change_date = fields.Datetime.now()
+            if 'qty_overseas' in vals:
+                if pt.qty_overseas < vals['qty_overseas']:
+                    pt.internal_stock_change_date = fields.Datetime.now()
         return super(ProductTemplate, self).write(vals)
