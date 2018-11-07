@@ -23,7 +23,7 @@
 
         <menuitem
                 id="products_eca_avail_cn"
-                name="Available CN"
+                name="所有貨品 繁體中文"
                 parent="model_secu_eca.products_eca_top"
                 groups="model_secu_eca.group_eca"
                 sequence="15"/>

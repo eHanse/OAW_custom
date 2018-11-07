@@ -38,6 +38,7 @@ class ProductTemplate(models.Model):
     brand = fields.Char(
         'Brand',
         related = 'categ_id.name',
+        store = True
     )
 
     # list_price_special = fields.Boolean(

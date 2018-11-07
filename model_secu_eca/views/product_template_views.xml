@@ -2,12 +2,12 @@
 <openerp>
     <data>
 
-<!-- ECA Availability -->
+<!-- ECA Availability EN -->
     <record id="eca_pt_avail_en_view" model="ir.ui.view">
         <field name="name">eca.pt.avail.en.view</field>
         <field name="model">product.template</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban create="false">
                 <field name="type"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -36,12 +36,38 @@
             </kanban>
         </field>
     </record>
-<!-- ECA Availability -->
+    <record id="eca_pt_avail_en_form_view" model="ir.ui.view">
+            <field name="name">eca.pt.avail.en.form.view</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <sheet>
+                        <field name="image_medium" widget="image"
+                               class="oe_left oe_avatar"/>
+                        <group string="Product Information">
+                            <group>
+                                 <field name="brand" string="Brand"/>
+                                <field name="name" string="Reference"/>
+                                <field name="list_price_integer" string="HKD Retail"/>
+                                <field name="internal_stock_available" string="In Stock"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter supplier_access">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+<!-- ECA Availability CN -->
     <record id="eca_pt_avail_cn_view" model="ir.ui.view">
         <field name="name">eca.pt.avail.cn.view</field>
         <field name="model">product.template</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban create="false">
                 <field name="type"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -70,17 +96,45 @@
             </kanban>
         </field>
     </record>
+     <record id="eca_pt_avail_cn_form_view" model="ir.ui.view">
+            <field name="name">eca.pt.avail.cn.form.view</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <sheet>
+                        <field name="image_medium" widget="image"
+                               class="oe_left oe_avatar"/>
+                        <group string="Product Information">
+                            <group>
+                                 <field name="brand" string="品牌"/>
+                                <field name="name" string="型號"/>
+                                <field name="list_price_integer" string="港幣公價"/>
+                                <field name="internal_stock_available" string="現貨"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter supplier_access">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
 
  <!--Search View -->
     <record id="eca_pt_search" model="ir.ui.view">
         <field name="name">eca.pt.search</field>
         <field name="model">product.template</field>
-         <field name="inherit_id" ref="product.product_template_search_view"/>
+          <field eval="45" name="priority"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='product_variant_ids']" position="before">
+            <search>
+                <field name="name"/>
+                <field name="brand" string="Brand"/>
                 <group expand="0" name='available' string="Available">
-
-
                     <filter name="available" string="Available" domain="[('internal_stock_available','=','Yes')]"/>
                     <!--New Arrival: New Record (Receipt, or Partner Stock) or Qty changes from 0 to greater than 0-->
                     <!--I.e. internal_stock_change_ triggered by increase of quantity-->
@@ -88,8 +142,7 @@
                     <!--List price has fallen within the last 24h-->
                     <filter name="list_price_special" string="Specials" domain="[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
                 </group>
-           </xpath>
-
+            </search>
         </field>
     </record>
 
@@ -98,46 +151,97 @@
         <field name="name">Available</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">kanban</field>
+        <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="eca_pt_avail_en_view"/>
         <field name="search_view_id" ref="eca_pt_search"/>
         <field name="context">{"search_default_available":1}</field>
     </record>
+<!--View Modes-->
+    <record id="eca_pt_avail_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_en_view"/>
+        <field name="act_window_id" ref="eca_pt_avail_en_action"/>
+    </record>
+    <record id="eca_pt_avail_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="eca_pt_avail_en_action"/>
+    </record>
+
      <record id="eca_pt_new_en_action" model="ir.actions.act_window">
         <field name="name">New</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">kanban</field>
+        <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="eca_pt_avail_en_view"/>
          <field name="search_view_id" ref="eca_pt_search"/>
         <field name="context">{"search_default_new_arrive":1}</field>
     </record>
+<!--View Modes-->
+    <record id="eca_pt_new_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_en_view"/>
+        <field name="act_window_id" ref="eca_pt_new_en_action"/>
+    </record>
+    <record id="eca_pt_new_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="eca_pt_new_en_action"/>
+    </record>
+
     <record id="eca_pt_special_en_action" model="ir.actions.act_window">
         <field name="name">Special</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">kanban,tree</field>
+        <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="eca_pt_avail_en_view"/>
-         <field name="search_view_id" ref="eca_pt_search"/>
+        <field name="search_view_id" ref="eca_pt_search"/>
         <field name="context">{"search_default_list_price_special":1}</field>
+    </record>
+<!--View Modes-->
+    <record id="eca_pt_special_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_en_view"/>
+        <field name="act_window_id" ref="eca_pt_special_en_action"/>
+    </record>
+    <record id="eca_pt_special_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="eca_pt_special_en_action"/>
     </record>
 
 <!-- Chinese Actions -->
    <record id="eca_pt_avail_cn_action" model="ir.actions.act_window">
-        <field name="name">Available Chinese</field>
+        <field name="name">所有在售貨品</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">kanban,tree</field>
+        <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="eca_pt_avail_cn_view"/>
         <field name="search_view_id" ref="eca_pt_search"/>
         <field name="context">{"search_default_available":1}</field>
+   </record>
+    <!--View Modes-->
+    <record id="eca_pt_avail_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_cn_view"/>
+        <field name="act_window_id" ref="eca_pt_avail_cn_action"/>
     </record>
+    <record id="eca_pt_avail_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="eca_pt_avail_cn_action"/>
+    </record>
+
      <record id="eca_pt_new_cn_action" model="ir.actions.act_window">
-        <field name="name">Available Chinese</field>
+        <field name="name">最新貨品</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">kanban,tree</field>
@@ -146,8 +250,22 @@
         <field name="search_view_id" ref="eca_pt_search"/>
          <field name="context">{"search_default_new_arrive":1}</field>
     </record>
+ <!--View Modes-->
+    <record id="eca_pt_new_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_cn_view"/>
+        <field name="act_window_id" ref="eca_pt_new_cn_action"/>
+    </record>
+    <record id="eca_pt_new_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="eca_pt_new_cn_action"/>
+    </record>
+
      <record id="eca_pt_special_cn_action" model="ir.actions.act_window">
-        <field name="name">Available Chinese</field>
+        <field name="name">最新特價</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">kanban,tree</field>
@@ -156,7 +274,19 @@
         <field name="search_view_id" ref="eca_pt_search"/>
           <field name="context">{"search_default_list_price_special":1}</field>
     </record>
-
+ <!--View Modes-->
+    <record id="eca_pt_special_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_cn_view"/>
+        <field name="act_window_id" ref="eca_pt_special_cn_action"/>
+    </record>
+    <record id="eca_pt_special_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="eca_pt_special_cn_action"/>
+    </record>
 
 
 <!--English Menu Items-->
@@ -185,22 +315,22 @@
 <!--Chinese Menu Items-->
     <menuitem
         id="eca_avail_cn"
-        name="Available (Chinese)"
+        name="所有在售貨品"
         parent="model_secu_eca.products_eca_avail_cn"
         groups="model_secu_eca.group_eca"
-        action="model_secu_eca.eca_pt_avail_en_action"
+        action="model_secu_eca.eca_pt_avail_cn_action"
         sequence="15"/>
 
     <menuitem
         id="eca_new_cn"
-        name="New"
+        name="最新貨品"
         parent="model_secu_eca.products_eca_avail_cn"
         groups="model_secu_eca.group_eca"
         action="model_secu_eca.eca_pt_new_cn_action"
         sequence="16"/>
      <menuitem
         id="eca_special_cn"
-        name="Special Offers"
+        name="最新特價"
         parent="model_secu_eca.products_eca_avail_cn"
         groups="model_secu_eca.group_eca"
         action="model_secu_eca.eca_pt_special_cn_action"
