@@ -79,8 +79,14 @@ class ProductTemplate(models.Model):
     def write(self, vals):
         for pt in self:
             # For Special Price Filter
-            if 'list_price' in vals:
-                if pt.list_price > vals['list_price']:
+            if 'net_price' in vals:
+                if pt.net_price > vals['net_price']:
+                    pt.list_price_special_date = fields.Datetime.now()
+            if 'sale_hkd_ab' in vals:
+                if pt.sale_hkd_ab > vals['sale_hkd_ab']:
+                    pt.list_price_special_date = fields.Datetime.now()
+            if 'sale_hkd_ac' in vals:
+                if pt.sale_hkd_ac > vals['sale_hkd_ac']:
                     pt.list_price_special_date = fields.Datetime.now()
             # For New Arrival Filter
             if 'qty_local_stock' in vals and 'qty_reserved' in vals:

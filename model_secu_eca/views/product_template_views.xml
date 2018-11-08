@@ -154,7 +154,7 @@
         <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
         <field name="search_view_id" ref="eca_pt_search"/>
-        <field name="context">{"search_default_available":1}</field>
+        <field name="domain">[('internal_stock_available','=','Yes')]</field>
     </record>
 <!--View Modes-->
     <record id="eca_pt_avail_en_action_kanban_view"
@@ -176,8 +176,8 @@
         <field name="res_model">product.template</field>
         <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
-         <field name="search_view_id" ref="eca_pt_search"/>
-        <field name="context">{"search_default_new_arrive":1}</field>
+        <field name="search_view_id" ref="eca_pt_search"/>
+        <field name="domain">[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]</field>
     </record>
 <!--View Modes-->
     <record id="eca_pt_new_en_action_kanban_view"
@@ -200,7 +200,8 @@
         <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
         <field name="search_view_id" ref="eca_pt_search"/>
-        <field name="context">{"search_default_list_price_special":1}</field>
+       <field name="domain">[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]</field>
+
     </record>
 <!--View Modes-->
     <record id="eca_pt_special_en_action_kanban_view"
