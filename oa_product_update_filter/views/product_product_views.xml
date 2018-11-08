@@ -12,7 +12,7 @@
                         <field name="chrono24_price" string="Chrono 24 Price"/>
                         <field name="chrono" string="Chrono24"/>
                         <field name="chronoNote"/>
-                        <field name="partner_stock_updated"/>
+                        <field name="partner_offer_checked"/>
                     </xpath>
             </field>
     </record>
