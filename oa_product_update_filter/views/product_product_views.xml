@@ -13,6 +13,11 @@
                         <field name="chrono" string="Chrono24"/>
                         <field name="chronoNote"/>
                         <field name="partner_offer_checked"/>
+                        <field name="qty_up" invisible="1"/>
+                        <field name="qty_down" invisible="1"/>
+                        <field name="costprice_up" invisible="1"/>
+                        <field name="costprice_down" invisible="1"/>
+                        <field name="note_updated" invisible="1"/>
                     </xpath>
             </field>
     </record>
@@ -50,4 +55,5 @@
 
 </data>
 </openerp>
+
 

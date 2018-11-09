@@ -74,13 +74,11 @@ class ProductTemplate(models.Model):
     # For Partner Stock filter
     qty_up = fields.Boolean(
         string='Quantity increased',
-        readonly=True,
         store=True
 
     )
     qty_down = fields.Boolean(
         string='Quantity decreased',
-        readonly=True,
         store=True
     )
     costprice_up = fields.Boolean(
@@ -99,24 +97,12 @@ class ProductTemplate(models.Model):
         store=True
 
     )
-    #Reverting its meaning with Offer Checked
-    #partner_stock_updated = fields.Boolean(
+
     partner_offer_checked = fields.Boolean(
         string='Offer Checked',
         default=False,
         store=True
     )
-
-    @api.onchange('partner_offer_checked')
-    def _onchange_partner_offer_checked(self):
-        print('test')
-        if self.partner_offer_checked:
-            self.qty_down = False
-            self.qty_up = False
-            self.costprice_up = False
-            self.costprice_down = False
-            self.note_updated = False
-            self.partner_offer_checked = True
 
     # For Filter Sale HKD up down
     @api.multi
