@@ -5,7 +5,9 @@
 
 
 
-
+        <record id="mail.mail_group_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_sale_salesman_all_leads')])]"/>
+        </record>
 
         <!-- Menu Items: Create a dedicated Products Menu under Sales for ECA group -->
         <!--Top Menu: External Sales-->
