@@ -19,6 +19,9 @@
                         <field name="costprice_down" invisible="1"/>
                         <field name="note_updated" invisible="1"/>
                     </xpath>
+                    <xpath expr="//field[@name='sale_hkd_ac']" position="after">
+                           <field name="partner_offer_checked"/>
+                    </xpath>
             </field>
     </record>
 
