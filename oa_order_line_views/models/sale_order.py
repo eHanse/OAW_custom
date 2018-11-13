@@ -18,6 +18,7 @@ class SaleOrderExt (models.Model):
     supplier_code = fields.Char(
        'Code',
        related='supplier_id.ref',
+        store = True
 
    )
 
