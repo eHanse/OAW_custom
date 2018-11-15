@@ -171,7 +171,7 @@
     </record>
 
      <record id="eca_pt_new_en_action" model="ir.actions.act_window">
-        <field name="name">New</field>
+        <field name="name">New Arrival</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">kanban,form</field>
@@ -245,7 +245,7 @@
         <field name="name">最新貨品</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">kanban,tree</field>
+        <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
         <field name="view_id" ref="eca_pt_avail_cn_view"/>
         <field name="search_view_id" ref="eca_pt_search"/>
@@ -269,7 +269,7 @@
         <field name="name">最新特價</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">kanban,tree</field>
+        <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
         <field name="view_id" ref="eca_pt_avail_cn_view"/>
         <field name="search_view_id" ref="eca_pt_search"/>
@@ -300,7 +300,7 @@
         sequence="15"/>
      <menuitem
         id="eca_new_en"
-        name="New"
+        name="New Arrival"
         parent="model_secu_eca.products_eca_avail_en"
         groups="model_secu_eca.group_eca"
         action="model_secu_eca.eca_pt_new_en_action"

@@ -18,7 +18,7 @@
                 sequence="25"/>
         <menuitem
                 id="products_eca_avail_en"
-                name="Available EN"
+                name="Available"
                 parent="model_secu_eca.products_eca_top"
                 groups="model_secu_eca.group_eca"
                 sequence="5"/>
