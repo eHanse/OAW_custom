@@ -74,13 +74,11 @@ class ProductTemplate(models.Model):
     # For Partner Stock filter
     qty_up = fields.Boolean(
         string='Quantity increased',
-        readonly=True,
         store=True
 
     )
     qty_down = fields.Boolean(
         string='Quantity decreased',
-        readonly=True,
         store=True
     )
     costprice_up = fields.Boolean(
@@ -99,21 +97,12 @@ class ProductTemplate(models.Model):
         store=True
 
     )
-    partner_stock_updated = fields.Boolean(
-        string='Partner Stock To Check',
+
+    partner_offer_checked = fields.Boolean(
+        string='Offer Checked',
         default=False,
         store=True
     )
-
-    @api.onchange('partner_stock_updated')
-    def _onchange_partner_stock_updated(self):
-        if not self.partner_stock_updated:
-            self.qty_down = False
-            self.qty_up = False
-            self.costprice_up = False
-            self.costprice_down = False
-            self.note_updated = False
-            self.partner_stock_updated = False
 
     # For Filter Sale HKD up down
     @api.multi
@@ -144,6 +133,13 @@ class ProductTemplate(models.Model):
                     vals['price_up_date'] = fields.Datetime.now()
                 elif curr_net_price > vals['net_price']:
                     vals['price_down_date'] = fields.Datetime.now()
+            # For partner update
+            if 'qty_local_stock' in vals and 'qty_reserved' in vals:
+                if vals['qty_local_stock'] - vals['qty_reserved'] == 0:
+                    self.partner_offer_checked = False
+            elif 'qty_local_stock' in vals:
+                if vals['qty_local_stock'] - pt.qty_reserved == 0:
+                    self.partner_offer_checked = False
         return super(ProductTemplate, self).write(vals)
 
 

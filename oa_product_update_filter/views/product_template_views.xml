@@ -38,8 +38,27 @@
                 <filter name="c24_unset" string="Chrono24" domain="[('chrono', '=', True)]"/>
                 <filter name="chrono_deac" string="Chrono24 deactive" domain="[('chrono24_updated','=',True),('qty_local_stock','=',0)]"/>
             </xpath>
+            <!--Adding further condition on Available Filter Group -->
+             <xpath expr="//filter[@name='overseas']" position="replace">
+           </xpath>
+           <xpath expr="//filter[@name='local_overseas_w_res']" position="replace">
+           </xpath>
+            <xpath expr="//filter[@name='local_overseas_wo_res']" position="replace">
+           </xpath>
+            <xpath expr="//group[@name='available']" position="after">
+                <group expand="0" name='available_checked' string="Available&amp;Checked ">
+                    <filter name="overseas_checked" string="Overseas" domain="[('overseas_stock','=','Yes'),('partner_offer_checked','=','True')]"/>
+                    <filter name="local_overseas_w_res_checked" string="Local&amp;overseas w R" domain="['|',('qty_local_stock','&gt;',0),('overseas_stock','=','Yes'),('partner_offer_checked','=','True')]"/>
+                    <filter name="local_overseas_wo_res_checked" string="Local&amp;overseas w/o R" domain="['|',('local_stock_not_reserved','&gt;',0),('overseas_stock','=','Yes'),('partner_offer_checked','=','True')]"/>
+                </group>
+           </xpath>
         </field>
     </record>
+
+
+
+
+
 
     <!-- New Button for posting Chrono24Note as relevant for Sales Deparment-->
     <record id="product_template_form_view_chrono24" model="ir.ui.view">
