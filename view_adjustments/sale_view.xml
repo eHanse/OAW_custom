@@ -84,5 +84,19 @@
         </record>
 
 
+            <!-- Adds client_order_ref to tree view -->
+        <record id="view_quotation_tree_ext" model="ir.ui.view">
+            <field name="name">view_quotation_tree_ext: adds client_order_ref to tree view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_line_quant_extended.view_quotation_tree_z160504"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='to_check']" position="after">
+                       <field name="client_order_ref" string="Remark"/>
+                      <field name="client_order_ref" string="Remark"/>
+               </xpath>
+            </field>
+        </record>
+
+
     </data>
 </openerp>

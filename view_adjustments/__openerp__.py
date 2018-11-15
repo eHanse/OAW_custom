@@ -28,6 +28,8 @@
     'depends': ["base",
                 "sale",
                 "account_voucher",
+                "sale_line_quant",
+                "sale_line_quant_extended"
                 ],
     'description': """
 * moves and creates, makes tabs invisible, minor adjustments on Customer/Supplier Payments
@@ -37,6 +39,9 @@
         'sale_stock_view.xml',
         'product_view.xml',
         'account_voucher_views.xml',
+        'stock_quant.xml',
+
+
     ],
     'installable': True,
 }
