@@ -6,6 +6,7 @@
             model = "sale.order"
             string = "Sino Quo Print"
             report_type = "qweb-pdf"
+            groups="base.group_sale_salesman_all_leads"
             name = "oa_company_quotation_report_sino_adjust.report_sale_order_sino"
             file = "oa_company_quotation_report_sino_adjust.report_sale_order_sino"
             />

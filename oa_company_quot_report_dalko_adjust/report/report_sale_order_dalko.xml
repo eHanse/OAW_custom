@@ -6,6 +6,7 @@
             model = "sale.order"
             string = "OA Quo Print"
             report_type = "qweb-pdf"
+            groups="base.group_sale_salesman_all_leads"
             name = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
             file = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
             />
