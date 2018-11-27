@@ -171,7 +171,7 @@
     </record>
 
      <record id="eca_pt_new_en_action" model="ir.actions.act_window">
-        <field name="name">New</field>
+        <field name="name">New Arrival</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">kanban,form</field>
@@ -217,7 +217,79 @@
         <field name="act_window_id" ref="eca_pt_special_en_action"/>
     </record>
 
-<!-- Chinese Actions -->
+<!--GROUPED-->
+       <record id="eca_pt_avail_grouped_en_action" model="ir.actions.act_window">
+        <field name="name">Available (By Brand)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="eca_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('internal_stock_available','=','Yes'),('partner_offer_checked','=',True),]</field>
+    </record>
+    <record id="eca_pt_avail_en_grouped_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_en_view"/>
+        <field name="act_window_id" ref="eca_pt_avail_grouped_en_action"/>
+    </record>
+    <record id="eca_pt_avail_grouped_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="eca_pt_avail_grouped_en_action"/>
+    </record>
+   <record id="eca_pt_new_grouped_en_action" model="ir.actions.act_window">
+        <field name="name">New Arrival (By Brand)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="eca_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <record id="eca_pt_new_grouped_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_en_view"/>
+        <field name="act_window_id" ref="eca_pt_new_grouped_en_action"/>
+    </record>
+    <record id="eca_pt_new_grouped_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="eca_pt_new_grouped_en_action"/>
+    </record>
+        <record id="eca_pt_special_grouped_en_action" model="ir.actions.act_window">
+        <field name="name">Special (By Brand)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="eca_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+       <field name="domain">[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <record id="eca_pt_special_grouped_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_en_view"/>
+        <field name="act_window_id" ref="eca_pt_special_grouped_en_action"/>
+    </record>
+    <record id="eca_pt_special_grouped_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="eca_pt_special_grouped_en_action"/>
+    </record>
+
+
+
+<!-- CHINESE-->
+                    <!-- CHINESE-->
+                                        <!-- CHINESE-->
    <record id="eca_pt_avail_cn_action" model="ir.actions.act_window">
         <field name="name">所有在售貨品</field>
         <field name="type">ir.actions.act_window</field>
@@ -245,9 +317,8 @@
         <field name="name">最新貨品</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">kanban,tree</field>
+        <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="eca_pt_avail_cn_view"/>
         <field name="search_view_id" ref="eca_pt_search"/>
         <field name="domain">[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
     </record>
@@ -269,9 +340,8 @@
         <field name="name">最新特價</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">kanban,tree</field>
+        <field name="view_mode">kanban,form</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="eca_pt_avail_cn_view"/>
         <field name="search_view_id" ref="eca_pt_search"/>
         <field name="domain">[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
     </record>
@@ -289,6 +359,78 @@
         <field name="act_window_id" ref="eca_pt_special_cn_action"/>
     </record>
 
+<!--GROUPED  -->
+    <record id="eca_pt_avail_grouped_cn_action" model="ir.actions.act_window">
+        <field name="name">所有在售貨品 所有品牌:</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="eca_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('internal_stock_available','=','Yes'),('partner_offer_checked','=',True)]</field>
+   </record>
+    <!--View Modes-->
+    <record id="eca_pt_avail_grouped_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_cn_view"/>
+        <field name="act_window_id" ref="eca_pt_avail_grouped_cn_action"/>
+    </record>
+    <record id="eca_pt_avail_grouped_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="eca_pt_avail_grouped_cn_action"/>
+    </record>
+    <record id="eca_pt_new_grouped_cn_action" model="ir.actions.act_window">
+        <field name="name">最新貨品 所有品牌:</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="eca_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+ <!--View Modes-->
+    <record id="eca_pt_new_grouped_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_cn_view"/>
+        <field name="act_window_id" ref="eca_pt_new_grouped_cn_action"/>
+    </record>
+    <record id="eca_pt_new_grouped_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="eca_pt_new_grouped_cn_action"/>
+    </record>
+         <record id="eca_pt_special_grouped_cn_action" model="ir.actions.act_window">
+        <field name="name">最新特價 所有品牌:</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="eca_pt_search"/>
+         <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+ <!--View Modes-->
+    <record id="eca_pt_special_grouped_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="eca_pt_avail_cn_view"/>
+        <field name="act_window_id" ref="eca_pt_special_grouped_cn_action"/>
+    </record>
+    <record id="eca_pt_special_grouped_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="eca_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="eca_pt_special_grouped_cn_action"/>
+    </record>
+
+
 
 <!--English Menu Items-->
    <menuitem
@@ -298,13 +440,31 @@
         groups="model_secu_eca.group_eca"
         action="model_secu_eca.eca_pt_avail_en_action"
         sequence="15"/>
+        <!--Grouped -->
+    <menuitem
+        id="eca_avail_grouped_en"
+        name="Available (By Brand)"
+        parent="model_secu_eca.products_eca_avail_en"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_avail_grouped_en_action"
+        sequence="15"/>
+
      <menuitem
         id="eca_new_en"
-        name="New"
+        name="New Arrival"
         parent="model_secu_eca.products_eca_avail_en"
         groups="model_secu_eca.group_eca"
         action="model_secu_eca.eca_pt_new_en_action"
         sequence="16"/>
+        <!--Grouped-->
+      <menuitem
+        id="eca_new_grouped_en"
+        name="New Arrival (By Brand)"
+        parent="model_secu_eca.products_eca_avail_en"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_new_grouped_en_action"
+        sequence="16"/>
+
      <menuitem
         id="eca_special_en"
         name="Special Offers"
@@ -312,6 +472,15 @@
         groups="model_secu_eca.group_eca"
         action="model_secu_eca.eca_pt_special_en_action"
         sequence="17"/>
+        <!--Grouped-->
+    <menuitem
+        id="eca_special_grouped_en"
+        name="Special Offers (By Brand)"
+        parent="model_secu_eca.products_eca_avail_en"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_special_grouped_en_action"
+        sequence="17"/>
+
 
 <!--Chinese Menu Items-->
     <menuitem
@@ -335,6 +504,29 @@
         parent="model_secu_eca.products_eca_avail_cn"
         groups="model_secu_eca.group_eca"
         action="model_secu_eca.eca_pt_special_cn_action"
+        sequence="17"/>
+    <!--Grouped -->
+      <menuitem
+        id="eca_avail_grouped_cn"
+        name="所有在售貨品 所有品牌:"
+        parent="model_secu_eca.products_eca_avail_cn"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_avail_grouped_cn_action"
+        sequence="15"/>
+
+    <menuitem
+        id="eca_new_grouped_cn"
+        name="最新貨品 所有品牌:"
+        parent="model_secu_eca.products_eca_avail_cn"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_new_grouped_cn_action"
+        sequence="16"/>
+     <menuitem
+        id="eca_special_grouped_cn"
+        name="最新特價 所有品牌:"
+        parent="model_secu_eca.products_eca_avail_cn"
+        groups="model_secu_eca.group_eca"
+        action="model_secu_eca.eca_pt_special_grouped_cn_action"
         sequence="17"/>
 
 
