@@ -19,7 +19,5 @@
 #
 ##############################################################################
 
-import product
-import account_voucher
-import sale_ext
-import stock_quant_ext
+# from addons.OAW_custom.view_adjustments.models import sale_ext
+from . import models
