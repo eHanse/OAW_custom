@@ -101,7 +101,7 @@
 
 
 
-            <!-- Adds client_order_ref to tree view -->
+            <!-- Adds client_order_ref to search -->
         <record id="view_sales_order_filter_ext_1" model="ir.ui.view">
             <field name="name">Makes client_order_ref searchable in seachview</field>
             <field name="model">sale.order</field>
