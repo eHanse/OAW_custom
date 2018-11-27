@@ -14,8 +14,6 @@
          </record>
 
 
-
-            <!--Maybe redundant considering how compute-method is working-->
               <record id="action_run_ir_action_sequence_quant_update"
                 model="ir.actions.server">
             <field name="name">Update old quotations regarding Remark</field>
@@ -28,22 +26,6 @@ quants = self.browse(cr, uid, context.get('active_ids', []), context=context)
 quants._get_remark()
             </field>
         </record>
-
-
-
-               <!-- Adds client_order_ref to searchview of quant -->
-        <record id="quant_search_view_ext_1" model="ir.ui.view">
-            <field name="name">Makes client_order_ref from quotation searchable</field>
-            <field name="model">stock.quant</field>
-            <field name="inherit_id" ref="stock.quant_search_view"/>
-            <field name="arch" type="xml">
-                  <xpath expr="//field[@name='location_id']" position="after">
-                       <field name="client_order_ref" string="Remark"/>
-               </xpath>
-            </field>
-        </record>
-
-
 
     </data>
 </openerp>
