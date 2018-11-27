@@ -29,17 +29,18 @@
                 "sale",
                 "account_voucher",
                 "sale_line_quant",
-                "sale_line_quant_extended"
+                "sale_line_quant_extended",
+                "stock"
                 ],
     'description': """
 * moves and creates, makes tabs invisible, minor adjustments on Customer/Supplier Payments
     """,
     'data': [
-        'sale_view.xml',
-        'sale_stock_view.xml',
-        'product_view.xml',
-        'account_voucher_views.xml',
-        'stock_quant.xml',
+        'views/sale_view.xml',
+        'views/sale_stock_view.xml',
+        'views/product_view.xml',
+        'views/account_voucher_views.xml',
+        'views/stock_quant.xml',
 
 
     ],

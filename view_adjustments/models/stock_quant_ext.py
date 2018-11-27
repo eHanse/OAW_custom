@@ -8,10 +8,14 @@ class StockQuant(models.Model):
         readonly=True,
         string='Remark Of SO',
         compute = '_get_remark',
-        default = ''
-    )
+        default = '',
+        store = True
 
+    )
+    #
     @api.multi
+    # Here, dependence on the sale_id will trigger also!
+    @api.depends('sale_id.client_order_ref')
     def _get_remark(self):
         for q in self:
             if q.sale_id:
