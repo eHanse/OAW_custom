@@ -41,28 +41,7 @@ class ProductTemplate(models.Model):
         store = True
     )
 
-    # list_price_special = fields.Boolean(
-    #     compute='update_list_price_special',
-    #     string="Inernal Stock Update",
-    #     default = False
-    # )
-    #
-    # # @api.multi
-    # def update_list_price_special(self):
-    #     for pt in self:
-    #         now = fields.Datetime.now()
-    #         special_date = pt.list_price_special_date
-    #         datetimeFormat = '%Y-%m-%d %H:%M:%S'
-    #         if special_date:
-    #             now_dt = datetime.strptime(now,datetimeFormat)
-    #             special_date_dt = datetime.strptime(special_date,datetimeFormat)
-    #             delta = now_dt - special_date_dt
-    #             if delta.seconds < 86400 :
-    #                 pt.list_price_special = True
-    #             else:
-    #                 pt.list_price_special = False
-    #         else :
-    #             pt.list_price_special = False
+
 
     @api.multi
     @api.depends('local_stock_not_reserved', 'qty_overseas')
@@ -82,8 +61,8 @@ class ProductTemplate(models.Model):
             if 'net_price' in vals:
                 if pt.net_price > vals['net_price']:
                     pt.list_price_special_date = fields.Datetime.now()
-            if 'sale_hkd_ab' in vals:
-                if pt.sale_hkd_ab > vals['sale_hkd_ab']:
+            if 'sale_hkd_aa_so' in vals:
+                if pt.sale_hkd_aa_so > vals['sale_hkd_aa_so']:
                     pt.list_price_special_date = fields.Datetime.now()
             if 'sale_hkd_ac' in vals:
                 if pt.sale_hkd_ac > vals['sale_hkd_ac']:
