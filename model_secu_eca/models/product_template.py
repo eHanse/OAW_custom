@@ -62,10 +62,13 @@ class ProductTemplate(models.Model):
                 if pt.net_price > vals['net_price']:
                     pt.list_price_special_date = fields.Datetime.now()
             if 'sale_hkd_aa_so' in vals:
-                if pt.sale_hkd_aa_so > vals['sale_hkd_aa_so']:
+                if pt.sale_hkd_aa_so > vals['sale_hkd_aa_so'] or pt.net_price > vals['sale_hkd_aa_so']:
                     pt.list_price_special_date = fields.Datetime.now()
             if 'sale_hkd_ac' in vals:
                 if pt.sale_hkd_ac > vals['sale_hkd_ac']:
+                    pt.list_price_special_date = fields.Datetime.now()
+            if 'sale_hkd_ac_so' in vals:
+                if pt.sale_hkd_ac_so > vals['sale_hkd_ac_so'] or pt.sale_hkd_ac > vals['sale_hkd_ac_so']:
                     pt.list_price_special_date = fields.Datetime.now()
             # For New Arrival Filter
             if 'qty_local_stock' in vals and 'qty_reserved' in vals:
