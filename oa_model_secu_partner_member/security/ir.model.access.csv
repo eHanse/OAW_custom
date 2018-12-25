@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_product_template,access_product_template,product.model_product_template,group_partner_ac,1,0,0,0
+access_product_template,access_product_template,product.model_product_template,group_partner_member,1,0,0,0

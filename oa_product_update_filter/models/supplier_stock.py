@@ -61,7 +61,7 @@ class SupplierStock(models.Model):
     def write(self, vals):
         for ps in self:
             ps.check_changes(vals)
-            print('Test 2')
+            # print('Test 2')
         res = super(SupplierStock, self).write(vals)
         return res
 

@@ -1,15 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <!-- Menu Items: Create a dedicated Product Offer menu item for Partner AC -->
-        <!--Top Menu: External Sales-->
+        <!--Kanban Overview used by 1-->
+         <record id="view_pmember_overview" model="ir.ui.view">
+            <field name="name">view.pmember.overview.kanban</field>
+            <field name="model">supplier.stock</field>
+            <field name="arch" type="xml">
+                <kanban create="false" default_order="product_id">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_vignette oe_semantic_html_override">
+                                <a type="open">
+                                    <img t-att-src="kanban_image('supplier.stock', 'image_small', record.id.value)"
+                                         class="oe_kanban_image"/>
+                                </a>
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open">
+                                            <field name="product_id"/>
+                                        </a>
+                                    </h4>
+                                    <div name="tags"/>
+                                    <ul>
+                                        <li>Retail<field name="currency_id"/>:
+                                            <field name="retail_in_currency"></field>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
 
+
+        <!--Kanban Detailed, used by 2,3,4-->
+         <record id="view_pmember_detailed" model="ir.ui.view">
+            <field name="name">view.pmember.detailed.kanban</field>
+            <field name="model">supplier.stock</field>
+            <field name="arch" type="xml">
+                <kanban create="false" default_order="product_id">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_vignette oe_semantic_html_override">
+                                <a type="open">
+                                    <img t-att-src="kanban_image('supplier.stock', 'image_small', record.id.value)"
+                                         class="oe_kanban_image"/>
+                                </a>
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open">
+                                            <field name="product_id"/>
+                                        </a>
+                                    </h4>
+                                    <div name="tags"/>
+                                    <ul>
+                                        <li>Retail<field name="currency_id"/> :
+                                            <field name="retail_in_currency"></field>
+                                        </li>
+                                        <li>Discount: <field name="discount_in_curr"/>%</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!--Search View -->
+        <record id="pmember_pt_search" model="ir.ui.view">
+            <field name="name">pmember.pt.search</field>
+            <field name="model">supplier.stock</field>
+              <field eval="45" name="priority"/>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_id" string="Product"/>
+                    <field name="prod_cat_selection" string="Brand"/>
+                    <!--<group expand="0" name='available' string="Available">-->
+                        <!--<filter name="available" string="Available" domain="[('internal_stock_available','=','Yes')]"/>-->
+                        <!--&lt;!&ndash;New Arrival: New Record (Receipt, or Partner Stock) or Qty changes from 0 to greater than 0&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;I.e. internal_stock_change_ triggered by increase of quantity&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<filter name="new_arrive" string="New Arrival" domain="[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;List price has fallen within the last 24h&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<filter name="list_price_special" string="Specials" domain="[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>&ndash;&gt;-->
+                    <!--</group>-->
+                </search>
+            </field>
+        </record>
+
+
+        <!--1.) -->
+        <!--<field name="domain">[('internal_stock_available','=','Yes'),('partner_offer_checked','=',True)]</field>-->
+        <!--PMember Availability, ordered by name-->
+        <record id="pmember_overview_en_action" model="ir.actions.act_window">
+            <field name="name">Overview</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">supplier.stock</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="pmember_pt_search"/>
+        </record>
+        <!--View Modes-->
+        <record id="pmember_overview_kanban_en_action"
+                model="ir.actions.act_window.view">
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_pmember_overview"/>
+            <field name="act_window_id" ref="pmember_overview_en_action"/>
+        </record>
+
+        <!--2.) -->
+        <!--<field name="domain">[('internal_stock_available','=','Yes'),('partner_offer_checked','=',True)]</field>-->
+        <!--PMember Availability, ordered by name-->
+        <record id="pmember_offer_en_action" model="ir.actions.act_window">
+            <field name="name">Detailed Overview</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">supplier.stock</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="pmember_pt_search"/>
+        </record>
+        <!--View Modes-->
+        <record id="pmember_offer_kanban_en_action"
+                model="ir.actions.act_window.view">
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_pmember_detailed"/>
+            <field name="act_window_id" ref="pmember_offer_en_action"/>
+        </record>
+
+        <!--3.) -->
+        <!--<filter name="new_entry" string="Last Stock Entry" domain="[('create_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>-->
+        <!--&lt;!&ndash; For filter New Stock Entry 24&ndash;&gt;-->
+        <!--<filter name="updated_one_day" string="Updated in 24" domain="[('updated_date','&gt;=',(context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d'))]"/>-->
+        <!--<field name="domain">[|,('create_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('updated_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]</field>-->
+        <!--PMember Availability, ordered by name-->
+        <record id="pmember_new_en_action" model="ir.actions.act_window">
+            <field name="name">New Arrival</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">supplier.stock</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="pmember_pt_search"/>
+            <field name="domain">[('partner_stock_qty_new','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]</field>
+        </record>
+        <!--View Modes-->
+        <record id="pmember_new_kanban_en_action"
+                model="ir.actions.act_window.view">
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_pmember_detailed"/>
+            <field name="act_window_id" ref="pmember_new_en_action"/>
+        </record>
+
+        <!--4.) -->
+        <!--<field name="domain">[('internal_stock_available','=','Yes'),('partner_offer_checked','=',True)]</field>-->
+        <!--PMember Availability, ordered by name-->
+        <record id="pmember_so_en_action" model="ir.actions.act_window">
+            <field name="name">Special Offer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">supplier.stock</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="pmember_pt_search"/>
+            <field name="domain">[('partner_stock_special_offer','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]</field>
+        </record>
+        <!--View Modes-->
+        <record id="pmember_so_kanban_en_action"
+                model="ir.actions.act_window.view">
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_pmember_detailed"/>
+            <field name="act_window_id" ref="pmember_so_en_action"/>
+        </record>
+
+
+
+
+
+
+
+
+
+
+        <!--Menu Items for Partner Member Stock Offer views-->
         <menuitem
-                id="pac_top_offer_en"
-                name="Total Available Stock"
-                parent="model_security_adjust_oaw.menu_base_products_supplier"
+                id="pmember_overview_en"
+                name="Overview"
+                parent="model_security_adjust_oaw.menu_products_supplier"
                 groups="oa_model_secu_partner_member.group_partner_member"
-                sequence="5"/>
+                action="oa_model_secu_partner_member.pmember_overview_en_action"
+                sequence="16"/>
+         <menuitem
+                id="pmember_detailed_overview_en"
+                name="Detailed Overview"
+                parent="model_security_adjust_oaw.menu_products_supplier"
+                groups="oa_model_secu_partner_member.group_partner_member"
+                action="oa_model_secu_partner_member.pmember_offer_en_action"
+                sequence="17"/>
+        <menuitem
+                id="pmember_new_en"
+                name="New Arrival"
+                parent="model_security_adjust_oaw.menu_products_supplier"
+                groups="oa_model_secu_partner_member.group_partner_member"
+                action="oa_model_secu_partner_member.pmember_new_en_action"
+                sequence="18"/>
+        <menuitem
+                id="pmember_so_en"
+                name="Special Offers"
+                parent="model_security_adjust_oaw.menu_products_supplier"
+                groups="oa_model_secu_partner_member.group_partner_member"
+                action="oa_model_secu_partner_member.pmember_so_en_action"
+                sequence="19"/>
 
     </data>
 </openerp>
