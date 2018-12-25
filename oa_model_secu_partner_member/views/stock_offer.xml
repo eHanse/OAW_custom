@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Menu Items: Create a dedicated Product Offer menu item for Partner AC -->
+        <!--Top Menu: External Sales-->
+
+        <menuitem
+                id="pac_top_offer_en"
+                name="Total Available Stock"
+                parent="model_security_adjust_oaw.menu_base_products_supplier"
+                groups="oa_model_secu_partner_member.group_partner_member"
+                sequence="5"/>
+
+    </data>
+</openerp>
+
