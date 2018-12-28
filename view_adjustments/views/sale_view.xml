@@ -116,6 +116,7 @@
 
 
 
+
          <!-- This following record adds Subconsignemtn Checkbox to Form view -->
         <record id="view_sales_order_form_z18" model="ir.ui.view">
             <field name="name">sale.order.form.z18</field>

@@ -59,7 +59,7 @@
                                     </h4>
                                     <div name="tags"/>
                                     <ul>
-                                        <li>Brand: <field name="prod_cat_selection" domain="[('supplier_access','=',True)]" context="{'supplier_access_context':True}"/></li>
+                                        <li>Brand: <field name="prod_cat_selection" context="{'supplier_access_context':True}"/></li>
                                         <li>Retail HKD: <field name="product_list_price"></field></li>
                                         <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                         <li>Discount: <field name="discount_in_curr"/>%</li>
