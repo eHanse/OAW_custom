@@ -116,9 +116,41 @@
 
 
 
+         <!-- This following record adds Subconsignemtn Checkbox to Form view -->
+        <record id="view_sales_order_form_z18" model="ir.ui.view">
+            <field name="name">sale.order.form.z18</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="oa_order_line_views.view_sales_order_form_qol"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='is_shipment']" position="after">
+                       <field name="subconsigned" string="Sub Consigned"/>
+               </xpath>
+            </field>
+        </record>
 
+         <!-- Adds Sub Consigned checkbox to tree view -->
+        <record id="view_sales_order_tree_z18" model="ir.ui.view">
+            <field name="name">view_quotation_tree_ext: adds Sub Consigned checkbox  to tree view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_line_quant_extended.view_quotation_tree_z160504"/>
+            <field name="arch" type="xml">
+                   <xpath expr="//field[@name='is_mto']" position="after">
+                    <field name="subconsigned" string="Sub Consigned"/>
+                </xpath>
+            </field>
+        </record>
 
-
+       <!-- Adds client_order_ref to search -->
+        <record id="view_sales_order_filter_z18" model="ir.ui.view">
+            <field name="name">adds Sub Consigned filter to tree view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_line_quant_extended.view_sales_order_filter_z160504"/>
+            <field name="arch" type="xml">
+                   <xpath expr="//filter[@string='My']" position="before">
+                       <filter name="subconsigned" string="Sub Consigned" domain="[('subconsigned','=',True)]"/>
+               </xpath>
+            </field>
+        </record>
 
 
 
