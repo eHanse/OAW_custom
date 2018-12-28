@@ -142,14 +142,6 @@
             <search>
                 <field name="name" filter_domain="['|',('default_code','ilike',self),('name','ilike',self)]"/>
                 <field name="brand" string="Brand"/>
-                <!--<group expand="0" name='available' string="Available">-->
-                    <!--<filter name="available" string="Available" domain="[('internal_stock_available','=','Yes')]"/>-->
-                    <!--&lt;!&ndash;New Arrival: New Record (Receipt, or Partner Stock) or Qty changes from 0 to greater than 0&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;I.e. internal_stock_change_ triggered by increase of quantity&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;<filter name="new_arrive" string="New Arrival" domain="[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;List price has fallen within the last 24h&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;<filter name="list_price_special" string="Specials" domain="[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>&ndash;&gt;-->
-                <!--</group>-->
             </search>
         </field>
     </record>
@@ -483,14 +475,14 @@
         name="Special Offers"
         parent="oa_model_secu_partner_ac.pac_top_offer_en"
         groups="oa_model_secu_partner_ac.group_partner_ac"
-        action="oa_model_secu_partner_ac.pac_special_cn_action"
+        action="oa_model_secu_partner_ac.pac_special_en_action"
         sequence="19"/>
      <menuitem
         id="pac_special_grouped_en"
         name="Special Offers (By Brand)"
         parent="oa_model_secu_partner_ac.pac_top_offer_en"
         groups="oa_model_secu_partner_ac.group_partner_ac"
-        action="oa_model_secu_partner_ac.pac_special_grouped_cn_action"
+        action="oa_model_secu_partner_ac.pac_special_grouped_en_action"
         sequence="20"/>
 
 

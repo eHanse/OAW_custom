@@ -20,6 +20,39 @@ class SupplierStock(models.Model):
         string="Qty Changed",
     )
 
+    sale_in_usd = fields.Float(
+        string='Sale USD',
+        compute='_get_net_price_cny',
+        digits=dp.get_precision('Product Price')
+    )
+    sale_in_eur = fields.Float(
+        string='Sale EUR',
+        compute='_get_net_price_cny',
+        digits=dp.get_precision('Product Price')
+    )
+    sale_in_chf = fields.Float(
+        string='Sale CHF',
+        compute='_get_net_price_cny',
+        digits=dp.get_precision('Product Price')
+    )
+    sale_in_rmb = fields.Float(
+        string='Sale RMB',
+        compute='_get_net_price_cny',
+        digits=dp.get_precision('Product Price')
+    )
+
+    @api.multi
+    def _get_net_price_cny(self):
+        usd_rec = self.env['res.currency'].search([('name', '=', 'USD')])[0]
+        eur_rec = self.env['res.currency'].search([('name', '=', 'EUR')])[0]
+        chf_rec = self.env['res.currency'].search([('name', '=', 'CHF')])[0]
+        rmb_rec = self.env['res.currency'].search([('name', '=', 'CNY')])[0]
+        if usd_rec and eur_rec and chf_rec and rmb_rec:
+            for st in self:
+                st.sale_in_usd = st.price_unit_base * usd_rec.rate_silent
+                st.sale_in_eur = st.price_unit_base * eur_rec.rate_silent
+                st.sale_in_chf = st.price_unit_base * chf_rec.rate_silent
+                st.sale_in_rmb = st.price_unit_base * rmb_rec.rate_silent
 
     @api.multi
     def write(self, vals):
