@@ -29,7 +29,7 @@
                     <field name="qty_reserved" string="Qty Reserved"/>
                     <field name="qty_local_stock" widget="integer" string="HK Stock"/>
                     <field name="qty_overseas" string="Qty Overseas"/>
-                    <field name="chrono24_price" string="Chrono 24 Price" readonly="1"/>
+                    <field name="chrono24_price" string="Chrono 24 Price"/>
                     <field name="chrono24_updated" string="Chrono24 Updated"/>
                     <field name="chrono" string="Chrono24" readonly="1"/>
                     <field name="chronoNote"/>

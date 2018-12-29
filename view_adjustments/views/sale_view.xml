@@ -91,6 +91,9 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_line_quant_extended.view_quotation_tree_z160504"/>
             <field name="arch" type="xml">
+                 <xpath expr="//field[@name='to_check']" position="before">
+                    <field name="subconsigned" string="Sub Consigned"/>
+                </xpath>
                   <xpath expr="//field[@name='to_check']" position="after">
                        <field name="client_order_ref" string="Remark"/>
                       <field name="pricelist_id" string="Pricelist"/>
@@ -129,17 +132,18 @@
             </field>
         </record>
 
-         <!-- Adds Sub Consigned checkbox to tree view -->
-        <record id="view_sales_order_tree_z18" model="ir.ui.view">
-            <field name="name">view_quotation_tree_ext: adds Sub Consigned checkbox  to tree view</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale_line_quant_extended.view_quotation_tree_z160504"/>
-            <field name="arch" type="xml">
-                   <xpath expr="//field[@name='is_mto']" position="after">
-                    <field name="subconsigned" string="Sub Consigned"/>
-                </xpath>
-            </field>
-        </record>
+         <!--&lt;!&ndash; Adds Sub Consigned checkbox to tree view &ndash;&gt;-->
+        <!--<record id="view_sales_order_tree_z18" model="ir.ui.view">-->
+            <!--<field name="name">view_quotation_tree_ext: adds Sub Consigned checkbox  to tree view</field>-->
+            <!--<field name="model">sale.order</field>-->
+            <!--<field name="inherit_id" ref="sale_line_quant_extended.view_quotation_tree_z160504"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!---->
+                   <!--<xpath expr="//field[@name='to_check']" position="before">-->
+                    <!--<field name="subconsigned" string="Sub Consigned"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
 
        <!-- Adds client_order_ref to search -->
         <record id="view_sales_order_filter_z18" model="ir.ui.view">
@@ -155,8 +159,24 @@
 
 
 
+    <!--&lt;!&ndash;remove Product Quick Create from Quotation&ndash;&gt;-->
+          <!--&lt;!&ndash; This following record adds Subconsignemtn Checkbox to Form view &ndash;&gt;-->
+        <!--<record id="view_order_form_inherit_z1" model="ir.ui.view">-->
+            <!--<field name="name">view.order.form.inherit.z1</field>-->
+            <!--<field name="model">sale.order</field>-->
+            <!--<field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="replace">-->
+                       <!--<field name="product_id"-->
+                       <!--context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':False, 'company_id': parent.company_id}"-->
+                       <!--groups="base.group_user"-->
+                       <!--on_change="product_id_change_with_wh(parent.pricelist_id,product_id,product_uom_qty,False,product_uos_qty,False,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position, False, parent.warehouse_id, context)"-->
+                       <!--options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"/>-->
 
-
+                   <!--</xpath>-->
+                <!---->
+            <!--</field>-->
+        <!--</record>-->
 
 
 
