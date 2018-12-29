@@ -12,7 +12,7 @@
         'product_offer',
         'model_security_adjust_oaw',
         'oa_model_secu_partner_ac',
-        # 'supplier_stock'
+
 
 
 
