@@ -63,7 +63,6 @@ class SupplierStock(models.Model):
                     ps.partner_stock_special_offer = fields.Datetime.now()
 
             if 'quantity' in vals:
-                if ps.quantity == 0.0:
                     if ps.quantity < vals['quantity']:
                         ps.partner_stock_qty_new = fields.Datetime.now()
         return super(SupplierStock, self).write(vals)
