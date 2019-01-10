@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="view_xrates_external_tree" model="ir.ui.view">
+            <field name="name">view.xrates.external</field>
+            <field name="model">res.currency</field>
+            <field name="arch" type="xml">
+                <tree string="Our Rates" edit="false" create="false" delete="false">
+                    <field name="name"/>
+                    <field name="rate_ids" invisible="1"/>
+                    <field name="date"/>
+                    <field name="rate_silent"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!--Action -->
+         <record id="view_xrates_external_action" model="ir.actions.act_window">
+            <field name="name">Our Rates</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.currency</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+        </record>
+        <!--View Modes-->
+        <record id="view_xrates_external_action_kanban"
+                model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_xrates_external_tree"/>
+            <field name="act_window_id" ref="view_xrates_external_action"/>
+        </record>
+
+
+        <!--Top Menu: External Sales-->
+        <!--groups="[("model_secu_eca.group_eca"),("model_security_adjust_awo.group_supplier")]"-->
+        <!--groups="model_secu_eca.group_eca"-->
+        <menuitem
+                id="external_xrates_top"
+                name="Exchange Rates"
+                groups="model_security_adjust_oaw.group_supplier,model_secu_eca.group_eca"
+                sequence="4"/>
+        <menuitem
+                id="external_xrates_menu"
+                name="Rates"
+                parent="external_xrates_top"
+                sequence="5"/>
+        <menuitem
+                id="external_xrates"
+                name="Our Rates"
+                parent="external_xrates_menu"
+                action="view_xrates_external_action"
+                sequence="6"/>
+
+
+
+
+
+
+
+
+
+
+    </data>
+</openerp>
+

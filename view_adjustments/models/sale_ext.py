@@ -13,3 +13,7 @@ class SaleOrderExtended(models.Model):
         'Notes'
     )
 
+    subconsigned = fields.Boolean(
+        string='Sub Consigned',
+    )
+

@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- Partner AC -->
+    <record id="pac_pt_offer_en_view" model="ir.ui.view">
+        <field name="name">eca.pt.avail.en.view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <kanban create="false" default_order="name">
+                <field name="type"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_vignette oe_semantic_html_override">
+                            <a type="open"><img t-att-src="kanban_image('product.template', 'image_medium', record.id.value)" class="oe_kanban_image"/></a>
+                            <div class="oe_kanban_details">
+                                <h4>
+                                    <a type="open">
+                                         <span t-if="record.default_code.value">
+                                             [<field name="default_code"/>]
+                                          </span>
+                                         <field name="name"/>
+                                    </a>
+                                </h4>
+                                <div name="tags"/>
+                                <ul>
+                                    <li>Brand: <field name="brand"></field></li>
+                                    <li>Reference: <field name="name"></field></li>
+                                    <li t-if="record.type.raw_value != 'service'">HK Stock: <field name="local_stock"/></li>
+                                    <li t-if="record.type.raw_value != 'service'">Overseas Stock: <field name="overseas_stock"/></li>
+                                    <li>HKD Retail: <field name="list_price_integer"></field></li>
+                                    <li><span>Sale HKD: <field name="net_price_integer"></field>     <field name="discount"/>% off</span></li>
+                                    <li>Sale USD: <field name="net_price_usd"></field></li>
+                                    <li>Sale EUR: <field name="net_price_eur"></field></li>
+                                    <li>Sale CHF: <field name="net_price_chf"></field></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="pac_pt_avail_en_form_view" model="ir.ui.view">
+            <field name="name">eca.pt.avail.en.form.view</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <sheet>
+                        <field name="image_medium" widget="image"
+                               class="oe_left oe_avatar"/>
+                        <group string="Product Information">
+                            <group>
+                                 <field name="brand" string="Brand"/>
+                                <field name="name" string="Reference"/>
+                                <field name="list_price_integer" string="HKD Retail"/>
+                                <field name="internal_stock_available" string="In Stock"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter supplier_access">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+<!-- ECA Availability CN -->
+    <record id="pac_pt_offer_cn_view" model="ir.ui.view">
+        <field name="name">eca.pt.avail.cn.view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <kanban create="false">
+                <field name="type"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_vignette oe_semantic_html_override">
+                            <a type="open"><img t-att-src="kanban_image('product.template', 'image_medium', record.id.value)" class="oe_kanban_image"/></a>
+                            <div class="oe_kanban_details">
+                                <h4>
+                                    <a type="open">
+                                         <span t-if="record.default_code.value">
+                                             [<field name="default_code"/>]
+                                          </span>
+                                         <field name="name"/>
+                                    </a>
+                                </h4>
+                                <div name="tags"/>
+                                <ul>
+                                     <li>品牌: <field name="brand"></field></li>
+                                    <li>型號: <field name="name"></field></li>
+                                    <li t-if="record.type.raw_value != 'service'">香港現貨: <field name="local_stock"/></li>
+                                    <li t-if="record.type.raw_value != 'service'">海外現貨: <field name="overseas_stock"/></li>
+                                    <li>港幣公價: <field name="list_price_integer"></field></li>
+                                    <li><span>港幣卖價和扣点: <field name="net_price_integer"></field>     <field name="discount"/>% off</span></li>
+                                    <li>当日人民幣卖價: <field name="net_price_cny"></field></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+     <record id="pac_pt_avail_cn_form_view" model="ir.ui.view">
+            <field name="name">eca.pt.avail.cn.form.view</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <sheet>
+                        <field name="image_medium" widget="image"
+                               class="oe_left oe_avatar"/>
+                        <group string="Product Information">
+                            <group>
+                                 <field name="brand" string="品牌"/>
+                                <field name="name" string="型號"/>
+                                <field name="list_price_integer" string="港幣公價"/>
+                                <field name="internal_stock_available" string="現貨"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter supplier_access">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+
+ <!--Search View -->
+    <record id="pac_pt_search" model="ir.ui.view">
+        <field name="name">pac.pt.search</field>
+        <field name="model">product.template</field>
+          <field eval="45" name="priority"/>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" filter_domain="['|',('default_code','ilike',self),('name','ilike',self)]"/>
+                <field name="brand" string="Brand"/>
+            </search>
+        </field>
+    </record>
+
+<!--English Actions-->
+<!--PAC Availability, ordered by name-->
+        <record id="pac_offer_en_action" model="ir.actions.act_window">
+        <field name="name">Available</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="domain">[('internal_stock_available','=','Yes'),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_offer_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_en_view"/>
+        <field name="act_window_id" ref="pac_offer_en_action"/>
+    </record>
+    <record id="pac_offer_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="pac_offer_en_action"/>
+    </record>
+<!--PAC Availability, by brand, ordered by name-->
+    <record id="pac_offer_grouped_en_action" model="ir.actions.act_window">
+        <field name="name">Available (By Brand)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('internal_stock_available','=','Yes'),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_offer_grouped_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_en_view"/>
+        <field name="act_window_id" ref="pac_offer_grouped_en_action"/>
+    </record>
+    <record id="pac_offer_grouped_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_offer_en_view"/>
+        <field name="act_window_id" ref="pac_offer_grouped_en_action"/>
+    </record>
+
+
+<!--PAC New Arrival, ordered by name-->
+     <record id="pac_arrival_en_action" model="ir.actions.act_window">
+        <field name="name">New Arrival</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="domain">[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_arrival_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_en_view"/>
+        <field name="act_window_id" ref="pac_arrival_en_action"/>
+    </record>
+    <record id="pac_arrival_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="pac_arrival_en_action"/>
+    </record>
+<!--PAC New Arrival, ordered by name, by brand-->
+    <record id="pac_arrival_grouped_en_action" model="ir.actions.act_window">
+        <field name="name">New Arrival (By Brand)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_arrival_grouped_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_en_view"/>
+        <field name="act_window_id" ref="pac_arrival_grouped_en_action"/>
+    </record>
+    <record id="pac_arrival_grouped_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="pac_arrival_grouped_en_action"/>
+    </record>
+
+<!--PAC Special Offer, ordered by name-->
+     <record id="pac_special_en_action" model="ir.actions.act_window">
+        <field name="name">Special Offers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="domain">[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_special_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_en_view"/>
+        <field name="act_window_id" ref="pac_special_en_action"/>
+    </record>
+    <record id="pac_special_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="pac_special_en_action"/>
+    </record>
+<!--PAC Special Offer, ordered by name, by brand-->
+    <record id="pac_special_grouped_en_action" model="ir.actions.act_window">
+        <field name="name">Special Offers (By Brand)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_special_grouped_en_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_en_view"/>
+        <field name="act_window_id" ref="pac_special_grouped_en_action"/>
+    </record>
+    <record id="pac_special_grouped_en_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_en_form_view"/>
+        <field name="act_window_id" ref="pac_special_grouped_en_action"/>
+    </record>
+
+<!-- CHINESE-->
+                    <!-- CHINESE-->
+                                        <!-- CHINESE-->
+ <!--PAC Availability, ordered by name-->
+        <record id="pac_offer_cn_action" model="ir.actions.act_window">
+        <field name="name">所有在售貨品</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="domain">[('internal_stock_available','=','Yes'),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_offer_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_cn_view"/>
+        <field name="act_window_id" ref="pac_offer_cn_action"/>
+    </record>
+    <record id="pac_offer_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="pac_offer_cn_action"/>
+    </record>
+<!--PAC Availability, by brand, ordered by name-->
+    <record id="pac_offer_grouped_cn_action" model="ir.actions.act_window">
+        <field name="name">所有在售貨品 所有品牌</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('internal_stock_available','=','Yes'),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_offer_grouped_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_cn_view"/>
+        <field name="act_window_id" ref="pac_offer_grouped_cn_action"/>
+    </record>
+    <record id="pac_offer_grouped_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="pac_offer_grouped_cn_action"/>
+    </record>
+<!--PAC New Arrival, ordered by name-->
+     <record id="pac_arrival_cn_action" model="ir.actions.act_window">
+        <field name="name">最新貨品</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="domain">[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_arrival_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_cn_view"/>
+        <field name="act_window_id" ref="pac_arrival_cn_action"/>
+    </record>
+    <record id="pac_arrival_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="pac_arrival_cn_action"/>
+    </record>
+<!--PAC New Arrival, ordered by name, by brand-->
+    <record id="pac_arrival_grouped_cn_action" model="ir.actions.act_window">
+        <field name="name">最新貨品 所有品牌</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('internal_stock_available','=','Yes'),('internal_stock_change_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_arrival_grouped_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_cn_view"/>
+        <field name="act_window_id" ref="pac_arrival_grouped_cn_action"/>
+    </record>
+    <record id="pac_arrival_grouped_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="pac_arrival_grouped_cn_action"/>
+    </record>
+
+<!--PAC Special Offer, ordered by name-->
+     <record id="pac_special_cn_action" model="ir.actions.act_window">
+        <field name="name">所有在售貨品</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="domain">[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_special_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_cn_view"/>
+        <field name="act_window_id" ref="pac_special_cn_action"/>
+    </record>
+    <record id="pac_special_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="pac_special_cn_action"/>
+    </record>
+<!--PAC Special Offer, ordered by name, by brand-->
+    <record id="pac_special_grouped_cn_action" model="ir.actions.act_window">
+        <field name="name">所有在售貨品 所有品牌</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="pac_pt_search"/>
+        <field name="context">{"group_by" : "categ_id"}</field>
+        <field name="domain">[('list_price_special_date','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d')),('partner_offer_checked','=',True)]</field>
+    </record>
+    <!--View Modes-->
+    <record id="pac_special_grouped_cn_action_kanban_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="pac_pt_offer_cn_view"/>
+        <field name="act_window_id" ref="pac_special_grouped_cn_action"/>
+    </record>
+    <record id="pac_special_grouped_cn_action_form_view"
+            model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pac_pt_avail_cn_form_view"/>
+        <field name="act_window_id" ref="pac_special_grouped_cn_action"/>
+    </record>
+
+
+<!--English Menu Items-->
+     <menuitem
+        id="pac_offer_en"
+        name="Available"
+        parent="oa_model_secu_partner_ac.pac_top_offer_en"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_offer_en_action"
+        sequence="15"/>
+   <menuitem
+        id="pac_offer_grouped_en"
+        name="Available (By Brand)"
+        parent="oa_model_secu_partner_ac.pac_top_offer_en"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_offer_grouped_en_action"
+        sequence="16"/>
+
+    <menuitem
+        id="pac_arrival_en"
+        name="New Arrival"
+        parent="oa_model_secu_partner_ac.pac_top_offer_en"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_arrival_en_action"
+        sequence="17"/>
+     <menuitem
+        id="pac_arrival_grouped_en"
+        name="New Arrival (By Brand)"
+        parent="oa_model_secu_partner_ac.pac_top_offer_en"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_arrival_grouped_en_action"
+        sequence="18"/>
+
+    <menuitem
+        id="pac_sepcial_en"
+        name="Special Offers"
+        parent="oa_model_secu_partner_ac.pac_top_offer_en"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_special_en_action"
+        sequence="19"/>
+     <menuitem
+        id="pac_special_grouped_en"
+        name="Special Offers (By Brand)"
+        parent="oa_model_secu_partner_ac.pac_top_offer_en"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_special_grouped_en_action"
+        sequence="20"/>
+
+
+<!--Chinese Menu Items-->
+    <menuitem
+        id="pac_avail_cn"
+        name="所有在售貨品"
+        parent="oa_model_secu_partner_ac.pac_top_offer_cn"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_offer_cn_action"
+        sequence="9"/>
+    <menuitem
+        id="pac_avail_grouped_cn"
+        name="所有在售貨品 所有品牌"
+        parent="oa_model_secu_partner_ac.pac_top_offer_cn"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_offer_grouped_cn_action"
+        sequence="10"/>
+
+     <menuitem
+        id="pac_arrival_cn"
+        name="最新貨品"
+        parent="oa_model_secu_partner_ac.pac_top_offer_cn"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_arrival_cn_action"
+        sequence="11"/>
+      <menuitem
+        id="pac_arrival_grouped_cn"
+        name="最新貨品 所有品牌"
+        parent="oa_model_secu_partner_ac.pac_top_offer_cn"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_arrival_grouped_cn_action"
+        sequence="12"/>
+
+    <menuitem
+        id="pac_special_cn"
+        name="最新特價"
+        parent="oa_model_secu_partner_ac.pac_top_offer_cn"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_special_cn_action"
+        sequence="16"/>
+     <menuitem
+        id="pac_special_grouped_cn"
+        name="最新特價 所有品牌"
+        parent="oa_model_secu_partner_ac.pac_top_offer_cn"
+        groups="oa_model_secu_partner_ac.group_partner_ac"
+        action="oa_model_secu_partner_ac.pac_special_grouped_cn_action"
+        sequence="17"/>
+    </data>
+</openerp>
+

@@ -11,5 +11,16 @@
 	       			</field>
             </field>
         </record>
+              <!-- Adds Additional Info to PLU tree view -->
+        <record id="view_sales_order_tree_z18" model="ir.ui.view">
+            <field name="name">view_quotation_tree_ext: adds Sub Consigned checkbox  to tree view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
+            <field name="arch" type="xml">
+                   <xpath expr="//field[@name='sale_hkd_ac_so']" position="after">
+                    <field name="additional_info" string="Sub Consigned"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </openerp>

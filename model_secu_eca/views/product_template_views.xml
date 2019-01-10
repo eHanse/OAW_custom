@@ -132,7 +132,7 @@
           <field eval="45" name="priority"/>
         <field name="arch" type="xml">
             <search>
-                <field name="name"/>
+                <field name="name" filter_domain="['|',('default_code','ilike',self),('name','ilike',self)]"/>
                 <field name="brand" string="Brand"/>
                 <group expand="0" name='available' string="Available">
                     <filter name="available" string="Available" domain="[('internal_stock_available','=','Yes')]"/>

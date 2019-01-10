@@ -13,6 +13,7 @@
         "product_listprice_list_view",
         "supplier_stock",
         "stock",
+         "view_adjustments"
     ],
 
     'description': """

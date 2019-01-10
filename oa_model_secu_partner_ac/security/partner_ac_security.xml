@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+          <record id="group_partner_ac" model="res.groups">
+            <field name="name">Partner AC</field>
+            <field name="category_id" ref="model_security_adjust_oaw.module_category_supplier"/>
+            <field name="implied_ids"
+                   eval="[
+                       (4, ref('model_security_adjust_oaw.group_supplier')),
+
+                   ]"/>
+        </record>
+
+
+    </data>
+</openerp>

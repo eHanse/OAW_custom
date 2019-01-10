@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Menu Items: Create a dedicated Product Offer menu item for Partner AC -->
+        <!--Top Menu: External Sales-->
+        <menuitem
+                id="products_pac_top"
+                name="Total Available Stock"
+                groups="oa_model_secu_partner_ac.group_partner_ac"
+                sequence="25"/>
+        <menuitem
+                id="pac_top_offer_en"
+                name="Total Available Stock"
+                parent="oa_model_secu_partner_ac.products_pac_top"
+                groups="oa_model_secu_partner_ac.group_partner_ac"
+                sequence="5"/>
+
+        <menuitem
+                id="pac_top_offer_cn"
+                name="所有貨品 繁體中文"
+                parent="oa_model_secu_partner_ac.products_pac_top"
+                groups="oa_model_secu_partner_ac.group_partner_ac"
+                sequence="15"/>
+
+
+
+    </data>
+</openerp>
+

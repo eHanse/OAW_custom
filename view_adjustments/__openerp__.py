@@ -30,7 +30,8 @@
                 "account_voucher",
                 "sale_line_quant",
                 "sale_line_quant_extended",
-                "stock"
+                "stock",
+                "oa_order_line_views"
                 ],
     'description': """
 * moves and creates, makes tabs invisible, minor adjustments on Customer/Supplier Payments
