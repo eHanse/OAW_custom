@@ -22,7 +22,7 @@
                                     </h4>
                                     <div name="tags"/>
                                     <ul>
-                                        <li>Brand: <field name="prod_cat_selection" context="{'supplier_access_context':True}"/></li>
+                                        <li>Brand: <field name="prod_cat_selection"/></li>
                                         <!--<li>Brand: <field name="product_id.product_tmpl_id.brand"/></li>-->
                                         <li>Retail <field name="currency_id"/>:
                                             <field name="retail_in_currency"></field>
@@ -59,7 +59,7 @@
                                     </h4>
                                     <div name="tags"/>
                                     <ul>
-                                        <li>Brand: <field name="prod_cat_selection" context="{'supplier_access_context':True}"/></li>
+                                        <li>Brand: <field name="prod_cat_selection"/></li>
                                         <li>Retail HKD: <field name="product_list_price"></field></li>
                                         <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                         <li>Discount: <field name="discount_in_curr"/>%</li>
@@ -94,7 +94,8 @@
                                     </h4>
                                     <div name="tags"/>
                                     <ul>
-                                        <li>Brand: <field name="prod_cat_selection" context="{'supplier_access_context':True}"/></li>
+
+                                        <li>Brand: <field name="prod_cat_selection"/></li>
                                         <li>Retail HKD: <field name="product_list_price"></field></li>
                                         <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
                                         <li>Sale HKD: <field name="price_unit_base"></field></li>
@@ -133,7 +134,7 @@
                                     </h4>
                                     <div name="tags"/>
                                     <ul>
-                                        <li>Brand: <field name="prod_cat_selection" context="{'supplier_access_context':True}"/></li>
+                                        <li>Brand: <field name="prod_cat_selection"/></li>
                                         <li>Retail HKD: <field name="product_list_price"></field></li>
                                         <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                         <li>Quantity: <field name="partner_qty"/></li>
@@ -167,7 +168,7 @@
                                     </h4>
                                     <div name="tags"/>
                                     <ul>
-                                        <li>Brand: <field name="prod_cat_selection" context="{'supplier_access_context':True}"/></li>
+                                        <li>Brand: <field name="prod_cat_selection"/></li>
                                         <li>Retail HKD: <field name="product_list_price"></field></li>
                                         <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
                                         <li>Sale HKD: <field name="price_unit_base"></field></li>
@@ -206,7 +207,8 @@
                                     </h4>
                                     <div name="tags"/>
                                     <ul>
-                                        <li>品牌: <field name="prod_cat_selection" context="{'supplier_access_context':True}"/></li>
+
+                                        <li>品牌: <field name="prod_cat_selection"/></li>
                                         <li>港幣公價: <field name="product_list_price"></field></li>
                                         <li>公價: <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
                                         <li>卖價和扣点: <field name="currency_id"/>: <field name="price_unit"></field></li>
@@ -245,6 +247,7 @@
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban</field>
             <field name="view_type">form</field>
+            <field name="context">{"supplier_access_context":1}</field>
             <field name="search_view_id" ref="model_security_adjust_oaw.partner_stock_external_kanban_search"/>
         </record>
         <!--View Modes-->
@@ -263,6 +266,7 @@
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban</field>
             <field name="view_type">form</field>
+            <field name="context">{"supplier_access_context":1}</field>
             <field name="search_view_id" ref="model_security_adjust_oaw.partner_stock_external_kanban_search"/>
         </record>
         <!--View Modes-->
@@ -279,6 +283,7 @@
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban</field>
             <field name="view_type">form</field>
+            <field name="context">{"supplier_access_context":1}</field>
             <field name="search_view_id" ref="model_security_adjust_oaw.partner_stock_external_kanban_search"/>
         </record>
         <!--View Modes-->
@@ -299,6 +304,7 @@
             <field name="view_mode">kanban</field>
             <field name="view_type">form</field>
             <field name="search_view_id" ref="model_security_adjust_oaw.partner_stock_external_kanban_search"/>
+            <field name="context">{"supplier_access_context":1}</field>
             <field name="domain">[('partner_stock_qty_new','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]</field>
         </record>
         <!--View Modes-->
@@ -316,6 +322,7 @@
             <field name="view_mode">kanban</field>
             <field name="view_type">form</field>
             <field name="search_view_id" ref="model_security_adjust_oaw.partner_stock_external_kanban_search"/>
+            <field name="context">{"supplier_access_context":1}</field>
             <field name="domain">[('partner_stock_special_offer','&gt;=',(context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d'))]</field>
         </record>
         <!--View Modes-->
@@ -331,6 +338,7 @@
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban</field>
             <field name="view_type">form</field>
+            <field name="context">{"supplier_access_context":1}</field>
             <field name="search_view_id" ref="model_security_adjust_oaw.partner_stock_external_kanban_search"/>
         </record>
         <!--View Modes-->
