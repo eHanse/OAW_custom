@@ -210,8 +210,8 @@
 
                                         <li>品牌: <field name="prod_cat_selection"/></li>
                                         <li>港幣公價: <field name="product_list_price"></field></li>
-                                        <li>公價: <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
-                                        <li>卖價和扣点: <field name="currency_id"/>: <field name="price_unit"></field></li>
+                                        <li>公價: <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
+                                        <li>卖價和扣点: <field name="currency_id"/>: <field name="price_unit"></field> <field name="discount_in_curr">% Off</field></li>
                                         <li>当日港幣卖價: <field name="price_unit_base"></field></li>
                                         <li>当日人民幣卖價: <field name="sale_in_rmb"></field></li>
                                     </ul>
