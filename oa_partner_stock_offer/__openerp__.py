@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': 'Partner Stock Offer',
-    'version': '8.0.0.8.0',
+    'version': '8.0.0.9.0',
     'author': 'eHanse,oa-trade,Quartile Limited,',
     'website': 'https://www.odoo-asia.com',
     'category': 'Product',
