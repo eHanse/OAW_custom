@@ -94,8 +94,8 @@
                                     <li t-if="record.type.raw_value != 'service'">香港現貨: <field name="local_stock"/></li>
                                     <li t-if="record.type.raw_value != 'service'">海外現貨: <field name="overseas_stock"/></li>
                                     <li>港幣公價: <field name="list_price_integer"></field></li>
-                                    <li><span>港幣卖價和扣点: <field name="net_price_integer"></field>     <field name="discount"/>% off</span></li>
-                                    <li>当日人民幣卖價: <field name="net_price_cny"></field></li>
+                                    <li><span>港幣賣價和扣点: <field name="net_price_integer"></field>     <field name="discount"/>% off</span></li>
+                                    <li>當日人民幣賣價: <field name="net_price_cny"></field></li>
                                 </ul>
                             </div>
                         </div>
