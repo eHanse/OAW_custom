@@ -41,6 +41,10 @@ class SupplierStock(models.Model):
     short_loc_name = fields.Char(
         "Location",
         related='partner_loc_id.short_loc')
+    brand = fields.Char(
+        related='prod_cat_selection.name',
+        string='Brand',
+    )
 
 
     # # Overwriting display_name's method for Supplier Access User

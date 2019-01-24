@@ -19,6 +19,7 @@
                                 </h4>
                                 <div name="tags"/>
                                 <ul>
+                                    <li>Brand: <field name="brand"/></li>
                                     <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                     <li>Retail HKD: <field name="hk_retail"/></li>
                                     <li>Quantity: <field name="partner_qty"/></li>
