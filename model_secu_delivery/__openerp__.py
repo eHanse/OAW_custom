@@ -32,6 +32,7 @@
          'views/sale_order.xml',
          'views/sale_views.xml',
          'views/stock_picking.xml',
+         'views/stock_views.xml',
     ],
 
     'qweb': [],
