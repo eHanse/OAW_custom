@@ -30,7 +30,7 @@
         <record model="ir.rule" id="all_groups_outgoing">
             <field name="name">Stock Picking: delivery: may process outgoing moves </field>
             <field name="model_id" ref="stock.model_stock_picking"/>
-            <field name="domain">[('picking_type_id.code','=','outgoing'</field>
+            <field name="domain">[('picking_type_id.code','=','outgoing')]</field>
             <field name="groups" eval="[(4,ref('group_delivery'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_create" eval="True"/>
@@ -42,7 +42,7 @@
         <record model="ir.rule" id="all_groups_outgoing">
             <field name="name">Stock Picking: delivery: may process outgoing moves </field>
             <field name="model_id" ref="stock.model_stock_picking"/>
-            <field name="domain">[('picking_type_id.code','!=','outgoing'</field>
+            <field name="domain">[('picking_type_id.code','!=','outgoing')]</field>
             <field name="groups" eval="[(4,ref('group_delivery'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_create" eval="False"/>
