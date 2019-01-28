@@ -18,7 +18,7 @@
             <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
             <field name="arch" type="xml">
                    <xpath expr="//field[@name='sale_hkd_ac_so']" position="after">
-                    <field name="additional_info" string="Sub Consigned"/>
+                    <field name="additional_info" string="Note Internal"/>
                 </xpath>
             </field>
         </record>

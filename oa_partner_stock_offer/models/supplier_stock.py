@@ -41,6 +41,10 @@ class SupplierStock(models.Model):
     short_loc_name = fields.Char(
         "Location",
         related='partner_loc_id.short_loc')
+    brand = fields.Char(
+        related='prod_cat_selection.name',
+        string='Brand',
+    )
 
 
     # # Overwriting display_name's method for Supplier Access User
@@ -96,4 +100,15 @@ class SupplierStock(models.Model):
     def create(self,vals):
         res =super(SupplierStock,self).create(vals)
         res._get_quantity()
+        return res
+
+    @api.multi
+    def unlink(self):
+        product_ids = []
+        for ps in self:
+            product_ids.append(ps.product_id.id)
+        res = super(SupplierStock, self).unlink()
+        related_ps = self.search([('product_id', 'in', product_ids)])
+        if related_ps:
+            related_ps._get_quantity()
         return res

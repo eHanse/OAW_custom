@@ -55,6 +55,18 @@ class SupplierStock(models.Model):
                 st.sale_in_rmb = st.price_unit_base * rmb_rec.rate_silent
 
     @api.multi
+    def create(self, vals):
+        res = super(SupplierStock, self).create(vals)
+
+        for sp in res:
+            sp.partner_stock_qty_new = fields.Datetime.now()
+
+        return res
+
+
+
+
+    @api.multi
     def write(self, vals):
         for ps in self:
             # For Special Price Filter
