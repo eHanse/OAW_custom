@@ -13,7 +13,9 @@
         'product',
         'sale_line_quant',
         'sale_margin',
-        'sale_stock'
+        'sale_stock',
+        'view_adjustments',
+
 
 
     ],

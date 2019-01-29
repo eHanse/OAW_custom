@@ -4,9 +4,41 @@
         <record id="base.menu_base_partner" model="ir.ui.menu">
             <field name="groups_id" eval="[(6, 0, [ref('base.group_sale_salesman_all_leads'),ref('group_delivery')])]"/>
         </record>
-        <record id="sale.menu_sale_order" model="ir.ui.menu">
-            <field name="groups_id" eval="[(4, [ref('group_delivery')])]"/>
+        <record id="sale.menu_sale_quotations" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4, [ref('base.group_sale_salesman_all_leads')])]"/>
         </record>
+
+
+
+        <!--Create new menu items and actions for "Sales Orders"-->
+        <record id="action_orders_delivery" model="ir.actions.act_window">
+            <field name="name">Sales Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')),('open_issue','=',True)]</field>
+        </record>
+
+        <menuitem action="action_orders_delivery" id="menu_sale_order_delivery" parent="base.menu_sales" sequence="6" groups="group_delivery"/>
+
+
+        <record id="action_quotations_delivery" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="domain">[('state','in',('draft','sent','cancel')),('is_mto','=',False),('subconsigned','=',False)]</field>
+
+
+        </record>
+
+        <menuitem id="menu_sale_quotations_delivery"
+                action="action_quotations_delivery" parent="base.menu_sales"
+                sequence="5" groups="group_delivery" />
 
     </data>
 </openerp>
