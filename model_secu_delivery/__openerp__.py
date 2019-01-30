@@ -13,7 +13,9 @@
         'product',
         'sale_line_quant',
         'sale_margin',
-        'sale_stock'
+        'sale_stock',
+        'view_adjustments',
+
 
 
     ],
@@ -32,6 +34,7 @@
          'views/sale_order.xml',
          'views/sale_views.xml',
          'views/stock_picking.xml',
+         'views/stock_views.xml',
     ],
 
     'qweb': [],

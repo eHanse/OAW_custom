@@ -1,8 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_stock_picking,stock.picking,stock.model_stock_picking,group_delivery,1,1,0,0
+access_sale_order,access_sale_order,sale.model_sale_order,group_delivery,1,1,0,0
+access_sale_order_line,access_sale_order_line,sale.model_sale_order_line,group_delivery,1,1,0,0
+access_stock_move,access_stock_move,stock.model_stock_move,group_delivery,1,1,0,0
+access_stock_picking,acess_stock_picking,stock.model_stock_picking,group_delivery,1,1,1,0
 access_stock_pack_operation,access_stock_pack_operation,stock.model_stock_pack_operation,group_delivery,1,1,1,0
 access_stock_move_op_link,access_stock_move_op_link,stock.model_stock_move_operation_link,group_delivery,1,1,1,1
-access_quant,access_quant,stock.model_stock_quant,group_delivery,1,1,0,0
 access_product_template,access_product_template,product.model_product_template,group_delivery,1,1,0,0
-access_purchase_order,access_purchase_order,purchase.model_purchase_order,group_delivery,1,1,1,0
-access_purchase_order_line,access_purchase_order_line,purchase.model_purchase_order_line,group_delivery,1,1,1,0
+access_stock_production_lot,access_stock_production_lot,stock.model_stock_production_lot,group_delivery,1,1,1,0
