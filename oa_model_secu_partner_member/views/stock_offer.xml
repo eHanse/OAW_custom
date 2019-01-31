@@ -24,10 +24,10 @@
                                     <ul>
                                         <li>Brand: <field name="prod_cat_selection"/></li>
                                         <!--<li>Brand: <field name="product_id.product_tmpl_id.brand"/></li>-->
-                                        <li>Retail <field name="currency_id"/>:
+                                        <li>Retail in <field name="currency_id"/>:
                                             <field name="retail_in_currency"></field>
                                         </li>
-                                        <li>Retail HKD: <field name="hk_retail"/></li>
+                                        <li>Retail in HKD: <field name="hk_retail"/></li>
                                         <li>Quantity: <field name="partner_qty"/></li>
                                     </ul>
                                 </div>
@@ -60,10 +60,10 @@
                                     <div name="tags"/>
                                     <ul>
                                         <li>Brand: <field name="prod_cat_selection"/></li>
-                                        <li>Retail HKD: <field name="product_list_price"></field></li>
-                                        <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
-                                        <li>Discount: <field name="discount_in_curr"/>%</li>
-                                        <li>Cost in <field name="currency_id"/>: <field name="price_unit"/></li>
+                                        <li>Retail in HKD: <field name="product_list_price"></field></li>
+                                        <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
+                                        <li>Discount in Currency (%): <field name="discount_in_curr"/>%</li>
+                                        <li>Sales Price in Currency: <field name="currency_id"/>: <field name="price_unit"/></li>
 
                                     </ul>
                                 </div>
@@ -96,13 +96,13 @@
                                     <ul>
 
                                         <li>Brand: <field name="prod_cat_selection"/></li>
-                                        <li>Retail HKD: <field name="product_list_price"></field></li>
-                                        <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
-                                        <li>Sale HKD: <field name="price_unit_base"></field></li>
-                                        <li>Sale USD: <field name="sale_in_usd"></field></li>
-                                        <li>Sale EUR: <field name="sale_in_eur"></field></li>
-                                        <li>Sale CHF: <field name="sale_in_chf"></field></li>
-                                        <li>Sale RMB: <field name="sale_in_rmb"></field></li>
+                                        <li>Retail in HKD: <field name="product_list_price"></field></li>
+                                        <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
+                                        <li>Sales Price in HKD: <field name="price_unit_base"></field></li>
+                                        <li>Sales Price in USD: <field name="sale_in_usd"></field></li>
+                                        <li>Sales Price in EUR: <field name="sale_in_eur"></field></li>
+                                        <li>Sales Price CHF: <field name="sale_in_chf"></field></li>
+                                        <li>人民幣卖價: <field name="sale_in_rmb"></field></li>
 
                                     </ul>
                                 </div>
@@ -135,8 +135,8 @@
                                     <div name="tags"/>
                                     <ul>
                                         <li>Brand: <field name="prod_cat_selection"/></li>
-                                        <li>Retail HKD: <field name="product_list_price"></field></li>
-                                        <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
+                                        <li>Retail in HKD: <field name="product_list_price"></field></li>
+                                        <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                         <li>Quantity: <field name="partner_qty"/></li>
                                     </ul>
                                 </div>
@@ -169,12 +169,12 @@
                                     <div name="tags"/>
                                     <ul>
                                         <li>Brand: <field name="prod_cat_selection"/></li>
-                                        <li>Retail HKD: <field name="product_list_price"></field></li>
-                                        <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
-                                        <li>Sale HKD: <field name="price_unit_base"></field></li>
-                                        <li>Sale USD: <field name="sale_in_usd"></field></li>
-                                        <li>Sale EUR: <field name="sale_in_eur"></field></li>
-                                        <li>Sale CHF: <field name="sale_in_chf"></field></li>
+                                        <li>Retail in HKD: <field name="product_list_price"></field></li>
+                                        <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
+                                        <li>Sales <Pri></Pri>ce in HKD: <field name="price_unit_base"></field></li>
+                                        <li>Sales Price in USD: <field name="sale_in_usd"></field></li>
+                                        <li>Sales Price in EUR: <field name="sale_in_eur"></field></li>
+                                        <li>Sales Price in CHF: <field name="sale_in_chf"></field></li>
                                         <li>人民幣賣價: <field name="sale_in_rmb"></field></li>
 
                                     </ul>
