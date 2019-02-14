@@ -20,8 +20,8 @@
                                 <div name="tags"/>
                                 <ul>
                                     <li>Brand: <field name="brand"/></li>
-                                    <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
-                                    <li>Retail HKD: <field name="hk_retail"/></li>
+                                    <li>Retail in currency <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
+                                    <li>Retail in HKD: <field name="hk_retail"/></li>
                                     <li>Quantity: <field name="partner_qty"/></li>
                                     <li>Location: <field name="short_loc_name"/></li>
                                 </ul>

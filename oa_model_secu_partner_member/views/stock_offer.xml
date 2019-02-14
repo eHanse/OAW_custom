@@ -63,7 +63,7 @@
                                         <li>Retail in HKD: <field name="product_list_price"></field></li>
                                         <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                         <li>Discount in Currency (%): <field name="discount_in_curr"/>%</li>
-                                        <li>Sales Price in Currency: <field name="currency_id"/>: <field name="price_unit"/></li>
+                                        <li>Sales Price in Currency <field name="currency_id"/>: <field name="price_unit"/></li>
 
                                     </ul>
                                 </div>
@@ -171,7 +171,7 @@
                                         <li>Brand: <field name="prod_cat_selection"/></li>
                                         <li>Retail in HKD: <field name="product_list_price"></field></li>
                                         <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
-                                        <li>Sales <Pri></Pri>ce in HKD: <field name="price_unit_base"></field></li>
+                                        <li>Sales Price in HKD: <field name="price_unit_base"></field></li>
                                         <li>Sales Price in USD: <field name="sale_in_usd"></field></li>
                                         <li>Sales Price in EUR: <field name="sale_in_eur"></field></li>
                                         <li>Sales Price in CHF: <field name="sale_in_chf"></field></li>
@@ -242,7 +242,7 @@
 
         <!--Offer Overview wo Price -->
         <record id="pmember_overview_en_action" model="ir.actions.act_window">
-            <field name="name">Offer Overview w/o Price</field>
+            <field name="name">Overview w/o Sales Price</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban,tree</field>
@@ -262,7 +262,7 @@
         <!--2.) -->
         <!--PMember Overview with Price, ordered by name-->
         <record id="pmember_offer_en_action" model="ir.actions.act_window">
-            <field name="name">Offer Overview w Price</field>
+            <field name="name">Overview w Sales Price</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban,tree</field>
@@ -280,7 +280,7 @@
         </record>
         <!--PMember Overview with All Price, ordered by name-->
         <record id="pmember_overview_all_en_action" model="ir.actions.act_window">
-            <field name="name">Offer Overview w Price</field>
+            <field name="name">Overview w Price</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban,tree</field>
@@ -336,7 +336,7 @@
             <field name="act_window_id" ref="pmember_so_en_action"/>
         </record>
         <record id="pmember_detailed_overview_cn_action" model="ir.actions.act_window">
-            <field name="name">Offer Overview w Price CN</field>
+            <field name="name">Overview w Price CN</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban,tree</field>
@@ -365,21 +365,21 @@
         <!--Menu Items for Partner Member My Stock Offer views-->
         <menuitem
                 id="pmember_overview_en"
-                name="Offer Overview w/o Price"
+                name="Overview w/o Sales Price"
                 parent="model_security_adjust_oaw.menu_products_supplier"
                 groups="model_security_adjust_oaw.group_supplier"
                 action="oa_model_secu_partner_member.pmember_overview_en_action"
                 sequence="16"/>
          <menuitem
                 id="pmember_detailed_overview_en"
-                name="Offer Overview w Price"
+                name="Overview w Sales Price"
                 parent="model_security_adjust_oaw.menu_products_supplier"
                 groups="model_security_adjust_oaw.group_supplier"
                 action="oa_model_secu_partner_member.pmember_offer_en_action"
                 sequence="17"/>
         <menuitem
                 id="pmember_detailed_overview_all_en"
-                name="Offer Overview w All Price"
+                name="Overview w All Price"
                 parent="model_security_adjust_oaw.menu_products_supplier"
                 groups="model_security_adjust_oaw.group_supplier"
                 action="oa_model_secu_partner_member.pmember_overview_all_en_action"
@@ -400,7 +400,7 @@
                 sequence="20"/>
         <menuitem
                 id="pmember_detailed_overview_cn"
-                name="Offer Overview w Price CN"
+                name="Overview w Sales Price CN"
                 parent="model_security_adjust_oaw.menu_products_supplier"
                 groups="model_security_adjust_oaw.group_supplier"
                 action="oa_model_secu_partner_member.pmember_detailed_overview_cn_action"
