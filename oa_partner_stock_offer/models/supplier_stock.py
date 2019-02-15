@@ -12,11 +12,11 @@ class SupplierStock(models.Model):
     _rec_name = 'display_name'
 
     # Field to access through related field: Supplier.Stock > Product.Product > Product.Template
-    hk_retail = fields.Float(
-        'Retail HKD',
-         related='product_id.list_price',
-         store=True,
-    )
+    # hk_retail = fields.Float(
+    #     'Retail HKD',
+    #      related='product_id.list_price',
+    #      store=True,
+    # )
     # quantity, computed field
     partner_qty = fields.Char(
         string='Evaluated Quantity',
@@ -47,17 +47,16 @@ class SupplierStock(models.Model):
     )
 
 
-    # # Overwriting display_name's method for Supplier Access User
-    # @api.multi
-    # def name_get(self, *args, **kwargs):
-    #     result = []
-    #     for rec in self:
-    #         result.append(
-    #             (rec.id, rec.product_id.name)
-    #         )
-    #     return result
 
-
+    last_update_date = fields.Datetime(
+        readonly=True,
+        string='Last Update Date'
+    )
+    last_update_user_id = fields.Many2one(
+        'res.users',
+        readonly=True,
+        string='Last Update User',
+    )
 
     @api.multi
     def _get_quantity(self):
@@ -90,14 +89,26 @@ class SupplierStock(models.Model):
                 })
     @api.multi
     def write(self, vals):
+        if 'quantity' in vals or 'price_unit' in vals or 'partner_loc_id' in vals or 'prod_cat_selection' in vals \
+                or 'product_id' in vals or 'currency_id' in vals or 'retail_in_currency' in vals or 'partner_note' in vals:
+            vals.update({
+                'last_update_date' : fields.Datetime.now(),
+                'last_update_user_id' : self.env.user.id
+
+            })
         res = super(SupplierStock, self).write(vals)
-        if 'quantity' in vals or 'price_unit' in vals:
-            for ps in self:
+        for ps in self:
+            if 'quantity' in vals or 'price_unit' in vals:
                 ps._get_quantity()
+
         return res
 
     @api.model
     def create(self,vals):
+        vals.update({
+            'last_update_date': fields.Datetime.now(),
+            'last_update_user_id': self.env.user.id
+        })
         res =super(SupplierStock,self).create(vals)
         res._get_quantity()
         return res

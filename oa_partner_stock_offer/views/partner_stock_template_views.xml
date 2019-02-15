@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
-    <!-- KANBAN, FORM-->
+    <!-- Internal: KANBAN, FORM-->
     <record id="partner_stock_offer_kanban" model="ir.ui.view">
         <field name="name">partner.stock.offer.kanban</field>
         <field name="model">supplier.stock</field>
         <field name="arch" type="xml">
             <kanban default_order="product_id">
+                <field name="currency_name"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_vignette oe_semantic_html_override">
@@ -20,8 +21,8 @@
                                 <div name="tags"/>
                                 <ul>
                                     <li>Brand: <field name="brand"/></li>
-                                    <li>Retail in currency <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
-                                    <li>Retail in HKD: <field name="hk_retail"/></li>
+                                    <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
+                                    <li t-if="record.currency_name.raw_value != 'HKD'"> Retail in HKD: <field name="product_list_price"/></li>
                                     <li>Quantity: <field name="partner_qty"/></li>
                                     <li>Location: <field name="short_loc_name"/></li>
                                 </ul>
@@ -32,7 +33,7 @@
             </kanban>
         </field>
     </record>
-
+    <!--Internal form view-->
       <record id="partner_stock_offer_form" model="ir.ui.view">
         <field name="name">view.supplier.access.form</field>
         <field name="model">supplier.stock</field>
@@ -77,11 +78,9 @@
         <field name="inherit_id" ref="supplier_stock.supplier_stock_search"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='filter']" position="inside">
-
                     <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
                     <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True)]"/>
                     <filter name="qty_greate_zero" string="Qty > 0" domain="[('quantity','&gt;=',True)]"/>
-
            </xpath>
         </field>
     </record>
@@ -96,7 +95,7 @@
         <field name="search_view_id" ref="supplier_stock.supplier_stock_search"/>
     </record>
 
-    <!-- act_window.view -->
+
     <record id="supplier_stock.action_supplier_stock_tree" model="ir.actions.act_window.view">
         <field name="view_mode">tree</field>
         <field name="view_id" ref="supplier_stock.view_supplier_stock_tree"/>
@@ -114,15 +113,41 @@
         <field name="act_window_id" ref="supplier_stock.action_supplier_stock"/>
     </record>
 
-    <!--INSERTIONS INTO SUPPLIER ACCESS-->
+    <!--INSERTIONS INTO external SUPPLIER ACCESS-->
       <record id="view_supplier_access_kanban_adj1" model="ir.ui.view">
         <field name="name">view.supplier.access.kanban.adj1</field>
         <field name="model">supplier.stock</field>
         <field name="inherit_id" ref="model_security_adjust_oaw.view_supplier_access_kanban"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='retail_in_currency']" position="after">
-                <li>Retail HKD: <field name="hk_retail"/></li>
+                <li t-if="record.currency_name.raw_value != 'HKD'"> Retail in HKD: <field name="product_list_price"/></li>
                 <li>Quantity: <field name="partner_qty"/></li>
+            </xpath>
+            </field>
+      </record>
+
+    <!--INSERTIONS INTO internal supplier access tree view-->
+      <record id="view_internal_supplier_updates_tree" model="ir.ui.view">
+        <field name="name">view.internal.supplier.updates.tree</field>
+        <field name="model">supplier.stock</field>
+        <field name="inherit_id" ref="supplier_stock.view_supplier_stock_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_note']" position="after">
+                <field name="last_update_date"/>
+                <field name="last_update_user_id"/>
+            </xpath>
+            </field>
+      </record>
+
+    <!--INSERTIONS INTO external supplier access tree view-->
+      <record id="view_extetnal_supplier_updates_tree" model="ir.ui.view">
+        <field name="name">view.external.supplier.updates.tree</field>
+        <field name="model">supplier.stock</field>
+        <field name="inherit_id" ref="model_security_adjust_oaw.view_supplier_access_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_note']" position="after">
+                <field name="last_update_date"/>
+                <field name="last_update_user_id"/>
             </xpath>
             </field>
       </record>
