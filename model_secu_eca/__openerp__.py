@@ -10,6 +10,7 @@
     'depends': [
         'sale',
         'product_offer',
+        'product'
 
 
 
@@ -23,7 +24,7 @@
     """,
     'data': [
          'security/eca_security.xml',
-         # 'security/base_security.xml',
+         'security/base_security.xml',
          'security/ir.model.access.csv',
           'views/sale_views.xml',
          'views/product_template_views.xml',

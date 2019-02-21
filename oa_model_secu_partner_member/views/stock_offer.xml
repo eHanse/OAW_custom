@@ -7,6 +7,7 @@
             <field name="model">supplier.stock</field>
             <field name="arch" type="xml">
                 <kanban create="false" default_order="product_id">
+                    <field name="currency_name"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_vignette oe_semantic_html_override">
@@ -23,11 +24,10 @@
                                     <div name="tags"/>
                                     <ul>
                                         <li>Brand: <field name="prod_cat_selection"/></li>
-                                        <!--<li>Brand: <field name="product_id.product_tmpl_id.brand"/></li>-->
-                                        <li>Retail <field name="currency_id"/>:
+                                        <li>Retail in <field name="currency_id"/>:
                                             <field name="retail_in_currency"></field>
                                         </li>
-                                        <li>Retail HKD: <field name="hk_retail"/></li>
+                                        <li t-if="record.currency_name.raw_value != 'HKD'"> Retail in HKD: <field name="product_list_price"/></li>
                                         <li>Quantity: <field name="partner_qty"/></li>
                                     </ul>
                                 </div>
@@ -44,6 +44,7 @@
             <field name="model">supplier.stock</field>
             <field name="arch" type="xml">
                 <kanban create="false" default_order="product_id">
+                     <field name="currency_name"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_vignette oe_semantic_html_override">
@@ -60,10 +61,10 @@
                                     <div name="tags"/>
                                     <ul>
                                         <li>Brand: <field name="prod_cat_selection"/></li>
-                                        <li>Retail HKD: <field name="product_list_price"></field></li>
-                                        <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
-                                        <li>Discount: <field name="discount_in_curr"/>%</li>
-                                        <li>Cost in <field name="currency_id"/>: <field name="price_unit"/></li>
+                                        <li t-if="record.currency_name.raw_value != 'HKD'"> Retail in HKD: <field name="product_list_price"/></li>
+                                        <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
+                                        <li>Discount in Currency (%): <field name="discount_in_curr"/>%</li>
+                                        <li>Sales Price in Currency <field name="currency_id"/>: <field name="price_unit"/></li>
 
                                     </ul>
                                 </div>
@@ -79,6 +80,7 @@
             <field name="model">supplier.stock</field>
             <field name="arch" type="xml">
                 <kanban create="false" default_order="product_id">
+                     <field name="currency_name"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_vignette oe_semantic_html_override">
@@ -94,16 +96,14 @@
                                     </h4>
                                     <div name="tags"/>
                                     <ul>
-
                                         <li>Brand: <field name="prod_cat_selection"/></li>
-                                        <li>Retail HKD: <field name="product_list_price"></field></li>
-                                        <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
-                                        <li>Sale HKD: <field name="price_unit_base"></field></li>
-                                        <li>Sale USD: <field name="sale_in_usd"></field></li>
-                                        <li>Sale EUR: <field name="sale_in_eur"></field></li>
-                                        <li>Sale CHF: <field name="sale_in_chf"></field></li>
-                                        <li>Sale RMB: <field name="sale_in_rmb"></field></li>
-
+                                        <li t-if="record.currency_name.raw_value != 'HKD'"> Retail in HKD: <field name="product_list_price"/></li>
+                                        <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
+                                        <li>Sales Price in HKD: <field name="price_unit_base"></field></li>
+                                        <li>Sales Price in USD: <field name="sale_in_usd"></field></li>
+                                        <li>Sales Price in EUR: <field name="sale_in_eur"></field></li>
+                                        <li>Sales Price CHF: <field name="sale_in_chf"></field></li>
+                                        <li>人民幣卖價: <field name="sale_in_rmb"></field></li>
                                     </ul>
                                 </div>
                             </div>
@@ -119,6 +119,7 @@
             <field name="model">supplier.stock</field>
             <field name="arch" type="xml">
                 <kanban create="false" default_order="product_id">
+                     <field name="currency_name"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_vignette oe_semantic_html_override">
@@ -135,8 +136,8 @@
                                     <div name="tags"/>
                                     <ul>
                                         <li>Brand: <field name="prod_cat_selection"/></li>
-                                        <li>Retail HKD: <field name="product_list_price"></field></li>
-                                        <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
+                                        <li t-if="record.currency_name.raw_value != 'HKD'"> Retail in HKD: <field name="product_list_price"/></li>
+                                        <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                         <li>Quantity: <field name="partner_qty"/></li>
                                     </ul>
                                 </div>
@@ -153,6 +154,7 @@
             <field name="model">supplier.stock</field>
             <field name="arch" type="xml">
                 <kanban create="false" default_order="product_id">
+                     <field name="currency_name"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_vignette oe_semantic_html_override">
@@ -169,12 +171,12 @@
                                     <div name="tags"/>
                                     <ul>
                                         <li>Brand: <field name="prod_cat_selection"/></li>
-                                        <li>Retail HKD: <field name="product_list_price"></field></li>
-                                        <li>Retail <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
-                                        <li>Sale HKD: <field name="price_unit_base"></field></li>
-                                        <li>Sale USD: <field name="sale_in_usd"></field></li>
-                                        <li>Sale EUR: <field name="sale_in_eur"></field></li>
-                                        <li>Sale CHF: <field name="sale_in_chf"></field></li>
+                                        <li t-if="record.currency_name.raw_value != 'HKD'"> Retail in HKD: <field name="product_list_price"/></li>
+                                        <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field> <field name="discount_in_curr">% Off</field></li>
+                                        <li>Sales Price in HKD: <field name="price_unit_base"></field></li>
+                                        <li>Sales Price in USD: <field name="sale_in_usd"></field></li>
+                                        <li>Sales Price in EUR: <field name="sale_in_eur"></field></li>
+                                        <li>Sales Price in CHF: <field name="sale_in_chf"></field></li>
                                         <li>人民幣賣價: <field name="sale_in_rmb"></field></li>
 
                                     </ul>
@@ -192,6 +194,7 @@
             <field name="model">supplier.stock</field>
             <field name="arch" type="xml">
                 <kanban create="false" default_order="product_id">
+                     <field name="currency_name"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_vignette oe_semantic_html_override">
@@ -209,7 +212,7 @@
                                     <ul>
 
                                         <li>品牌: <field name="prod_cat_selection"/></li>
-                                        <li>港幣公價: <field name="product_list_price"></field></li>
+                                        <li t-if="record.currency_name.raw_value != 'HKD'">港幣公價: <field name="product_list_price"></field></li>
                                         <li>公價: <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                         <li>卖價和扣点: <field name="currency_id"/>: <field name="price_unit"></field> <field name="discount_in_curr">% Off</field></li>
                                         <li>当日港幣卖價: <field name="price_unit_base"></field></li>
@@ -242,7 +245,7 @@
 
         <!--Offer Overview wo Price -->
         <record id="pmember_overview_en_action" model="ir.actions.act_window">
-            <field name="name">Offer Overview w/o Price</field>
+            <field name="name">Overview w/o Sales Price</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban,tree</field>
@@ -262,7 +265,7 @@
         <!--2.) -->
         <!--PMember Overview with Price, ordered by name-->
         <record id="pmember_offer_en_action" model="ir.actions.act_window">
-            <field name="name">Offer Overview w Price</field>
+            <field name="name">Overview w Sales Price</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban,tree</field>
@@ -280,7 +283,7 @@
         </record>
         <!--PMember Overview with All Price, ordered by name-->
         <record id="pmember_overview_all_en_action" model="ir.actions.act_window">
-            <field name="name">Offer Overview w Price</field>
+            <field name="name">Overview w Price</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban,tree</field>
@@ -336,7 +339,7 @@
             <field name="act_window_id" ref="pmember_so_en_action"/>
         </record>
         <record id="pmember_detailed_overview_cn_action" model="ir.actions.act_window">
-            <field name="name">Offer Overview w Price CN</field>
+            <field name="name">Overview w Price CN</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">supplier.stock</field>
             <field name="view_mode">kanban,tree</field>
@@ -365,21 +368,21 @@
         <!--Menu Items for Partner Member My Stock Offer views-->
         <menuitem
                 id="pmember_overview_en"
-                name="Offer Overview w/o Price"
+                name="Overview w/o Sales Price"
                 parent="model_security_adjust_oaw.menu_products_supplier"
                 groups="model_security_adjust_oaw.group_supplier"
                 action="oa_model_secu_partner_member.pmember_overview_en_action"
                 sequence="16"/>
          <menuitem
                 id="pmember_detailed_overview_en"
-                name="Offer Overview w Price"
+                name="Overview w Sales Price"
                 parent="model_security_adjust_oaw.menu_products_supplier"
                 groups="model_security_adjust_oaw.group_supplier"
                 action="oa_model_secu_partner_member.pmember_offer_en_action"
                 sequence="17"/>
         <menuitem
                 id="pmember_detailed_overview_all_en"
-                name="Offer Overview w All Price"
+                name="Overview w All Price"
                 parent="model_security_adjust_oaw.menu_products_supplier"
                 groups="model_security_adjust_oaw.group_supplier"
                 action="oa_model_secu_partner_member.pmember_overview_all_en_action"
@@ -400,7 +403,7 @@
                 sequence="20"/>
         <menuitem
                 id="pmember_detailed_overview_cn"
-                name="Offer Overview w Price CN"
+                name="Overview w Sales Price CN"
                 parent="model_security_adjust_oaw.menu_products_supplier"
                 groups="model_security_adjust_oaw.group_supplier"
                 action="oa_model_secu_partner_member.pmember_detailed_overview_cn_action"

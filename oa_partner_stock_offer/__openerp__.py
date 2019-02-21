@@ -12,6 +12,7 @@
         'product',
         'product_offer',
         'model_security_adjust_oaw',
+        'supplier_stock'
 
     ],
     'description': """

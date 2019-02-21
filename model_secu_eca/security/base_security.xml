@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--Limit brands ECA user can see -->
+        <record model="ir.rule" id="eca_sees_only_defined_brands">
+        <field name="name">product_template: eca: restrict brands to those available to user</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="domain_force">[('categ_id','in',user.product_all_category_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('group_eca'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        </record>
+
+    </data>
+</openerp>
