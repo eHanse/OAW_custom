@@ -87,6 +87,9 @@ class SupplierStock(models.Model):
                 ps_products[0].sudo().write({
                     'lowest_cost': True
                 })
+
+
+
     @api.multi
     def write(self, vals):
         if 'quantity' in vals or 'price_unit' in vals or 'partner_loc_id' in vals or 'prod_cat_selection' in vals \
@@ -94,12 +97,13 @@ class SupplierStock(models.Model):
             vals.update({
                 'last_update_date' : fields.Datetime.now(),
                 'last_update_user_id' : self.env.user.id
-
             })
+        self.product_id.product_tmpl_id.sudo().write({'partner_stock_last_modified': fields.Datetime.now()})
         res = super(SupplierStock, self).write(vals)
         for ps in self:
             if 'quantity' in vals or 'price_unit' in vals:
                 ps._get_quantity()
+
 
         return res
 
