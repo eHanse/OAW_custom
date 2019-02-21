@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+          <!--Overwriting Reports Permission-->
+        <!--oa i.e. chron123 -->
+        <report
+            id = "oa_company_quot_report_dalko_adjust.custom_report_quotation_dalko"
+            model = "sale.order"
+            string = "OA Quo Print"
+            report_type = "qweb-pdf"
+            groups="base.group_sale_salesman_all_leads,group_delivery"
+            name = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
+            file = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
+            />
+        <!--Sino -->
+          <report
+            id = "oa_company_quotation_report_sino_adjust.custom_report_quotation_sino"
+            model = "sale.order"
+            string = "Sino Quo Print"
+            report_type = "qweb-pdf"
+            groups="base.group_sale_salesman_all_leads,group_delivery"
+            name = "oa_company_quotation_report_sino_adjust.report_sale_order_sino"
+            file = "oa_company_quotation_report_sino_adjust.report_sale_order_sino"
+            />
+        <!-- Quotation -->
+         <report
+            id="model_security_adjust_oaw.report_sale_order"
+            string="Quotation / Order"
+            model="sale.order"
+            groups="base.group_sale_salesman_all_leads,group_delivery"
+            report_type="qweb-pdf"
+            file="sale.report_saleorder"
+            name="sale.report_saleorder"
+            />
+
+    </data>
+</openerp>

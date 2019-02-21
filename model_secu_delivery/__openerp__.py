@@ -15,6 +15,9 @@
         'sale_margin',
         'sale_stock',
         'view_adjustments',
+        'oa_company_quot_report_dalko_adjust',
+        'oa_company_quotation_report_sino_adjust',
+        'model_security_adjust_oaw'
 
 
 
@@ -35,6 +38,7 @@
          'views/sale_views.xml',
          'views/stock_picking.xml',
          'views/stock_views.xml',
+         'views/reports.xml',
     ],
 
     'qweb': [],
