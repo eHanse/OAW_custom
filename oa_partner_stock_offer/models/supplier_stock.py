@@ -98,13 +98,12 @@ class SupplierStock(models.Model):
                 'last_update_date' : fields.Datetime.now(),
                 'last_update_user_id' : self.env.user.id
             })
-        self.product_id.product_tmpl_id.sudo().write({'partner_stock_last_modified': fields.Datetime.now()})
+            for ps in self:
+                ps.product_id.product_tmpl_id.sudo().write({'partner_stock_last_modified': fields.Datetime.now()})
         res = super(SupplierStock, self).write(vals)
         for ps in self:
             if 'quantity' in vals or 'price_unit' in vals:
                 ps._get_quantity()
-
-
         return res
 
     @api.model
