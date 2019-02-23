@@ -126,6 +126,8 @@
             </field>
       </record>
 
+
+
     <!--INSERTIONS INTO internal supplier access tree view-->
       <record id="view_internal_supplier_updates_tree" model="ir.ui.view">
         <field name="name">view.internal.supplier.updates.tree</field>
