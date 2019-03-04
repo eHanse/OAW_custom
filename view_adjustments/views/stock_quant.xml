@@ -6,9 +6,14 @@
             <field name="model">stock.quant</field>
             <field name="inherit_id" ref="sale_line_quant.view_stock_quant_tree_z6"/>
             <field name="arch" type="xml">
-              <!--Make sale order tree view editable-->
+              <!--Make quant tree view editable-->
+                 <xpath expr="//tree" position="attributes">
+                   <attribute name="editable">top</attribute>
+                </xpath>
+               
                 <xpath expr="//field[@name='sale_id']" position="after">
-                   <field name="client_order_ref"/>
+                    <field name="client_order_ref"/>
+                    <field name="quant_note"/>
                 </xpath>
             </field>
          </record>
