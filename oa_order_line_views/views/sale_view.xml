@@ -124,7 +124,7 @@
             <field name="inherit_id" ref="sale_line_quant_extended.view_order_form_inherit_z160503"/>
             <field name="arch" type="xml">
                 <field name="partner_id" position="after">
-                    <field name="supplier_id" groups="base.group_sale_manager"/>
+                    <field name="supplier_id" groups="base.group_sale_manager" options="{'no_quick_create':True,'no_create_edit':True}"/>
 
                 </field>
                  <field name="open_issue" position="after">
@@ -132,6 +132,9 @@
                 </field>
             </field>
         </record>
+
+
+
 
 
         <!--The action-->
