@@ -81,7 +81,25 @@
                     <filter name="cheapest_part_stock" string="Cheapest Partner Stock" domain="[('lowest_cost','=',True)]"/>
                     <filter name="has_duplicates" string="Multiples" domain="[('has_duplicates','=',True)]"/>
                     <filter name="qty_greate_zero" string="Qty > 0" domain="[('quantity','&gt;=',True)]"/>
+                    <!-- For filter Quantity Up-->
+                    <filter name="qty_up_date" string="Qty Up" domain="[('qty_up_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+                    <!-- For filter Quantity Down-->
+                    <filter name="qty_up_date" string="Qty Down" domain="[('qty_down_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+                    <!-- For filter Cost Price (price_unit) Up-->
+                    <filter name="costprice_up_date" string="Cost Price Up" domain="[('costprice_up_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+                    <!-- For filter Cost Price (price_unit) Down-->
+                    <filter name="costprice_up_date" string="Cost Price Down" domain="[('costprice_down_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
+                    <!-- For filter Cost Price (price_unit) Down-->
+                    <filter name="note_updated" string="Note Updated" domain="[('note_updated_date','&gt;=',(context_today()+datetime.timedelta(hours=-24)).strftime('%Y-%m-%d'))]"/>
            </xpath>
+           <xpath expr="//filter[@string='Supplier']" position="after">
+               <filter string="Group By Brand" icon="terp-personal" domain="[]" context="{'group_by':'prod_cat_selection'}"/>
+           </xpath>
+
+
+
+             <!--<group expand="0" string="Group By">-->
+
         </field>
     </record>
     <!--act_window, overriding the one in supplier.stock -->
@@ -125,6 +143,8 @@
             </xpath>
             </field>
       </record>
+
+
 
     <!--INSERTIONS INTO internal supplier access tree view-->
       <record id="view_internal_supplier_updates_tree" model="ir.ui.view">

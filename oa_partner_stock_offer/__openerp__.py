@@ -16,7 +16,10 @@
 
     ],
     'description': """
-        Creates a kanban view next to product_offer views based on supplier_stock model 'supplier_stock.py'
+        Creates a kanban view next to product_offer views based on supplier_stock model 'supplier_stock.py'\
+        Insertion of product_template fields in Product Offer kanban view. \
+        Insertions of supplier_stock's fields into external and internal views.
+
     """,
     'data': [
         'views/partner_stock_template_views.xml',

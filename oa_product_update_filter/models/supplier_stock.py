@@ -11,14 +11,11 @@ class SupplierStock(models.Model):
     # Result in LPU: The product with the same product_id will be listed
     currency_price_change_date = fields.Datetime(
         string="Last Update on Currency Amount",
-        store=True,
-        #compute="currency_price_change_date_by_update"
     )
 
     # For Sale HKD changes (Realized in List Price Update)
     list_price_change_date = fields.Datetime(
         string="Update listprice, HKD Retail",
-        store=True,
     )
 
     # For a filter in Supplier Stock
@@ -28,17 +25,12 @@ class SupplierStock(models.Model):
         store=True,
     )
 
-    # For Purchase Price Unit filter: Modify existing entry
-    @api.multi
-    def write(self, vals):
-        if 'price_unit' in vals:
-            for stock in self:
-                vals['currency_price_change_date'] = fields.Datetime.now()
-                stock.product_id.product_tmpl_id.sudo().write({
-                    'currency_price_change_date': fields.Datetime.now()
-                })
-        res = super(SupplierStock, self).write(vals)
-        return res
+    # # For Purchase Price Unit filter: Modify existing entry
+    # @api.multi
+    # def write(self, vals):
+    #
+    #     res = super(SupplierStock, self).write(vals)
+    #     return res
 
     def check_changes(self, vals):
         pt = self.product_id.product_tmpl_id
@@ -61,13 +53,17 @@ class SupplierStock(models.Model):
     def write(self, vals):
         for ps in self:
             ps.check_changes(vals)
-            # print('Test 2')
+            if 'price_unit' in vals:
+                vals['currency_price_change_date'] = fields.Datetime.now()
+                ps.product_id.product_tmpl_id.sudo().write({
+                    'currency_price_change_date': fields.Datetime.now()
+                })
         res = super(SupplierStock, self).write(vals)
         return res
 
 
 
-                # For Purchase Price Unit filter: create Entry of same product with different price
+    # For Purchase Price Unit filter: create Entry of same product with different price
     #For New Entry Filter: Create New Entry with Product; new entry but same price
     @api.model
     def create(self, vals):

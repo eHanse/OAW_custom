@@ -58,6 +58,30 @@ class SupplierStock(models.Model):
         string='Last Update User',
     )
 
+    #For new Filter in Partner Stock
+    # For Partner Stock filter
+    qty_up_date = fields.Datetime(
+        string='Quantity increased',
+        store=True
+    )
+    qty_down_date = fields.Datetime(
+        string='Quantity decreased',
+    )
+    costprice_up_date = fields.Datetime(
+        string='Costprice increased',
+        readonly=True,
+    )
+    costprice_down_date = fields.Datetime(
+        string='Costprice decreased',
+        readonly=True,
+    )
+    note_updated_date = fields.Datetime(
+        string='Partner Note updated',
+    )
+
+
+
+
     @api.multi
     def _get_quantity(self):
         for ps in self:
@@ -87,6 +111,9 @@ class SupplierStock(models.Model):
                 ps_products[0].sudo().write({
                     'lowest_cost': True
                 })
+
+
+
     @api.multi
     def write(self, vals):
         if 'quantity' in vals or 'price_unit' in vals or 'partner_loc_id' in vals or 'prod_cat_selection' in vals \
@@ -94,13 +121,25 @@ class SupplierStock(models.Model):
             vals.update({
                 'last_update_date' : fields.Datetime.now(),
                 'last_update_user_id' : self.env.user.id
-
             })
+            for ps in self:
+                ps.product_id.product_tmpl_id.sudo().write({'partner_stock_last_modified': fields.Datetime.now()})
+                if 'quantity' in vals:
+                    if ps.quantity < vals['quantity']:
+                        ps.qty_up_date = fields.Datetime.now()
+                    if ps.quantity > vals['quantity']:
+                        ps.qty_down_date = fields.Datetime.now()
+                if 'price_unit' in vals:
+                    if ps.price_unit < vals['price_unit']:
+                        ps.costprice_up_date = fields.Datetime.now()
+                    if ps.price_unit > vals['price_unit']:
+                        ps.costprice_down_date = fields.Datetime.now()
+                if 'partner_note' in vals:
+                    ps.note_updated_date = fields.Datetime.now()
         res = super(SupplierStock, self).write(vals)
         for ps in self:
-            if 'quantity' in vals or 'price_unit' in vals:
+            if 'quantity' in vals:
                 ps._get_quantity()
-
         return res
 
     @api.model

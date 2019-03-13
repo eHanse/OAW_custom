@@ -12,6 +12,12 @@ class StockQuant(models.Model):
         store = True
 
     )
+
+    #Adding note field in quant list
+    quant_note = fields.Text(
+        'Note'
+    )
+
     #
     @api.multi
     # Here, dependence on the sale_id will trigger also!

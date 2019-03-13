@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "remove_scrap_button",
+    'name': "Remove Scrap buttons and Quick Create Options",
 
     'summary': """
       Hides scrap buttons. """,
-      
+
     'description': """
-        Hides scrap buttons of stock_view.xml.
+        Hides scrap buttons of stock_view.xml. \
+        Removes quick-create and create-edit options from Sale Order Line.
     """,
 
     'author': "OA Trade",
@@ -23,11 +24,13 @@
                 "decimal_precision",
                 "sale",
                 "stock",
+                "sale_stock"
     ],
 
     # always loaded
     'data': [
         'views/stock_view.xml',
+        'views/sale_order.xml',
     ],
     # only loaded in demonstration mode
     'installable': True,
