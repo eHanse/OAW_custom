@@ -39,17 +39,6 @@
             </xpath>
             </field>
       </record>
-      <record id="product_template_internal_kanban_view_inser4" model="ir.ui.view">
-        <field name="name">insert4</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product_offer.product_template_en_sales_all_price_no_qty_kanban_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//li[@id='hk-retail1']" position="before">
-                <li t-if="record.overseas_stock.raw_value != 'No'"> Overseas Retail in <field name="curr_of_cheapest"/>: <field name="retail_of_cheapest"/></li>
-            </xpath>
-            </field>
-      </record>
-
 
 
 
@@ -67,16 +56,7 @@
             </xpath>
             </field>
       </record>
-    <record id="product_template_internal_kanban_view_inser6" model="ir.ui.view">
-        <field name="name">insert6</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product_offer.product_template_en_sales_all_price_no_qty_cn_kanban_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//li[@id='hk-retail1']" position="before">
-                <li t-if="record.overseas_stock.raw_value != 'No'"> 公價 <field name="curr_of_cheapest"/>: <field name="retail_of_cheapest"/></li>
-            </xpath>
-            </field>
-      </record>
+
 
 
 
@@ -93,33 +73,11 @@
             </xpath>
             </field>
       </record>
-     <record id="product_template_internal_kanban_view_inser8" model="ir.ui.view">
-        <field name="name">inser8</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product_offer.product_template_en_sales_price_no_qty_kanban_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//li[@id='hk-retail1']" position="before">
-                <li t-if="record.overseas_stock.raw_value != 'No'"> Overseas Retail in <field name="curr_of_cheapest"/>: <field name="retail_of_cheapest"/></li>
-            </xpath>
-            </field>
-      </record>
-
-
 
 
            <!-- Product Offer AA-No-Qty CN -->
       <record id="product_template_internal_kanban_view_inser9" model="ir.ui.view">
         <field name="name">inser9</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product_offer.product_template_cn_sales_price_no_qty_kanban_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//li[@id='hk-retail1']" position="before">
-                <li t-if="record.overseas_stock.raw_value != 'No'"> 公價 <field name="curr_of_cheapest"/>: <field name="retail_of_cheapest"/></li>
-            </xpath>
-            </field>
-      </record>
-    <record id="product_template_internal_kanban_view_inser11" model="ir.ui.view">
-        <field name="name">inser11</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product_offer.product_template_cn_sales_price_no_qty_kanban_view"/>
         <field name="arch" type="xml">
@@ -140,32 +98,13 @@
             </xpath>
             </field>
       </record>
-     <record id="product_template_internal_kanban_view_inser13" model="ir.ui.view">
-        <field name="name">inser13</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product_offer.product_template_en_sales_price_ac_no_qty_kanban_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//li[@id='hk-retail1']" position="before">
-                <li t-if="record.overseas_stock.raw_value != 'No'"> Overseas Retail in <field name="curr_of_cheapest"/>: <field name="retail_of_cheapest"/></li>
-            </xpath>
-            </field>
-      </record>
+
 
 
 
   <!-- Product Offer AC-No-Qty CN -->
        <record id="product_template_internal_kanban_view_inser14" model="ir.ui.view">
             <field name="name">inser14</field>
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="product_offer.product_template_cn_sales_price_no_qty_ac_kanban_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//li[@id='hk-retail1']" position="before">
-                    <li t-if="record.overseas_stock.raw_value != 'No'"> 公價 <field name="curr_of_cheapest"/>: <field name="retail_of_cheapest"/></li>
-                </xpath>
-                </field>
-      </record>
-    <record id="product_template_internal_kanban_view_inser15" model="ir.ui.view">
-            <field name="name">inser15</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product_offer.product_template_cn_sales_price_no_qty_ac_kanban_view"/>
             <field name="arch" type="xml">
