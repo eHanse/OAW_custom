@@ -4,7 +4,7 @@
         <report
             id = "custom_report_quotation_dalko"
             model = "sale.order"
-            string = "OA Quo Print"
+            string = "TIMEWARE Quo Print"
             report_type = "qweb-pdf"
             groups="base.group_sale_salesman_all_leads"
             name = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
@@ -60,12 +60,7 @@
                                  </div>
 
                                 <h2>
-                                     <!--<span t-if="o.state not in ['draft','sent']">Order N° </span>-->
-                                     <!--<span t-if="o.state in ['draft','sent']">INVOICE </span>-->
-                                     <!--<span t-field="o.name"/>-->
-                                      <!--<span t-if="o.state not in ['draft','sent']">Order N° </span>-->
                                      <span>INVOICE </span>
-                                     <!--<span t-field="o.name"/>-->
                                 </h2>
                                 <br />
 
@@ -88,7 +83,6 @@
                                              <td>
                                                  <span t-field="l.lot_id" />
                                              </td>
-                                            <!--Removed td[td2]?-->
                                             <td class="text-right">
                                                 <span t-field="l.product_uom_qty"/>
                                                 <span groups="product.group_uom" t-field="l.product_uom"/>
@@ -180,7 +174,7 @@
                     <div class="row">
                         <div>
                             <div class="col-xs-4">
-                                   <p>OA Trade Limited</p>
+                                   <p>TIMEWARE Limited</p>
                                    <p>RM 904 9/F Podium Plaza</p>
                                    <p>5 Hanoi Road</p>
                                    <p>T.S.T., Hong Kong SAR</p>
@@ -192,13 +186,11 @@
                 </div>
         </template>
 
-        <!--Just getting the footer of eHanse custom module: needs to be added as dependency -->
-        <template id="external_layout_footer">
+       <template id="external_layout_footer">
             <div class="footer">
                 <div class="text-center" style="border-top: 1px solid black;">
                     <ul  class="list-inline">
-                        <li>Email: <span>+85265795515</span></li>
-                        <li>Email: <span>info@oa-trade.com</span></li>
+                        <li>Contact Number: <span>+85265795515</span></li>
                         <li><p>All our products are exclusively sold in the Hong Kong S.A.R. only</p></li>
                     </ul>
                     <ul class="list-inline">

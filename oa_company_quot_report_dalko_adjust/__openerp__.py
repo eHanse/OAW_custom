@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    'name': 'Adds new report',
+    'name': 'Checkpayment Quoation Report',
     'version': '0.8',
     'author': 'OA Trading',
     'website': 'oa-trade.com',
@@ -30,7 +30,8 @@
                 "report",
     ],
     'description': """
-        * New report type for quotation. New print button in quotation/sales order workflow
+        * New Quotation Report for Checkpayment \
+        * New print button in quotation/sales order workflow
     """,
     'data': [
         'report/report_sale_order_dalko.xml',

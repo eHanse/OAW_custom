@@ -6,7 +6,7 @@
         <report
             id = "oa_company_quot_report_dalko_adjust.custom_report_quotation_dalko"
             model = "sale.order"
-            string = "OA Quo Print"
+            string = "TIMEWARE Quo Print"
             report_type = "qweb-pdf"
             groups="base.group_sale_salesman_all_leads,group_delivery"
             name = "oa_company_quot_report_dalko_adjust.report_sale_order_dalko"
@@ -25,7 +25,7 @@
         <!-- Quotation -->
          <report
             id="model_security_adjust_oaw.report_sale_order"
-            string="Quotation / Order"
+            string="Chrono123 Quo Print"
             model="sale.order"
             groups="base.group_sale_salesman_all_leads,group_delivery"
             report_type="qweb-pdf"
