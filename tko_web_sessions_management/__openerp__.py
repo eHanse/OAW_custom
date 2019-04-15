@@ -56,6 +56,8 @@ NOTE: Admin has no restrictions""",
         'base',
         'resource',
         'web',
+        # QTL ADD
+        'website_timecheck',
     ],
     'data': [
         'security/ir.model.access.csv',

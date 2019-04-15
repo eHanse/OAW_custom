@@ -114,7 +114,7 @@ class TkobrSessionMixin(object):
                                     calendar_ok = True
                                 else:
                                     calendar_group = group.name
-                            if sessions and group.multiple_sessions_block and multi_ok:
+                            if sessions and group.sudo().multiple_sessions_block and multi_ok:
                                 multi_ok = False
                                 unsuccessful_message = _(
                                     "unsuccessful login from '%s', multisessions block defined in group '%s'") % (
@@ -280,8 +280,17 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home, TkobrSessionMixin):
             login = request.params.get('login', None)
             password = request.params.get('password', None)
             (access_granted, uid, unsuccessful_message) = self.check_session(db, login, password)
-            if access_granted:
+            # if access_granted:
+            #     return http.redirect_with_hash(redirect)
+            # >>> QTL ADD
+            if access_granted and uid is not False:
+                user = request.env['res.users'].browse(uid)
+                if user.has_group('website_timecheck.group_timecheck_trial'):
+                    base_url = request.env['ir.config_parameter'].get_param(
+                        'web.base.url')
+                    redirect = base_url + '/shop/special_offer'
                 return http.redirect_with_hash(redirect)
+            # <<< QTL ADD
             else:
                 request.uid = old_uid
                 values['error'] = _('Login failed due to one of the following reasons:')
