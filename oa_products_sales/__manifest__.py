@@ -12,29 +12,29 @@
         Field "subtotal" behind customer.
     """,
 
-    'author': "OA Trade",
+    'author': "Chrono123",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
-    'version': '0.2',
+    'category': 'Product',
+    'version': '12.0.0.1',
 
     # any module necessary for this one to work correctly
     'depends': ["base",
-                "product",
-                "decimal_precision",
-                "sale",
-                "sale_stock",
-                "product_offer",
-                "model_security_adjust_oaw"
+                # "product",
+                # "decimal_precision",
+                # "sale",
+                # "sale_stock",
+                # "product_offer",
+                # "model_security_adjust_oaw"
     ],
 
     # always loaded
     'data': [
         'views/products_sales_view.xml',
-        'views/sale_view.xml',
-        "wizards/products_sales_wizard.xml",
+        # 'views/sale_view.xml',
+        # "wizards/products_sales_wizard.xml",
     ],
     # only loaded in demonstration mode
     #'post_init_hook': '_update_prod_tmpl_fields',
