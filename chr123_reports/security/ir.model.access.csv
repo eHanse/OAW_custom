@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_./chr123_reports_./chr123_reports,./chr123_reports../chr123_reports,model_./chr123_reports_./chr123_reports,,1,0,0,0
