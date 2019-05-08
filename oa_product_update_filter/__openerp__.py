@@ -13,7 +13,8 @@
         "product_listprice_list_view",
         "supplier_stock",
         "stock",
-         "view_adjustments"
+         "view_adjustments",
+         "supplier_stock_hk_location"
     ],
 
     'description': """
