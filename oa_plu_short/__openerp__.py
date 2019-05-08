@@ -12,6 +12,7 @@
         "sale",
         "stock",
         "product_offer",
+        "supplier_stock_hk_location",
         "product_listprice_list_view",
         "oa_product_update_filter"
     ],
