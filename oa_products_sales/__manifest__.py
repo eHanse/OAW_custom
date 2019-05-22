@@ -22,9 +22,10 @@
 
     # any module necessary for this one to work correctly
     'depends': ["base",
-                # "product",
+                "product",
+                "product_local_oversea_stock_info",
                 # "decimal_precision",
-                # "sale",
+                 "sale",
                 # "sale_stock",
                 # "product_offer",
                 # "model_security_adjust_oaw"
@@ -32,9 +33,9 @@
 
     # always loaded
     'data': [
-        'views/products_sales_view.xml',
-        # 'views/sale_view.xml',
-        # "wizards/products_sales_wizard.xml",
+        'views/product_template.xml',
+        'views/sale_view.xml',
+        "wizards/products_sales_wizard.xml",
     ],
     # only loaded in demonstration mode
     #'post_init_hook': '_update_prod_tmpl_fields',

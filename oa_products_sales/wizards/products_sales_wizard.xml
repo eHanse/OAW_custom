@@ -10,18 +10,22 @@
                         This action will calculate initial values for subtotal_hkd, total and average
                     </p>
                     <footer>
-                        <button name="action_products_sales_initialise"
+                        <!-- String=run enables the wizard! -->
+                        <button name="action_products_sales_initialise_btn"
                                 type="object"
                                 string="Run"
                                 class="oe_highlight"/>
                         or
                         <button special="cancel"
-                                string="Cancel"/>
+                                string="Cancel"
+                                class="btn-secondary"/>
                     </footer>
                 </form>
             </field>
         </record>
 
+<!-- view_mode: Wizards view mode -->
+<!-- multi: enables the button on list views -->
         <act_window
                     id="action_products_sales_initialise"
                     name="Initializse Values"
@@ -29,7 +33,9 @@
                     src_model="product.template"
                     view_mode="form"
                     target="new"
-                    key2="client_action_multi"/>
+                    multi="True"
+                    />
 
     </data>
 </openerp>
+
