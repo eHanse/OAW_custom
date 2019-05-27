@@ -13,7 +13,7 @@
                     <button name="action_view_sales_ext" type="object" icon="fa-sign-in" string="Open Sales"/>
                     <field name="default_code" string="Code"/>
                     <field name="name" string="Product Ref"/>
-                    <field name="qty_local_stock" string="HK Stock"/>
+<!--                    <field name="qty_local_stock" string="HK Stock"/>-->
                     <field name="average" string="Average Price"/>
                     <field name="total" string="Total"/>
                 </tree>
@@ -46,7 +46,7 @@
                     sequence="2"
                     groups=""/>
 
-<!--         Classical implementation of inline-button (not working) -->
+<!--         Window action related to the inline button function-->
         <record id="report_all_channels_sales_action" model="ir.actions.act_window">
             <field name="name">Sales</field>
             <field name="res_model">sale.order.line</field>

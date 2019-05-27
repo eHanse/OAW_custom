@@ -6,7 +6,7 @@ class product_template_ext(models.Model):
     _description = 'Products Sale'
 
     total = fields.Float(
-        string="Total",
+        string="Total HKD",
         digits=dp.get_precision('Product Price'),
         readonly=True
     )
@@ -29,15 +29,18 @@ class product_template_ext(models.Model):
             if pt.counts != 0:
                 pt.average = pt.total / pt.counts
 
+    # triggered by More Button
     @api.multi
     def _initialize_values(self, pts):
         sol_object = self.env['sale.order.line']
         for pt in pts:
-            print(pt)
             domain = [
-                ('product_id.product_tmpl_id', '=', pt.id),
+                #('product_id.product_tmpl_id', '=', pt.id),
+                ('product_id', '=', pt.product_variant_ids.ids),
+                # ('state', '=', 'done'), when sales order is automatically delivered
                 ('state', '=', 'sale'),
-                ('qty_delivered', '>', 0),
+
+
             ]
             sols = sol_object.search(domain)
             sols_len = len(sols)
@@ -62,29 +65,22 @@ class product_template_ext(models.Model):
                 pt.average = pt.total / pt.counts
         return
 
-    # Classical implementation of inline-button (not working)
+    # Classical implementation of inline-button
     @api.multi
     def action_view_sales_ext(self):
-
-        act_obj = self.env['ir.actions.act_window']
-        mod_obj = self.env['ir.model.data']
-
-        # product_ids = [x.id for x in self.product_variant_ids]
-
-        # action_id = mod_obj.xmlid_to_res_id('oa_products_sales.report_all_channels_sales_action', raise_if_not_found=True)
         action = self.env.ref('oa_products_sales.report_all_channels_sales_action').read()[0]
-
-
-
-        # result['domain'] = "[('product_id','in',[" + ','.join(map(str, product_ids)) + "]),('state','=','done')]"
-        # result['domain'] = "[('product_id','in', [%s])]" % ','.join(product_ids)
         print(self.product_variant_ids.ids)
-        action['domain'] = [('product_id','in', self.product_variant_ids.ids),('state','=','done')]
+        # Regarding domain: Self is product template!
+        # Left part is field of model the action bases on, i.e. sale.order.line!
+        action['domain'] = [('product_id','in', self.product_variant_ids.ids),('state','=','sale')]
+        #Domain in use when Sales Order is automatically locked
+        #action['domain'] = [('product_id', 'in', self.product_variant_ids.ids), ('state', '=', 'done')]
 
 
         print(action)
         return action
 
+    # Better implemtation, but momentarily not allowing setting the search_view_id of custom search view.
     # @api.multi
     # def action_view_sales_ext(self):
     #     view_id = self.env.ref('oa_products_sales.sale_order_line_tree_z2')

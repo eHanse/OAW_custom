@@ -24,8 +24,8 @@
             </field>
         </record>
 
-<!-- view_mode: Wizards view mode -->
-<!-- multi: enables the button on list views -->
+    <!-- view_mode: Wizards view mode -->
+    <!-- multi: enables the button on list views -->
         <act_window
                     id="action_products_sales_initialise"
                     name="Initializse Values"
