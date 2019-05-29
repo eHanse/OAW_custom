@@ -77,7 +77,7 @@ class product_template_ext(models.Model):
         #action['domain'] = [('product_id', 'in', self.product_variant_ids.ids), ('state', '=', 'done')]
 
 
-        print(action)
+
         return action
 
     # Better implemtation, but momentarily not allowing setting the search_view_id of custom search view.

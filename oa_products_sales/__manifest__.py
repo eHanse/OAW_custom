@@ -43,8 +43,8 @@
 
     # always loaded
     'data': [
-        'views/product_template.xml',
         'views/sale_view.xml',
+        'views/product_template.xml',
         "wizards/products_sales_wizard.xml",
     ],
     # only loaded in demonstration mode
