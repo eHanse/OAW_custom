@@ -11,10 +11,12 @@ class SaleOrderLine(models.Model):
         related = 'product_id.name'
     )
 
+
     order_partner_id = fields.Char(
         string='Product Name',
         related='order_id.partner_id.name'
     )
+
 
     subtotal_hkd = fields.Float(
         string="Subtotal in HKD",
