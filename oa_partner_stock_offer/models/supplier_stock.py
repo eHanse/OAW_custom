@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 Rooms For (Hong Kong) Limted T/A OSCG
+# Copyright 2017-2019 Quartile Limted
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, api, fields
@@ -7,7 +7,6 @@ from openerp import models, api, fields
 
 class SupplierStock(models.Model):
     _inherit = "supplier.stock"
-
     # Using "display_name" field computed by name_get() method to create the form view's representation
     _rec_name = 'display_name'
 
@@ -32,7 +31,7 @@ class SupplierStock(models.Model):
         string='Has Duplicates',
         store=True,
     )
-    #For form view
+    # For form view
     image_medium = fields.Binary(
         'Image',
         related='product_id.product_tmpl_id.image_medium',
@@ -45,9 +44,6 @@ class SupplierStock(models.Model):
         related='prod_cat_selection.name',
         string='Brand',
     )
-
-
-
     last_update_date = fields.Datetime(
         readonly=True,
         string='Last Update Date'
@@ -57,8 +53,7 @@ class SupplierStock(models.Model):
         readonly=True,
         string='Last Update User',
     )
-
-    #For new Filter in Partner Stock
+    # For new Filter in Partner Stock
     # For Partner Stock filter
     qty_up_date = fields.Datetime(
         string='Quantity increased',
@@ -79,9 +74,6 @@ class SupplierStock(models.Model):
         string='Partner Note updated',
     )
 
-
-
-
     @api.multi
     def _get_quantity(self):
         for ps in self:
@@ -93,12 +85,12 @@ class SupplierStock(models.Model):
                 ps.partner_qty = '2'
             elif ps.quantity >= 3.0:
                 ps.partner_qty = '>=3'
-            ps_products= self.sudo().search(
+            ps_products = self.sudo().search(
                 [('product_id', '=', ps.product_id.id)], order='price_unit_base ASC'
             )
             if ps_products:
                 for psc in ps_products:
-                    if len(ps_products) >=2:
+                    if len(ps_products) >= 2:
                         psc.sudo().write({
                             'lowest_cost': False,
                             'has_duplicates': True
@@ -112,18 +104,17 @@ class SupplierStock(models.Model):
                     'lowest_cost': True
                 })
 
-
-
     @api.multi
     def write(self, vals):
         if 'quantity' in vals or 'price_unit' in vals or 'partner_loc_id' in vals or 'prod_cat_selection' in vals \
                 or 'product_id' in vals or 'currency_id' in vals or 'retail_in_currency' in vals or 'partner_note' in vals:
             vals.update({
-                'last_update_date' : fields.Datetime.now(),
-                'last_update_user_id' : self.env.user.id
+                'last_update_date': fields.Datetime.now(),
+                'last_update_user_id': self.env.user.id
             })
             for ps in self:
-                ps.product_id.product_tmpl_id.sudo().write({'partner_stock_last_modified': fields.Datetime.now()})
+                ps.product_id.product_tmpl_id.sudo().write(
+                    {'partner_stock_last_modified': fields.Datetime.now()})
                 if 'quantity' in vals:
                     if ps.quantity < vals['quantity']:
                         ps.qty_up_date = fields.Datetime.now()
@@ -143,12 +134,14 @@ class SupplierStock(models.Model):
         return res
 
     @api.model
-    def create(self,vals):
+    def create(self, vals):
         vals.update({
             'last_update_date': fields.Datetime.now(),
             'last_update_user_id': self.env.user.id
         })
-        res =super(SupplierStock,self).create(vals)
+        self.env['product.product'].browse(vals['product_id']).product_tmpl_id.sudo(
+        ).write({'partner_stock_last_modified': fields.Datetime.now()})
+        res = super(SupplierStock, self).create(vals)
         res._get_quantity()
         return res
 
