@@ -16,7 +16,7 @@ class ResUser(models.Model):
     )
 
     is_timecheck_light_date = fields.Datetime(
-        string = 'Got TCL Date',
+        string = 'Is TCL Since',
         default =False
     )
 
@@ -25,20 +25,20 @@ class ResUser(models.Model):
     )
 
 
-    @api.model
-    def extend_timecheck_light(self):
-        users = self.search([('is_timecheck_light','=',True)])
-        for user in users:
-            # Domain in Account Voucher
-            # Search for partners Done-Payments between now and back then
-            # This domain requires Payments done with company not contact.
-            domain = [
-                ('product_id', '=', vals['product_id']),
-                ('currency_id', '=', vals['currency_id']),
-            ]
-
-            user.is_timecheck_light = False
-        return True
+    # @api.model
+    # def extend_membership_timecheck_light(self):
+    #     users = self.search([('is_timecheck_light','=',True)])
+    #     for user in users:
+    #         # Domain in Account Voucher
+    #         # Search for partners Done-Payments between now and back then
+    #         # This domain requires Payments done with company not contact.
+    #         domain = [
+    #             ('product_id', '=', vals['product_id']),
+    #             ('currency_id', '=', vals['currency_id']),
+    #         ]
+    #
+    #         user.is_timecheck_light = False
+    #     return True
 
 
 
