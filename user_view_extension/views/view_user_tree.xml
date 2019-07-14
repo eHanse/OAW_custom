@@ -7,8 +7,10 @@
             <field name="model">res.users</field>
             <field name="arch" type="xml">
                     <tree string="External Users" editable="top">
+                        <field name="commercial_partner_id" string="Company"/>
                         <field name="partner_id"/>
-                        <field name="name"/>
+                        <field name="is_timecheck_light"/>
+                        <field name="is_timecheck_light_date"/>
                         <button name="action_orders_3" type="object" icon="terp-gtk-jump-to-ltr" string="Open its Customer Payment"/>
                         <field name="ip"/>
                         <field name="interval_number"/>
@@ -17,6 +19,7 @@
                         <field name="multiple_sessions_block"/>
                         <field name="login"/>
                         <field name="new_password"/>
+                        <field name="password" readonly="True"/>
                         <field name="login_date"/>
                     </tree>
             </field>
@@ -28,7 +31,7 @@
         <field name="inherit_id" ref="base.view_users_search"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="before">
-                    <field name="partner_id" string="Partner"/>
+                    <field name="commercial_partner_id" string="Company"/>
             </xpath>
         </field>
     </record>
