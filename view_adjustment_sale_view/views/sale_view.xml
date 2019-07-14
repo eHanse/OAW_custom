@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+      <!-- This following record adds the field order_policy to the header of SO form -->
+        <record id="view_sales_order_form_z1" model="ir.ui.view">
+            <field name="name">sale.order.form.z1</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="pricelist_id" position="before">
+                    <field name="order_policy"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- This following record adds the new quot_report_note to the SO form -->
+        <record id="view_sales_order_form_rm_terms" model="ir.ui.view">
+            <field name="name">view.sales.order.form.rm.terms</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                 <field name="note" position="replace">
+                </field>
+               <!--<xpath expr="//field[@name='note']" position="replace">-->
+               <!--</xpath>-->
+            </field>
+        </record>
+
+          <record id="view_sales_order_form_print_note" model="ir.ui.view">
+            <field name="name">view.sales.order.form.print.note</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+               <xpath expr="//div[@class='oe_clear']" position="after">
+                   <group>
+
+                           <field name="note" class="oe_inline" placeholder="Internal infos"/>
+
+                            <field name="quot_report_note" class="oe_inline" placeholder="Partner Infos"/>
+
+                   </group>
+
+               </xpath>
+            </field>
+        </record>
+    
+    
+    <!-- This following two records removes field payment_term from "Other Information" and place it into the header of SO form -->
+            <record id="view_sales_order_form_z2" model="ir.ui.view">
+            <field name="name">sale.order.form.z2</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term" position="replace">
+                </field>
+            </field>
+        </record>
+        
+         <record id="view_sales_order_form_z3" model="ir.ui.view">
+            <field name="name">sale.order.form.z3</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+               
+                <field name="currency_id" position="before">
+                    <field name="payment_term"/>
+                </field>
+                
+            </field>
+        </record>
+        
+        <!-- This following record makes "Other Information" in SO invisible -->
+        <record id="view_sales_order_form_z4" model="ir.ui.view">
+            <field name="name">sale.order.form.z4</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <page string="Other Information" position="attributes">
+                 	<attribute name='invisible'>1</attribute>
+                </page>
+            </field>
+        </record>
+
+
+
+            <!-- Adds client_order_ref to tree view -->
+        <record id="view_quotation_tree_ext" model="ir.ui.view">
+            <field name="name">view_quotation_tree_ext: adds client_order_ref to tree view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_line_quant_extended.view_quotation_tree_z160504"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='to_check']" position="before">
+                    <field name="subconsigned" string="Sub Consigned"/>
+                </xpath>
+                  <xpath expr="//field[@name='to_check']" position="after">
+                       <field name="client_order_ref" string="Remark"/>
+                      <field name="pricelist_id" string="Pricelist"/>
+               </xpath>
+            </field>
+        </record>
+
+
+
+
+            <!-- Adds client_order_ref to search -->
+        <record id="view_sales_order_filter_ext_1" model="ir.ui.view">
+            <field name="name">Makes client_order_ref searchable in seachview</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_line_quant_extended.view_sales_order_filter_z160504"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='seller_ids']" position="after">
+                       <field name="client_order_ref" string="Remark"/>
+
+               </xpath>
+            </field>
+        </record>
+
+
+
+
+         <!-- This following record adds Subconsignemtn Checkbox to Form view -->
+        <record id="view_sales_order_form_z18" model="ir.ui.view">
+            <field name="name">sale.order.form.z18</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="oa_order_line_views.view_sales_order_form_qol"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='is_shipment']" position="after">
+                       <field name="subconsigned" string="Sub Consigned"/>
+               </xpath>
+            </field>
+        </record>
+
+         <!--&lt;!&ndash; Adds Sub Consigned checkbox to tree view &ndash;&gt;-->
+        <!--<record id="view_sales_order_tree_z18" model="ir.ui.view">-->
+            <!--<field name="name">view_quotation_tree_ext: adds Sub Consigned checkbox  to tree view</field>-->
+            <!--<field name="model">sale.order</field>-->
+            <!--<field name="inherit_id" ref="sale_line_quant_extended.view_quotation_tree_z160504"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!---->
+                   <!--<xpath expr="//field[@name='to_check']" position="before">-->
+                    <!--<field name="subconsigned" string="Sub Consigned"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+       <!-- Adds client_order_ref to search -->
+        <record id="view_sales_order_filter_z18" model="ir.ui.view">
+            <field name="name">adds Sub Consigned filter to tree view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_line_quant_extended.view_sales_order_filter_z160504"/>
+            <field name="arch" type="xml">
+                   <xpath expr="//filter[@string='My']" position="before">
+                       <filter name="subconsigned" string="Sub Consigned" domain="[('subconsigned','=',True)]"/>
+               </xpath>
+            </field>
+        </record>
+
+
+
+    <!--&lt;!&ndash;remove Product Quick Create from Quotation&ndash;&gt;-->
+          <!--&lt;!&ndash; This following record adds Subconsignemtn Checkbox to Form view &ndash;&gt;-->
+        <!--<record id="view_order_form_inherit_z1" model="ir.ui.view">-->
+            <!--<field name="name">view.order.form.inherit.z1</field>-->
+            <!--<field name="model">sale.order</field>-->
+            <!--<field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="replace">-->
+                       <!--<field name="product_id"-->
+                       <!--context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':False, 'company_id': parent.company_id}"-->
+                       <!--groups="base.group_user"-->
+                       <!--on_change="product_id_change_with_wh(parent.pricelist_id,product_id,product_uom_qty,False,product_uos_qty,False,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position, False, parent.warehouse_id, context)"-->
+                       <!--options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"/>-->
+
+                   <!--</xpath>-->
+                <!---->
+            <!--</field>-->
+        <!--</record>-->
+
+
+          <record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="context">{}</field>
+        </record>
+
+
+          <record id="sale.action_quotations" model="ir.actions.act_window">
+            <field name="context">{}</field>
+        </record>
+
+
+
+
+
+    </data>
+</openerp>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="view_stock_quant_tree_ext" model="ir.ui.view">
+            <field name="name">view_stock_quant_tree_ext: adding client order ref to quant tree view</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="sale_line_quant.view_stock_quant_tree_z6"/>
+            <field name="arch" type="xml">
+              <!--Make quant tree view editable-->
+                 <xpath expr="//tree" position="attributes">
+                   <attribute name="editable">top</attribute>
+                </xpath>
+               
+                <xpath expr="//field[@name='sale_id']" position="after">
+                    <field name="client_order_ref"/>
+                    <field name="quant_note"/>
+                </xpath>
+            </field>
+         </record>
+
+
+        <!--Maybe redundant considering how compute-method is working-->
+        <record id="action_run_ir_action_sequence_quant_update"
+                model="ir.actions.server">
+            <field name="name">Update old quotations regarding Remark</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="stock.model_stock_quant"/>
+            <field name="state">code</field>
+            <field name="code">
+                quants = self.browse(cr, uid, context.get('active_ids', []), context=context)
+                quants._get_remark()
+            </field>
+        </record>
+
+
+        <!-- Adds client_order_ref to searchview of quant -->
+        <record id="quant_search_view_ext_1" model="ir.ui.view">
+            <field name="name">Makes client_order_ref from quotation searchable</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='location_id']" position="after">
+                       <field name="client_order_ref" string="Remark"/>
+               </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

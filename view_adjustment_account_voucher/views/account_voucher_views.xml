@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="account_voucher_tree_z160504" model="ir.ui.view">
+            <field name="name">account.voucher.tree.z160504</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_tree"/>
+            <field name="arch" type="xml">
+              <!--Make sale order tree view editable-->
+                <xpath expr="//tree" position="attributes">
+                   <attribute name="editable">top</attribute>
+                </xpath>
+              <xpath expr="//field[@name='amount']" position="after">
+                <field name="voucher_payment_reviewed"/>
+               </xpath>
+            </field>
+         </record>
+
+         <record id="view_invoice_tree_cust_pay_ext" model="ir.ui.view">
+            <field name="name">view.invoice.tree.cust.pay.ext</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='number']" position="after">
+                    <field name="vouchers_sales_order"/>
+                    <button name="action_orders_2" type="object" icon="terp-gtk-jump-to-ltr" string="Open its Customer Payment"/>
+               </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
