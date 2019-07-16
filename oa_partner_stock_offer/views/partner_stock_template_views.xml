@@ -24,7 +24,6 @@
                                     <li>Retail in <field name="currency_id"/>: <field name="retail_in_currency"></field></li>
                                     <li t-if="record.currency_name.raw_value != 'HKD'"> Retail in HKD: <field name="product_list_price"/></li>
                                     <li>Quantity: <field name="partner_qty"/></li>
-                                    <li>Location: <field name="short_loc_name"/></li>
                                 </ul>
                             </div>
                         </div>
