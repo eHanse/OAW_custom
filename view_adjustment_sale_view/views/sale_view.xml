@@ -8,9 +8,9 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <field name="pricelist_id" position="before">
+                <!--<field name="pricelist_id" position="before">
                     <field name="order_policy"/>
-                </field>
+                </field>-->
             </field>
         </record>
 
@@ -53,8 +53,8 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <field name="payment_term" position="replace">
-                </field>
+                <!--<field name="payment_term" position="replace">
+                </field>-->
             </field>
         </record>
         
@@ -64,9 +64,9 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                
-                <field name="currency_id" position="before">
+                <!--<field name="currency_id" position="before">
                     <field name="payment_term"/>
-                </field>
+                </field>-->
                 
             </field>
         </record>
@@ -77,9 +77,9 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <page string="Other Information" position="attributes">
+                <!--<page string="Other Information" position="attributes">
                  	<attribute name='invisible'>1</attribute>
-                </page>
+                </page>-->
             </field>
         </record>
 
@@ -91,13 +91,13 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_line_quant_extended.view_quotation_tree_z160504"/>
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='to_check']" position="before">
+                 <!--<xpath expr="//field[@name='to_check']" position="before">
                     <field name="subconsigned" string="Sub Consigned"/>
                 </xpath>
                   <xpath expr="//field[@name='to_check']" position="after">
                        <field name="client_order_ref" string="Remark"/>
                       <field name="pricelist_id" string="Pricelist"/>
-               </xpath>
+               </xpath>-->
             </field>
         </record>
 

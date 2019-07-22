@@ -6,9 +6,9 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
-	            	<field name="list_price" position="after">
+	            	<!--<field name="list_price" position="after">
 	         				<field name="additional_info" string="Note"></field>
-	       			</field>
+	       			</field>-->
             </field>
         </record>
            <!--Adds Additional Info to PLU tree view-->
@@ -17,9 +17,9 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
             <field name="arch" type="xml">
-                   <xpath expr="//field[@name='sale_hkd_ac_so']" position="after">
+                 <!--  <xpath expr="//field[@name='sale_hkd_ac_so']" position="after">
                     <field name="additional_info" string="Note Internal"/>
-                </xpath>
+                </xpath>-->
             </field>
         </record>
     </data>

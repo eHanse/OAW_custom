@@ -46,15 +46,15 @@ class account_voucher_ext(osv.osv):
         return res
 
 
-    def action_orders_2(self, cr, uid, ids, context=None):
-        view_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'account_voucher', 'view_vendor_receipt_form')[1]
-        return {
-            'name': 'Customer Payments',
-            'view_mode': 'form',
-            'view_type': 'form',
-            'res_model': 'account.voucher',
-            'view_id': view_id,
-            'type': 'ir.actions.act_window',
-            'res_id': ids[0],
-            'context': context,
-        }
+    #def action_orders_2(self, cr, uid, ids, context=None):
+    #    view_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'account_voucher', 'view_vendor_receipt_form')[1]
+    #    return {
+    #        'name': 'Customer Payments',
+    #        'view_mode': 'form',
+    #        'view_type': 'form',
+    #        'res_model': 'account.voucher',
+    #        'view_id': view_id,
+    #        'type': 'ir.actions.act_window',
+    #        'res_id': ids[0],
+    #        'context': context,
+    #    }
