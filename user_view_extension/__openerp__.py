@@ -9,7 +9,7 @@
     'website': 'https://ehanse.de',
     'category': '',
     'depends': [
-        'tko_web_sessions_management'
+       
     ],
     'description': """
 * Adds a External User tree view next to User default view

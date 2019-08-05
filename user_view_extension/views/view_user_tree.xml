@@ -13,11 +13,6 @@
                     <field name="is_timecheck_light"/>
                     <field name="is_timecheck_light_date"/>
                     <button name="action_orders_3" type="object" icon="terp-gtk-jump-to-ltr" string="Open its Customer Payment"/>
-                    <field name="ip"/>
-                    <field name="interval_number"/>
-                    <field name="interval_type"/>
-                    <field name="login_calendar_id"/>
-                    <field name="multiple_sessions_block"/>
                     <field name="login"/>
                     <field name="new_password"/>
                     <field name="password" readonly="True"/>
