@@ -31,7 +31,8 @@
                 "sale_line_quant",
                 "sale_line_quant_extended",
                 "stock",
-                "oa_order_line_views"
+                "oa_order_line_views",
+                "website_timecheck"
                 ],
     'description': """
 * moves and creates, makes tabs invisible, minor adjustments on Customer/Supplier Payments
