@@ -9,6 +9,7 @@
     'website': 'https://ehanse.de',
     'category': '',
     'depends': [
+        'auth_crypt',
        
     ],
     'description': """
