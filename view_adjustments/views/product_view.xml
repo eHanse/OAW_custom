@@ -3,24 +3,14 @@
     <data>
         <record id="product_template_form_view_v1" model="ir.ui.view">
             <field name="name">product.template.common.form.v1</field>
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
             <field name="arch" type="xml">
-	            	<field name="list_price" position="after">
+	            	<field name="sale_hkd_ac" position="before">
 	         				<field name="additional_info" string="Note"></field>
 	       			</field>
             </field>
         </record>
-              <!-- Adds Additional Info to PLU tree view -->
-        <record id="view_sales_order_tree_z18" model="ir.ui.view">
-            <field name="name">view_quotation_tree_ext: adds Sub Consigned checkbox  to tree view</field>
-            <field name="model">product.product</field>
-            <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
-            <field name="arch" type="xml">
-                   <xpath expr="//field[@name='website_product_seq_date']" position="after">
-                    <field name="additional_info" string="Note Internal"/>
-                </xpath>
-            </field>
-        </record>
+
     </data>
 </openerp>

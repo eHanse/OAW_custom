@@ -13,6 +13,7 @@
         "stock",
         "product_offer",
         "website_timecheck",
+        "oa_product_update_filter"
 
     ],
     'description': """
