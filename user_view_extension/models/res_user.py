@@ -71,8 +71,6 @@ class ResUser(models.Model):
             group_field_value = self.env.ref(
                 'website_timecheck.%s' % vals['timecheck_group']).id if vals['timecheck_group'] else False
             vals[timecheck_field_name] = group_field_value
-        print timecheck_field_name
-        print vals
         if timecheck_field_name in vals and not 'timecheck_group' in vals:
             vals['timecheck_group'] = self.env['res.groups'].sudo().browse(
                 vals[timecheck_field_name]).get_xml_id()[vals[timecheck_field_name]].split('.')[1] if vals[timecheck_field_name] else False
