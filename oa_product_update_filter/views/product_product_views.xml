@@ -7,7 +7,7 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product_listprice_list_view.product_product_tree_view_z1"/>
             <field name="arch" type="xml">
-                    <xpath expr="//field[@name='last_in_date']" position="after">
+                    <xpath expr="//field[@name='partner_note2']" position="after">
                         <field name="chrono24_updated" string="Chrono24 Updated"/>
                         <field name="chrono24_price" string="Chrono 24 Price"/>
                         <field name="chrono" string="Chrono24"/>

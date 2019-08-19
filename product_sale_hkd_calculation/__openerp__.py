@@ -3,20 +3,23 @@
 # Copyright 2017 eHanse
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
-    'name': 'External User List View',
+    'name': 'Product Calc Sale HKD',
     'version': '8.0.0.1',
-    'author': 'eHanse',
-    'website': 'https://ehanse.de',
-    'category': '',
+    'author': 'oa, eHanse, Quartile',
+    'website': '',
+    'category': 'Product',
     'depends': [
-        'auth_crypt',
-       
+        "sale",
+        "stock",
+        "product_offer",
+        "website_timecheck",
+        "oa_product_update_filter"
+
     ],
     'description': """
-* Adds a External User tree view next to User default view
+* Calculation of sale price.
     """,
     'data': [
-        'views/view_user_tree.xml',
     ],
     'installable': True,
 }
