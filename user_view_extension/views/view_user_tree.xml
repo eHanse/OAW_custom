@@ -15,7 +15,7 @@
                     <button name="action_orders_3" type="object" icon="terp-gtk-jump-to-ltr" string="Open its Customer Payment"/>
                     <field name="login"/>
                     <field name="new_password"/>
-                    <field name="password" readonly="True"/>
+                    <field name="show_pw" readonly="True"/>
                     <field name="login_date"/>
                 </tree>
             </field>

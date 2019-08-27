@@ -95,6 +95,12 @@ class ResUser(models.Model):
 class ResUser2(models.Model):
     _inherit = "res.users"
 
+    show_pw = fields.Char(
+        string = "Given Password",
+        store = True,
+        readonly = True
+    )
+
     def _set_password(self, cr, uid, id, password, context=None):
         """ Encrypts then stores the provided plaintext password for the user
         ``id``
@@ -109,16 +115,6 @@ class ResUser2(models.Model):
     def _set_password_again(self, cr, uid, id, password, context=None):
         print(password)
         cr.execute(
-            "UPDATE res_users SET password=%s WHERE id=%s",
+            "UPDATE res_users SET show_pw=%s WHERE id=%s",
             (password, id))
 
-    # def _set_encrypted_password(self, cr, uid, id, encrypted, context=None):
-    #     """ Store the provided encrypted password to the database, and clears
-    #     any plaintext password
-    #
-    #     :param uid: id of the current user
-    #     :param id: id of the user on which the password should be set
-    #     """
-    #     cr.execute(
-    #         "UPDATE res_users SET password='', password_crypt=%s WHERE id=%s",
-    #         (encrypted, id))
