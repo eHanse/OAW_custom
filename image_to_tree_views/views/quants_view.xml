@@ -5,9 +5,9 @@
         <record id="quant_tree_view" model="ir.ui.view">
             <field name="name">quant.tree.view</field>
             <field name="model">stock.quant</field>
-            <field name="inherit_id" ref="stock.view_stock_quant_tree"/>
+            <field name="inherit_id" ref="stock_view_adjust_oaw.view_stock_quant_tree_z160510"/>
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='product_id']" position="after">
+                 <xpath expr="//field[@name='lot_id']" position="after">
                     <field name="image_small" string="Image" widget="image" height="64px"/>
                  </xpath>
             </field>

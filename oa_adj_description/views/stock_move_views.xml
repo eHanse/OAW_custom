@@ -6,8 +6,11 @@
             <field name="model">stock.move</field>
             <field name="inherit_id" ref="stock_view_adjust_oaw.view_move_tree_extended"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='product_id']" position="after">
-                       <field name="new_description" String="New Description"></field>
+                <xpath expr="//field[@name='picking_type_code']" position="after">
+                    <field name="default_code"></field>
+                    <field name="new_description"></field>
+                </xpath>
+                <xpath expr="//field[@name='product_id']" position="replace">
                 </xpath>
             </field>
         </record>

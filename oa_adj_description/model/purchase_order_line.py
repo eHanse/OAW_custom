@@ -7,10 +7,16 @@ class PurchaseOrderLine(models.Model):
     _description = 'Modified description field for RFQ'
 
     new_description = fields.Char(
-        related='product_id.product_tmpl_id.name',
-        string="Description",
+        related='product_id.name',
+        string="Product Ref",
         readonly=True,
         store=True,
     )
 
+    default_code = fields.Char(
+        related='product_id.default_code',
+        string='Code',
+        readonly=True,
+        store=True
+    )
 
