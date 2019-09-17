@@ -8,10 +8,17 @@ class StockTransferDetailsItems(models.TransientModel):
     _description = 'Adjust Description field in all Transfer views'
 
     new_description = fields.Char(
-
-        string="Description",
+        related='product_id.name',
+        string="Product Ref",
         readonly=True,
         store=True,
+    )
+
+    default_code = fields.Char(
+        related='product_id.default_code',
+        string='Code',
+        readonly=True,
+        store=True
     )
 
 

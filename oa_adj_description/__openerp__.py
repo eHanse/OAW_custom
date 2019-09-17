@@ -33,7 +33,8 @@
                 "sale_line_quant",
                 "purchase_view_adjust_oaw",
                 'account',
-                'stock_transfer_lot_filter'
+                'stock_transfer_lot_filter',
+                'stock_view_adjust_oaw'
                 ],
 
     # always loaded

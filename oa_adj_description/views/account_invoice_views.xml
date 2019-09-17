@@ -11,7 +11,10 @@
                     <attribute name="invisible">1</attribute>
                 </xpath>
                 <xpath expr="//field[@name='invoice_line']/tree/field[@name='product_id']" position="after">
+                        <field name="default_code" String="New Description"></field>
                        <field name="new_description" String="New Description"></field>
+
+
                 </xpath>
             </field>
         </record>
@@ -22,8 +25,11 @@
             <field name="model">account.invoice.line</field>
             <field name="inherit_id" ref="account_invoice_line_view_oaw.view_invoice_line2"/>
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='product_id']" position="after">
-                       <field name="new_description" String="New Description"></field>
+                 <xpath expr="//field[@name='payment_reference']" position="after">
+                       <field name="default_code" String="New Description"></field>
+                     <field name="new_description" String="New Description"></field>
+                </xpath>
+                 <xpath expr="//field[@name='product_id']" position="replace">
                 </xpath>
             </field>
         </record>

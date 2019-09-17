@@ -19,7 +19,7 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ["base","purchase","sale_line_quant","purchase_view_adjust_oaw","account"],
+    'depends': ["base","purchase","sale_line_quant","purchase_view_adjust_oaw","account","stock_view_adjust_oaw"],
 
     # always loaded
     'data': ["views/purchase_views.xml",
