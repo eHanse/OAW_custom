@@ -15,17 +15,22 @@
             </field>
         </record>
 
-         <!--Replaces the description field by the product template name-->
-         <record id="view_move_picking_tree_descr_adj" model="ir.ui.view">
-              <field name="name">view_move_picking_tree: Adjust tree view in stock move form</field>
-              <field name="model">stock.move</field>
-              <field name="inherit_id" ref="stock.view_move_picking_tree"/>
-              <field name="arch" type="xml">
-                <xpath expr="//field[@name='product_id']" position="after">
-                       <field name="new_description" String="New Description"></field>
+         <!--NReplaces product_id in the tree view section in Deliery Order, Receipts, Internal Moves-->
+        <record id="view_picking_form_ext3" model="ir.ui.view">
+            <field name="name">view.picking.form.ext3</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="field[@name='product_id']" position="after">
+                        <field name="default_code"></field>
+                       <field name="new_description"></field>
                 </xpath>
-              </field>
+                 <xpath expr="field[@name='product_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
         </record>
+
 
     </data>
 </openerp>
