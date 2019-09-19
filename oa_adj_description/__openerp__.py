@@ -7,15 +7,8 @@
     """,
 
     'description': """
-      Field adjusted
-        in RFQ \n
-        in 'Supplier Invoice', \n
-        in 'Stock Moves' behind Product name field, \n
-        in 'Invoice Lines' behind Product name field, \n
-        in 'Quants' behind Product name field, \n
-        in 'Receipts' and 'Internal Transfer' form views, behind Product name \n
-        in 'Transfer' pop-up \n
-        in 'Profit & Loss Report' behind Reference field \n
+      product_id field replaced in various tree views \n
+        by default_code and new description field\n
     """,
 
     'author': "OA Trade",
@@ -34,7 +27,8 @@
                 "purchase_view_adjust_oaw",
                 'account',
                 'stock_transfer_lot_filter',
-                'stock_view_adjust_oaw'
+                'stock_view_adjust_oaw',
+
                 ],
 
     # always loaded
