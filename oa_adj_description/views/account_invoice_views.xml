@@ -7,13 +7,9 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
-
                 <xpath expr="//field[@name='invoice_line']/tree/field[@name='product_id']" position="after">
                         <field name="default_code" String="New Description"></field>
                        <field name="new_description" String="New Description"></field>
-
-
-
                 </xpath>
                  <xpath expr="//field[@name='invoice_line']/tree/field[@name='product_id']" position="attributes">
                     <attribute name="invisible">1</attribute>
@@ -21,21 +17,7 @@
             </field>
         </record>
 
-          <!--&lt;!&ndash;Replaces description field in Invoice Lines view&ndash;&gt;-->
-        <!--<record id="view_invoice_line2_description_adj" model="ir.ui.view">-->
-            <!--<field name="name">invoice.lines.new_description.field</field>-->
-            <!--<field name="model">account.invoice.line</field>-->
-            <!--<field name="inherit_id" ref="account.invoice_form"/>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<xpath expr="//field[@name='invoice_line']/tree/field[@name='product_id']" position="after">-->
-                        <!--<field name="default_code" String="New Description"></field>-->
-                       <!--<field name="new_description" String="New Description"></field>-->
-                <!--</xpath>-->
-                  <!--<xpath expr="//field[@name='invoice_line']/tree/field[@name='product_id']" position="attributes">-->
-                    <!--<attribute name="invisible">1</attribute>-->
-                <!--</xpath>-->
-            <!--</field>-->
-        <!--</record>-->
+
 
            <!--Replaces description field in Invoice Lines view-->
         <record id="account.invoice_form_ext3" model="ir.ui.view">
@@ -48,6 +30,22 @@
                        <field name="new_description" String="New Description"></field>
                 </xpath>
                   <xpath expr="//field[@name='invoice_line']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+             <!--Replaces description field in Invoice Lines view-->
+        <record id="view_invoice_line_ext3" model="ir.ui.view">
+            <field name="name">view.invoice.line.ext3</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account_invoice_line_view_oaw.view_invoice_line2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                        <field name="default_code" String="New Description"></field>
+                       <field name="new_description" String="New Description"></field>
+                </xpath>
+                  <xpath expr="//field[@name='product_id']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
             </field>
