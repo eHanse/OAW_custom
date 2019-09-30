@@ -32,16 +32,11 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-
                <xpath expr="//div[@class='oe_clear']" position="after">
                    <group>
-
-                           <field name="note" class="oe_inline" placeholder="Internal infos"/>
-
-                            <field name="quot_report_note" class="oe_inline" placeholder="Partner Infos"/>
-
+                        <field name="note" class="oe_inline" placeholder="Internal infos"/>
+                        <field name="quot_report_note" class="oe_inline" placeholder="Partner Infos"/>
                    </group>
-
                </xpath>
             </field>
         </record>
@@ -84,7 +79,17 @@
         </record>
 
 
-
+        <!-- This following record makes "Other Information" in SO invisible -->
+        <record id="view_sales_order_tree_view" model="ir.ui.view">
+            <field name="name">sale.order.form.z4</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_line_quant_extended.view_order_tree_z160504"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pricelist_id']" position="before">
+                 	<field name="client_order_ref"/>
+                </xpath>
+            </field>
+        </record>
             <!-- Adds client_order_ref to tree view -->
         <record id="view_quotation_tree_ext" model="ir.ui.view">
             <field name="name">view_quotation_tree_ext: adds client_order_ref to tree view</field>
