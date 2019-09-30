@@ -10,7 +10,8 @@
                     <field name="default_code"></field>
                     <field name="new_description"></field>
                 </xpath>
-                <xpath expr="//field[@name='product_id']" position="replace">
+                <xpath expr="field[@name='product_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
             </field>
         </record>
