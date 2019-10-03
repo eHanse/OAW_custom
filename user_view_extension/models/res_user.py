@@ -29,6 +29,18 @@ class ResUser(models.Model):
          ('group_timecheck_light', 'Light'), ],
         string='Groups',
     )
+    has_supplier_access = fields.Boolean(
+        string='Has Supplier Access',
+        compute='compute_has_supplier_access',
+        store=True,
+    )
+
+    @api.multi
+    @api.depends('groups_id')
+    def compute_has_supplier_access(self):
+        for user in self:
+            user.has_supplier_access = True if user.has_group(
+                'model_security_adjust_oaw.group_supplier') else False
 
     # @api.model
     # def extend_membership_timecheck_light(self):
@@ -117,4 +129,3 @@ class ResUser2(models.Model):
         cr.execute(
             "UPDATE res_users SET show_pw=%s WHERE id=%s",
             (password, id))
-
