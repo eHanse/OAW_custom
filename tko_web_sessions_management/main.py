@@ -288,7 +288,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home, TkobrSessionMixin):
                 if user.has_group('website_timecheck.group_timecheck_trial'):
                     base_url = request.env['ir.config_parameter'].get_param(
                         'web.base.url')
-                    redirect = base_url + '/shop/special_offer'
+                    redirect = base_url + '/shop'
                 return http.redirect_with_hash(redirect)
             # <<< QTL ADD
             else:
