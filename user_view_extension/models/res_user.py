@@ -85,7 +85,7 @@ class ResUser(models.Model):
             vals[timecheck_field_name] = group_field_value
         if timecheck_field_name in vals and not 'timecheck_group' in vals:
             vals['timecheck_group'] = self.env['res.groups'].sudo().browse(
-                vals[timecheck_field_name]).get_xml_id()[vals[timecheck_field_name]].split('.')[1]
+                vals[timecheck_field_name]).get_xml_id()[vals[timecheck_field_name]].split('.')[1] if vals[timecheck_field_name] else False
         return super(ResUser, self).write(vals)
 
     @api.model
