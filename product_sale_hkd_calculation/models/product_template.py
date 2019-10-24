@@ -18,7 +18,6 @@ class ProductTemplate(models.Model):
                 print("Updated")
                 self.website_published = True
                 print("Published")
-                self.sale_hkd_ac = self.stock_cost * 1.1
-                print("Price Increased")
+
         res = super(ProductTemplate, self).write(vals)
         return res
